@@ -1,8 +1,8 @@
 # Brihad Temple Estimate — App Plan (Draft 1)
 
 > Status: **plan only, no code yet.** Base: "Shilp Ratnakar" notes (`.claude/skills/shilp-ratnakar/reference.md`).
-> Default rules will be fixed after the owner shares his CAD drawings. Until then the app uses the
-> temporary defaults in section 8 and every number is to be refined later.
+> **Badhi ganatari Shilp Ratnakar pramane.** Owner ni CAD (Dhuliya, Ambaji) fakt **design/dekhav na udaharan** chhe —
+> ganatari maate nahi. Kai badalvu hashe to pachhi revise karishu.
 
 ## 1. Hetu (Purpose)
 
@@ -45,7 +45,7 @@ Niyam pan feet ma lakhaay: dakhla "prasad 15′ sudhi darek 1′-6″ e +1½″"
 Garbhagruh parthi prasad ni bahar ni pahodai (karna thi karna, kumbha na mul par):
 - Deewal jadai = prasad pahodai na **⅕ / 1⁄5½ / ⅙** (pathar, Tritiya ratna shlok 108–109).
 - Garbhagruh = P − 2 × deewal → **P = Garbhagruh × 5⁄3** (⅕ deewal) athva **× 3⁄2** (⅙ deewal).
-- App banne batavshe; owner ni CAD parthi default nakki thashe.
+- App banne batavshe; default ⅕ (book).
 - Aakhi app prasad ni pahodai P (inch) parthi chale chhe.
 
 ## 4. Vaparvani rit (selection)
@@ -86,7 +86,7 @@ Kharch = CFT × Rate
 - Aakhu mandir ek j pathar (dakhla marble). Ek project = ek rate.
 - Thar (mandovar, pith, jagati) maate: **L = te thar ni bahar ni lambai** (tal bhag na karna, pratiratha, bhadra na nikala sathe), **W = deewal ma pravesh + nikalo**, **H = thar ni unchai**.
 - Darek line ma owner haath thi L/W/H/Nang badli shake (override), ane potani line umeri shake.
-- Khuna (corner) bev vaar na ganay te maate app ek baju ni lambai purepuri ane saame ni baju ma deewal jadai ochhi karshe — **CAD parthi confirm karvanu**.
+- Khuna (corner) bev vaar na ganay te maate app ek baju ni lambai purepuri ane saame ni baju ma deewal jadai ochhi karshe — pachhi revise thai shake.
 
 ## 6. Screens
 
@@ -103,7 +103,7 @@ Kharch = CFT × Rate
 - Chopadi na udaharan thi **test** (dakhla Dwitiya ratna nu 37′-6″ prasad nu udaharan; Tritiya ratna na feet koshtak).
 - Jyaa chopadi ma shanka ke khutatu hoy tyaa app ⚠ chetavani batave.
 
-## 8. Kamchalau default rit (CAD aavya pachhi badlashe)
+## 8. Default rit (Shilp Ratnakar; revise thai shake)
 
 | Bhaag | Default (hamna) | Biji rit |
 |---|---|---|
@@ -136,14 +136,14 @@ Kharch = CFT × Rate
 
 ## 11. Owner pase thi joie chhe
 
-- [ ] CAD drawing (default rit nakki karva).
+- [x] CAD drawing — malya (fakt design udaharan).
 - [ ] Deewal jadai ⅕ ke ⅙ — kai vaparo chho.
 - [ ] Thar ni W (jadai) kevi rite gano chho — fakt nikalo ke deewal ma pravesh sathe.
 - [ ] Navi app maate navo GitHub repo (naam suggest: `brihad-temple-estimate`).
 
-## 12. Owner ni CAD parthi (Draft — confirm karvanu)
+## 12. Owner ni CAD — fakt design udaharan (ganatari maate nahi)
 
-**Owner no mandovar style = Dhuliya (Shree Mahavir Swami Jain Mandir) ane Ambaji (Chotulal) jevo.**
+**Dhuliya ane Ambaji drawing fakt dekhav/style (chitra, thar no dekhav) maate. Ganatari Shilp Ratnakar thi.**
 CAD PDF 1:50 scale na vector maap parthi (±1″), Dhuliya mandovar kul **11′-9″ = 141″**, neeche thi upar:
 
 | # | Thar (andaaj naam) | Unchai |
@@ -165,8 +165,7 @@ Book na 144 bhaag sathe sarkhamani: jangha (≈32″) ane udgam (≈14″) male 
 Plan: garbhagruh andar 22′-7″ × 9′-1″ (lambu — ghana murti), prasad bahar ≈ 27′-1″ (2′-5″ + 6′-3″ + 1′-10½″ + 3′ + 3′ + 1′-10½″ + 6′-3″ + 2′-5″),
 koli 6′-9″, mandap 22′-7″ × 22′-7″ (12 stambh, ashtakon ghummat), jagati 54′-4″ × 36′-3″, kul lambai 81′.
 
-⚠ Ambaji: prasad ≈ 27′ par book (mandovar rit 2) ≈ 17′-3″ aape, pan CAD ma 11′-1″ — owner ni mandovar unchai book karta ochhi.
-Mandovar ni kul unchai owner kevi rite nakki kare chhe te puchhvanu baaki.
+Nondh: Ambaji ma mandovar book karta nicho chhe, pan owner e kahyu ganatari book pramane j levi.
 
 ## 13. Thar ni jadai (W) — owner no jawab
 
@@ -182,10 +181,10 @@ Badha **Setting ma badli shakay**; real project / CAD thi check thaya pachhi sud
 |---|---|---|
 | Deewal jadai | **Prasad pahodai na ⅕** (pathar) | Book (Tritiya shl. 108–109) no pathar no pehlo vikalp |
 | Thar no sarvalo vs kul unchai | **Kul unchai = rounded thar no sarvalo** | Pathar e j maap thi kapay; estimate ma pathar ochho na pade |
-| Mandovar kul unchai (paya thi chhajja upar ni patti sudhi) | **Prasad pahodai × 0.48** | Ambaji CAD: 1′ + 11′-1″ + 11″ = 156″ ÷ prasad ≈ 325″ = 0.48. Book ni rit 1–4 option ma |
-| Mandovar na thar | **Dhuliya pramane 140 bhaag**: paya 15, kumbho 15, kalash 6, antarpatra+kevad 10, manchi 9, jangha 32, udgam 14, bharni 13, chhajja 16, upar ni patti 10 | Owner e kahyu "aa style no mandovar vapriye chhie" |
+| Mandovar kul unchai | **Book rit 2** (Tritiya shl. 5–6) | Owner: ganatari Shilp Ratnakar pramane; rit 1, 3, 4 option ma |
+| Mandovar na thar | **Book 144 bhaag** (Tritiya shl. 24–27) | Dhuliya fakt dekhav maate |
 | Brick backing vakhte pathar ni facing | **9″** | Saamanya facing; darek project ma badli shakay |
 | Thar ni W | Brick: facing 9″ + nikalo · Puro pathar: ⅕ deewal + nikalo | Section 13 |
 
-Dakhla (garbhagruh 9′-0″ → prasad 15′ = 180″): mandovar = 180 × 0.48 = 86.4 → **87″**; 1 bhaag = 86.4 ÷ 140;
-jangha = 32 bhaag = 19.75 → **20″**, kumbho 15 bhaag = 9.26 → **10″** … (darek thar upar round, kul = sarvalo).
+Dakhla (garbhagruh 9′-0″ → prasad 15′ = 180″): mandovar (rit 2) = 135″; 1 bhaag = 135 ÷ 144;
+jangha 35 bhaag = 32.8 → **33″**, kumbho 20 bhaag = 18.75 → **19″** … (darek thar upar round, kul = sarvalo).
