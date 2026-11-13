@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="gu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brihad Temple Estimate — Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ec; --surface:#ffffff; --surface-2:#f1ebe1; --line:#e4dccf; --ink:#221c17; --muted:#6f655b;
+  --primary:#9a3412; --primary-ink:#ffffff; --primary-soft:#fbe7dc; --gold:#b7791f; --gold-soft:#fbf1dc;
+  --good:#15803d; --warn:#b45309; --warn-soft:#fff4e0; --radius:14px; --shadow:0 1px 2px rgba(34,28,23,.06),0 4px 16px rgba(34,28,23,.06);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15120f; --surface:#1e1a16; --surface-2:#26211c; --line:#352e27; --ink:#f3ede5; --muted:#a89c8f;
+  --primary:#f08a5d; --primary-ink:#1b0f08; --primary-soft:#3a2216; --gold:#e3b04b; --gold-soft:#33291a; --good:#4ade80; --warn:#fbbf24; --warn-soft:#3a2c12;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#15120f; --surface:#1e1a16; --surface-2:#26211c; --line:#352e27; --ink:#f3ede5; --muted:#a89c8f;
+  --primary:#f08a5d; --primary-ink:#1b0f08; --primary-soft:#3a2216; --gold:#e3b04b; --gold-soft:#33291a; --good:#4ade80; --warn:#fbbf24; --warn-soft:#3a2c12;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Gujarati","Inter",system-ui,sans-serif;font-size:15px;line-height:1.5}
+.num{font-family:"Inter",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer} input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+
+/* app shell */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.side{background:var(--surface);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 6px}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--primary);display:grid;place-items:center;color:var(--primary-ink)}
+.brand b{display:block;font-size:15px} .brand small{color:var(--muted);font-size:12px}
+.proj{background:var(--surface-2);border-radius:12px;padding:10px 12px;font-size:13px}
+.proj b{display:block;font-size:14px}
+.navlabel{font-size:12px;color:var(--muted);padding:0 8px;margin-top:4px}
+.tree{display:flex;flex-direction:column;gap:2px}
+.tree a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:14.5px}
+.tree a:hover{background:var(--surface-2)}
+.tree a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.tree a .cft{margin-left:auto;font-size:12px;color:var(--muted)}
+.tree a.on .cft{color:var(--primary)}
+.tree a.later{color:var(--muted)} .tree a.later .cft{font-size:11px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none}
+.tree a.on .dot{background:var(--primary)}
+.main{padding:20px 28px 96px;max-width:1180px;width:100%;min-width:0}
+.split>*,.grid>*{min-width:0}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.top h1{font-size:22px;margin:0}
+.crumb{color:var(--muted);font-size:13px}
+.spacer{flex:1}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 14px;min-height:40px;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:transparent;font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;display:inline-flex;gap:6px;align-items:center;min-height:36px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* cards */
+.grid{display:grid;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card .hd{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.card .hd h2{font-size:16px;margin:0}
+.card .bd{padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi small{color:var(--muted);font-size:12.5px;display:block}
+.kpi b{font-size:22px;display:block;margin-top:2px}
+.kpi span{color:var(--muted);font-size:12.5px}
+.kpi.accent{background:var(--primary);border-color:transparent;color:var(--primary-ink)}
+.kpi.accent small,.kpi.accent span{color:inherit;opacity:.85}
+
+.src{font-size:12px;color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:10px 12px;font-size:13.5px}
+.warn b{color:inherit}
+
+/* tabs */
+.tabs{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:12px;width:max-content}
+.tabs button{border:0;background:transparent;padding:8px 18px;border-radius:9px;color:var(--muted);min-height:40px}
+.tabs button.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-weight:500;color:var(--muted);font-size:12.5px;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line)}
+td.r,th.r{text-align:right}
+tr.total td{font-weight:700;border-bottom:0;background:var(--surface-2)}
+.edit{border:1px dashed var(--line);border-radius:8px;padding:2px 8px;display:inline-block;min-width:52px;text-align:right}
+.ftin{color:var(--muted);font-size:12.5px;display:block}
+
+/* elevation diagram */
+.split{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+.split.inp{grid-template-columns:1fr 320px}
+.elev{padding:12px}
+.elev svg{width:100%;height:auto;display:block}
+
+/* input screen */
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.fi{display:flex;gap:8px}
+.box{flex:1;display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 12px;min-height:46px}
+.box input{border:0;background:transparent;outline:0;width:100%;font-size:17px}
+.box em{font-style:normal;color:var(--muted);font-size:13px;white-space:nowrap}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;border:0;background:transparent;padding:10px 6px;min-height:46px;border-right:1px solid var(--line);color:var(--ink)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.select{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 12px;min-height:46px}
+.live{background:linear-gradient(160deg,var(--primary),#7c2d12);color:#fff;border-radius:var(--radius);padding:18px;display:grid;gap:12px}
+:root[data-theme="dark"] .live{background:linear-gradient(160deg,#7c2d12,#431407)}
+.live .row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:8px}
+.live .row:last-child{border-bottom:0}
+.live small{opacity:.8}
+.live b{font-size:18px}
+
+/* project list */
+.plist{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{padding:16px;display:grid;gap:10px}
+.pcard .t{display:flex;justify-content:space-between;align-items:start;gap:8px}
+.pcard h3{margin:0;font-size:16px}
+.tag{font-size:12px;background:var(--surface-2);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}
+.meta div{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.meta small{display:block;color:var(--muted);font-size:12px}
+.new{border:1.5px dashed var(--line);display:grid;place-items:center;min-height:220px;color:var(--muted);border-radius:var(--radius);background:transparent}
+
+/* summary bars */
+.bar{display:grid;grid-template-columns:120px 1fr 110px;gap:12px;align-items:center;padding:8px 0}
+.bar .track{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.bar .fill{height:100%;background:var(--primary);border-radius:99px}
+.bar .v{text-align:right;font-size:13.5px}
+
+/* mobile bottom nav */
+.bnav{display:none}
+.mtop{display:none}
+
+@media (max-width: 860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .elev svg{max-height:420px}
+  .top .tabs{width:100%} .top .tabs button{flex:1}
+  .side{display:none}
+  .main{padding:12px 16px 96px}
+  .mtop{display:flex;align-items:center;gap:10px;margin:-12px -16px 12px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  .mtop b{font-size:15px} .mtop small{display:block;color:var(--muted);font-size:12px}
+  .top h1{font-size:19px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .split,.split.inp{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .plist{grid-template-columns:1fr}
+  .hide-m{display:none}
+  .bar{grid-template-columns:90px 1fr 84px}
+  .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:10}
+  .bnav a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--muted);text-decoration:none;padding:6px 0;min-height:48px}
+  .bnav a.on{color:var(--primary);font-weight:600}
+  .scroll-x{overflow-x:auto;margin:0 -16px;padding:0 16px}
+  table{font-size:13.5px}
+  .partpick{display:flex!important}
+}
+.partpick{display:none;gap:8px;overflow-x:auto;margin:0 -16px 12px;padding:0 16px 4px}
+.partpick .chip{white-space:nowrap}
+.screen{display:none} .screen.on{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="ભાગો">
+    <div class="brand"><div class="logo" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6H9l3-6z"/><path d="M7 8h10l2 5H5l2-5z"/><path d="M5 13h14v8H5z"/><path d="M10 21v-4h4v4"/></svg>
+    </div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>શિલ્પ રત્નાકર આધારિત</small></div></div>
+    <div class="proj"><small style="color:var(--muted)">પ્રોજેક્ટ</small><b>શ્રી શિવ મંદિર (ઉદાહરણ)</b><span class="num">ગર્ભગૃહ 9′-0″ · પ્રાસાદ 15′-0″</span></div>
+    <nav class="tree" id="tree"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="mtop"><div class="logo" aria-hidden="true" style="width:32px;height:32px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6H9l3-6z"/><path d="M7 8h10l2 5H5l2-5z"/><path d="M5 13h14v8H5z"/></svg></div>
+      <div><b>શ્રી શિવ મંદિર</b><small class="num">ગર્ભગૃહ 9′-0″ · પ્રાસાદ 15′-0″</small></div></div>
+
+    <!-- 1. PROJECTS -->
+    <section class="screen" id="s-projects">
+      <div class="top"><h1>પ્રોજેક્ટ</h1><div class="spacer"></div><button class="btn primary">+ નવો પ્રોજેક્ટ</button></div>
+      <div class="plist">
+        <article class="card pcard"><div class="t"><h3>શ્રી શિવ મંદિર (ઉદાહરણ)</h3><span class="tag">નાગર · કેશરી</span></div>
+          <div class="meta num"><div><small>ગર્ભગૃહ</small>9′-0″ × 9′-0″</div><div><small>પ્રાસાદ</small>15′-0″</div><div><small>કુલ પથ્થર</small><span id="p1cft"></span></div><div><small>અંદાજ</small><span id="p1rs"></span></div></div>
+          <small style="color:var(--muted)">છેલ્લે બદલ્યું: આજે</small></article>
+        <article class="card pcard"><div class="t"><h3>શ્રી મહાવીર સ્વામી જૈન મંદિર</h3><span class="tag">નાગર · નંદન</span></div>
+          <div class="meta num"><div><small>ગર્ભગૃહ</small>12′-0″ × 12′-0″</div><div><small>પ્રાસાદ</small>20′-0″</div><div><small>કુલ પથ્થર</small>1,184.6 CFT</div><div><small>અંદાજ</small>₹ 17,76,900</div></div>
+          <small style="color:var(--muted)">છેલ્લે બદલ્યું: 3 દિવસ પહેલાં</small></article>
+        <button class="new">+ નવો પ્રોજેક્ટ<br><small>ગર્ભગૃહ નું માપ નાખો, બાકી બધું આપોઆપ</small></button>
+      </div>
+    </section>
+
+    <!-- 2. INPUT -->
+    <section class="screen" id="s-input">
+      <div class="top"><div><div class="crumb">પ્રોજેક્ટ › શ્રી શિવ મંદિર</div><h1>માહિતી</h1></div></div>
+      <div class="split inp">
+        <div class="card"><div class="bd form">
+          <div class="field" style="grid-column:1/-1"><label>1 · ગર્ભગૃહ (અંદર નું માપ)</label>
+            <div class="fi"><div class="box"><input class="num" value="9"><em>ફૂટ</em></div><div class="box"><input class="num" value="0"><em>ઇંચ</em></div><span style="align-self:center;color:var(--muted)">×</span><div class="box"><input class="num" value="9"><em>ફૂટ</em></div><div class="box"><input class="num" value="0"><em>ઇંચ</em></div></div>
+            <small style="color:var(--muted)">પહોળાઈ × ઊંડાઈ</small></div>
+          <div class="field"><label>2 · દીવાલ ની જાડાઈ (પ્રાસાદ નો ભાગ)</label><div class="seg num"><button class="on">⅕</button><button>1⁄5½</button><button>⅙</button></div><small class="src" style="display:inline-block;margin-top:6px">તૃતીય રત્ન · શ્લો. 108–109</small></div>
+          <div class="field"><label>3 · દીવાલ નો પ્રકાર</label><div class="seg"><button class="on">ઈંટ + પથ્થર</button><button>પૂરો પથ્થર</button></div>
+            <div class="fi" style="margin-top:8px"><div class="box"><em style="margin-right:8px">પથ્થર ની જાડાઈ</em><input class="num" value="9" style="text-align:right"><em>″</em></div></div></div>
+          <div class="field"><label>4 · પ્રાસાદ ની જાતિ</label><div class="select"><span>નાગર</span><span>▾</span></div></div>
+          <div class="field"><label>5 · પ્રાસાદ</label><div class="select"><span>કેશરી <small style="color:var(--muted)">· તલ 8 ભાગ · 5 અંડક</small></span><span>▾</span></div></div>
+          <div class="field"><label>6 · ભેદ</label><div class="seg"><button>જ્યેષ્ઠ</button><button class="on">મધ્યમ</button><button>કનિષ્ઠ</button></div></div>
+          <div class="field"><label>7 · દેવ</label><div class="seg"><button class="on">શિવ</button><button>વિષ્ણુ</button><button>જૈન</button><button>દેવી</button></div></div>
+          <div class="field" style="grid-column:1/-1"><label>8 · પથ્થર નો દર</label><div class="fi" style="max-width:360px"><div class="box"><em style="margin-right:6px">₹</em><input class="num" value="1,500"><em>/ ઘન ફૂટ</em></div></div></div>
+        </div></div>
+        <div class="live">
+          <div style="font-size:13px;opacity:.85">આપોઆપ ગણતરી</div>
+          <div class="row"><small>પ્રાસાદ (બહાર, કર્ણ થી કર્ણ)</small><b class="num">180″ · 15′-0″</b></div>
+          <div class="row"><small>દીવાલ ની જાડાઈ</small><b class="num">36″ · 3′-0″</b></div>
+          <div class="row"><small>મંડોવર ઊંચાઈ</small><b class="num" id="liveMando"></b></div>
+          <div class="row"><small>કુલ પથ્થર</small><b class="num" id="liveCft"></b></div>
+          <div class="row"><small>કુલ અંદાજ</small><b class="num" id="liveRs"></b></div>
+          <button class="btn" style="background:#fff;color:#7c2d12;border:0;font-weight:600;justify-content:center">ભાગ જુઓ →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PART: MANDOVAR (measurements) -->
+    <section class="screen" id="s-part">
+      <div class="top"><div><div class="crumb">ભાગ › મંડોવર</div><h1>મંડોવર</h1></div><div class="spacer"></div>
+        <div class="tabs" role="tablist"><button class="on" onclick="go('part')">માપ</button><button onclick="go('stone')">પથ્થર</button></div></div>
+      <div class="partpick" id="partpick"></div>
+      <div class="kpis" style="margin-bottom:16px">
+        <div class="kpi"><small>કુલ ઊંચાઈ</small><b class="num" id="kH"></b><span class="num" id="kHft"></span></div>
+        <div class="kpi"><small>થર</small><b class="num">13</b><span>144 ભાગ</span></div>
+        <div class="kpi"><small>1 ભાગ</small><b class="num" id="kBhag"></b><span>ગણતરી માટે</span></div>
+        <div class="kpi accent"><small>પથ્થર</small><b class="num" id="kCft"></b><span class="num" id="kRs"></span></div>
+      </div>
+      <div class="chips" style="margin-bottom:12px">
+        <span class="chip">ઊંચાઈ રીત:</span><button class="chip">રીત 1</button><button class="chip on">રીત 2 · શ્લો. 5–6</button><button class="chip">રીત 3</button><button class="chip">રીત 4</button>
+        <span class="chip hide-m">થર:</span><button class="chip on hide-m">144 ભાગ</button><button class="chip hide-m">108</button><button class="chip hide-m">27</button><button class="chip hide-m">ચતુર્મુખ 57</button>
+      </div>
+      <div class="split">
+        <div class="card elev"><svg id="elev" viewBox="0 0 330 520" role="img" aria-label="મંડોવર ના થર નું ચિત્ર"></svg></div>
+        <div class="grid">
+          <div class="card"><div class="hd"><h2>થર પ્રમાણે માપ</h2><div class="spacer" style="flex:1"></div><span class="src">તૃતીય રત્ન · શ્લો. 24–27</span></div>
+            <div class="scroll-x"><table id="tharTbl"></table></div></div>
+          <div class="warn" role="note"><span>⚠</span><div><b>નોંધ:</b> દરેક થર ઉપર ના આખા ઇંચ માં ગણ્યો છે, એટલે થર નો સરવાળો <span class="num" id="sumNote"></span>. પથ્થર માટે સરવાળો વાપર્યો છે.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PART: MANDOVAR (stone) -->
+    <section class="screen" id="s-stone">
+      <div class="top"><div><div class="crumb">ભાગ › મંડોવર</div><h1>મંડોવર · પથ્થર</h1></div><div class="spacer"></div>
+        <div class="tabs" role="tablist"><button onclick="go('part')">માપ</button><button class="on" onclick="go('stone')">પથ્થર</button></div></div>
+      <div class="kpis" style="margin-bottom:16px">
+        <div class="kpi"><small>દીવાલ</small><b>ઈંટ + પથ્થર</b><span class="num">પથ્થર 9″ + નિકાળો</span></div>
+        <div class="kpi"><small>ઘેરાવો (બહાર)</small><b class="num">60 RFT</b><span>4 બાજુ</span></div>
+        <div class="kpi"><small>કુલ પથ્થર</small><b class="num" id="sCft"></b><span>ઘન ફૂટ</span></div>
+        <div class="kpi accent"><small>ખર્ચ</small><b class="num" id="sRs"></b><span class="num">₹ 1,500 / CFT</span></div>
+      </div>
+      <div class="card"><div class="hd"><h2>લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ</h2><div class="spacer" style="flex:1"></div><button class="btn hide-m">+ લાઇન ઉમેરો</button></div>
+        <div class="scroll-x"><table id="stoneTbl"></table></div></div>
+      <p style="color:var(--muted);font-size:13px">ડૅશ વાળા ખાના હાથ થી બદલી શકાય. ઘન ફૂટ = લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ ÷ 1728 (બધું ઇંચ માં).</p>
+    </section>
+
+    <!-- 5. SUMMARY -->
+    <section class="screen" id="s-summary">
+      <div class="top"><div><div class="crumb">શ્રી શિવ મંદિર</div><h1>સારાંશ</h1></div><div class="spacer"></div>
+        <button class="btn">PDF</button><button class="btn">Excel</button></div>
+      <div class="kpis" style="margin-bottom:16px">
+        <div class="kpi"><small>પ્રાસાદ</small><b class="num">15′-0″</b><span>ગર્ભગૃહ 9′-0″</span></div>
+        <div class="kpi"><small>ભાગ ગણ્યા</small><b class="num">6</b><span>Phase 1</span></div>
+        <div class="kpi"><small>કુલ પથ્થર</small><b class="num" id="tCft"></b><span>ઘન ફૂટ</span></div>
+        <div class="kpi accent"><small>કુલ ખર્ચ</small><b class="num" id="tRs"></b><span class="num">₹ 1,500 / CFT</span></div>
+      </div>
+      <div class="card"><div class="hd"><h2>ભાગ પ્રમાણે પથ્થર</h2></div><div class="bd" id="bars"></div></div>
+      <div class="warn" style="margin-top:16px"><span>⚠</span><div><b>જગતી:</b> ગ્રંથ માં પૃ. 65–68 નથી, એટલે જગતી ની લંબાઈ-પહોળાઈ તમે નાખો ત્યારે જ પથ્થર ગણાશે.</div></div>
+    </section>
+  </main>
+</div>
+
+<nav class="bnav" aria-label="મુખ્ય">
+  <a href="#projects" data-s="projects"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>પ્રોજેક્ટ</a>
+  <a href="#input" data-s="input"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>માહિતી</a>
+  <a href="#part" data-s="part"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6H9z"/><path d="M6 8h12l1 4H5z"/><path d="M5 12h14v9H5z"/></svg>ભાગ</a>
+  <a href="#summary" data-s="summary"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>સારાંશ</a>
+</nav>
+
+<script>
+/* --- Sample calculation (Shilp Ratnakar), garbhagruh 9'-0", wall 1/5, brick + 9" stone --- */
+const ceil = x => Math.ceil(x - 1e-9);
+const ftin = i => { const f = Math.floor(i/12), r = i - f*12; return `${f}′-${r}″`; };
+const fmt = n => n.toLocaleString('en-IN', {maximumFractionDigits:1, minimumFractionDigits:1});
+const rs = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
+const P = 180, rate = 1500, face = 9;
+const mandoH = 135; // rit 2: 10 gaj -> 180 angul = 135"
+const thars = [
+  ['ખુરો',5,2],['કુંભો',20,0],['કલશ',8,0],['અંતરાલ',2.5,0],['કપોતિકા / કેવલ',8,0],['મંચિકા',9,0],['જંઘા',35,0],
+  ['ઉદ્ગમ / દોઢિયો',15,0],['ભરણી',8,0],['શિરાવટી',10,0],['કપોતાલી / પુષ્પકંઠ',8,0],['અંતરાલ',2.5,0],['છાદ્ય / છજ્જુ',13,10]];
+const bhag = mandoH/144;
+const rows = thars.map(([n,b,nk]) => ({n, b, h: ceil(b*bhag), nik: ceil(nk*bhag)}));
+const sumH = rows.reduce((a,r)=>a+r.h,0);
+const cftOf = (L,W,H,N) => L*W*H*N/1728;
+let mandoCft = 0; const stoneRows = [];
+rows.forEach(r => {
+  const W = face + r.nik, d = face;
+  const L1 = P + 2*r.nik, L2 = P - 2*d;
+  const c1 = cftOf(L1,W,r.h,2), c2 = cftOf(L2,W,r.h,2);
+  mandoCft += c1 + c2;
+  stoneRows.push([r.n+' · આગળ-પાછળ', L1, W, r.h, 2, c1], [r.n+' · બાજુ', L2, W, r.h, 2, c2]);
+});
+const parts = [
+  ['પાયો (શિલા)', 5.2], ['ભીત', 12.4], ['પીઠ', 48.6], ['જગતી', 0], ['મંડોવર', mandoCft], ['દ્વાર', 18.3]];
+const total = parts.reduce((a,p)=>a+p[1],0);
+
+/* sidebar tree */
+const tree = [
+  ['પાયો / ખાતમુહૂર્ત', parts[0][1]], ['ભીત', parts[1][1]], ['પીઠ', parts[2][1]], ['જગતી', null],
+  ['મંડોવર', mandoCft, true], ['દીવાલ / ગર્ભગૃહ', 0], ['દ્વાર', parts[5][1]]];
+const later = ['મંડપ','સ્તંભ','ઘુમ્મટ','પ્રતિમા / દૃષ્ટિ','શિખર','આમલસારો / કલશ','ધ્વજદંડ'];
+document.getElementById('tree').innerHTML =
+  `<a href="#projects" data-s="projects"><span class="dot"></span>બધા પ્રોજેક્ટ</a><a href="#input" data-s="input"><span class="dot"></span>માહિતી</a><a href="#summary" data-s="summary"><span class="dot"></span>સારાંશ</a>
+   <div class="navlabel">ભાગ (નીચે થી ઉપર)</div>` +
+  tree.map(([n,c,on]) => `<a href="#part" ${on?'data-s="part" class="part-on"':''}><span class="dot"></span>${n}<span class="cft num">${c===null?'⚠':c?fmt(c):'—'}</span></a>`).join('') +
+  `<div class="navlabel">પછી ના તબક્કા</div>` + later.map(n=>`<a class="later"><span class="dot"></span>${n}<span class="cft">જલ્દી</span></a>`).join('');
+document.getElementById('partpick').innerHTML = tree.map(([n,c,on])=>`<button class="chip ${on?'on':''}">${n}</button>`).join('');
+
+/* fill numbers */
+const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+set('p1cft', fmt(total)+' CFT'); set('p1rs', rs(total*rate));
+set('liveMando', `${sumH}″ · ${ftin(sumH)}`); set('liveCft', fmt(total)+' CFT'); set('liveRs', rs(total*rate));
+set('kH', sumH+'″'); set('kHft', ftin(sumH)); set('kBhag', (Math.round(bhag*100)/100)+'″');
+set('kCft', fmt(mandoCft)+' CFT'); set('kRs', rs(mandoCft*rate));
+set('sCft', fmt(mandoCft)); set('sRs', rs(mandoCft*rate));
+set('tCft', fmt(total)); set('tRs', rs(total*rate));
+set('sumNote', `${sumH}″ (ગ્રંથ ની કુલ ઊંચાઈ ${mandoH}″)`);
+
+document.getElementById('tharTbl').innerHTML =
+  `<thead><tr><th>#</th><th>થર</th><th class="r">ભાગ</th><th class="r">ઊંચાઈ</th><th class="r">નિકાળો</th></tr></thead><tbody>` +
+  rows.slice().reverse().map((r,i)=>`<tr><td class="num" style="color:var(--muted)">${rows.length-i}</td><td>${r.n}</td><td class="r num">${r.b}</td><td class="r num"><b>${r.h}″</b><span class="ftin">${ftin(r.h)}</span></td><td class="r num">${r.nik?r.nik+'″':'—'}</td></tr>`).join('') +
+  `<tr class="total"><td></td><td>કુલ</td><td class="r num">144</td><td class="r num">${sumH}″<span class="ftin">${ftin(sumH)}</span></td><td></td></tr></tbody>`;
+
+document.getElementById('stoneTbl').innerHTML =
+  `<thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ</th><th class="r">પહોળાઈ</th><th class="r">ઊંચાઈ</th><th class="r">નંગ</th><th class="r">ઘન ફૂટ</th></tr></thead><tbody>` +
+  stoneRows.slice(0,12).map(([n,L,W,H,N,c])=>`<tr><td>${n}</td><td class="r num"><span class="edit">${L}″</span></td><td class="r num"><span class="edit">${W}″</span></td><td class="r num"><span class="edit">${H}″</span></td><td class="r num"><span class="edit">${N}</span></td><td class="r num"><b>${fmt(c)}</b></td></tr>`).join('') +
+  `<tr><td colspan="6" style="color:var(--muted);text-align:center">… બાકી ${stoneRows.length-12} લાઇન</td></tr>` +
+  `<tr class="total"><td>કુલ મંડોવર</td><td></td><td></td><td></td><td></td><td class="r num">${fmt(mandoCft)}</td></tr></tbody>`;
+
+const max = Math.max(...parts.map(p=>p[1]));
+document.getElementById('bars').innerHTML = parts.map(([n,c])=>`<div class="bar"><span>${n}</span><div class="track"><div class="fill" style="width:${c/max*100}%"></div></div><span class="v num">${c?fmt(c)+' CFT':'⚠ માપ નાખો'}</span></div>`).join('') +
+  `<div class="bar" style="border-top:1px solid var(--line);margin-top:6px;padding-top:12px"><b>કુલ</b><span></span><b class="v num">${fmt(total)} CFT</b></div>`;
+
+/* elevation diagram: stacked thars, proportional */
+(function(){
+  const svg = document.getElementById('elev'); const H = 480, top = 20, x = 62, w = 130;
+  let y = top + H; let out = '';
+  const css = getComputedStyle(document.documentElement);
+  rows.forEach((r,i) => {
+    const h = r.h / sumH * H; y -= h;
+    const nk = r.nik * 1.2;
+    const jangha = r.n === 'જંઘા';
+    out += `<rect x="${x - nk}" y="${y}" width="${w + 2*nk}" height="${h}" fill="${jangha?'var(--primary-soft)':(i%2?'var(--surface-2)':'var(--surface)')}" stroke="var(--ink)" stroke-width="0.8"/>`;
+    if (h > 11) out += `<text x="${x + w + 14}" y="${y + h/2 + 4}" font-size="10.5" fill="var(--ink)">${r.n}</text>`;
+    if (h > 11) out += `<text x="${x - 10 - nk}" y="${y + h/2 + 4}" font-size="10.5" text-anchor="end" fill="var(--muted)" font-family="Inter">${r.h}″</text>`;
+    if (jangha) { // small niche
+      out += `<rect x="${x + w/2 - 14}" y="${y + h*0.18}" width="28" height="${h*0.64}" rx="3" fill="none" stroke="var(--primary)" stroke-width="1"/>`;
+    }
+  });
+  out += `<line x1="20" y1="${top}" x2="20" y2="${top+H}" stroke="var(--primary)" stroke-width="1.2"/><text x="16" y="${top + H/2}" font-size="11" fill="var(--primary)" font-family="Inter" transform="rotate(-90 16 ${top + H/2})" text-anchor="middle">${sumH}″ · ${ftin(sumH)}</text>`;
+  svg.innerHTML = out;
+})();
+
+/* router */
+function go(s){ location.hash = s; }
+function route(){
+  const s = (location.hash || '#part').slice(1);
+  document.querySelectorAll('.screen').forEach(e => e.classList.toggle('on', e.id === 's-' + (s==='stone'?'stone':s)));
+  document.querySelectorAll('[data-s]').forEach(a => a.classList.toggle('on', a.dataset.s === (s==='stone'?'part':s)));
+  document.querySelectorAll('.part-on').forEach(a => a.classList.toggle('on', s==='part'||s==='stone'));
+}
+addEventListener('hashchange', route); route();
+const t = new URLSearchParams(location.search).get('theme'); if (t) document.documentElement.dataset.theme = t;
+</script>
+</body>
+</html>
