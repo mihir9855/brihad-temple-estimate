@@ -1189,7 +1189,8 @@ const DRAW={
    const W=Math.max(pl,P,b);o+=dV(W/2+fs*2,0,-tot,'કુલ '+fiI(tot),fs)+dH(-P/2,P/2,fs*1.8,'પ્રાસાદ '+fiI(P),fs);
    return '<div class="dtitle">મંદિર · સામે થી</div>'+svgW([-W/2-fs,-tot-fs,W+fs*4.5,tot+fs*3.2],o,'મંદિર')+dcap([['કુલ ઊંચાઈ',fiI(tot)],['કુલ ઘન ફૂટ',PCUR.sum&&PCUR.sum.cft?f2(PCUR.sum.cft):'—']]);}
 };
-function drawSec(k){const el=$('tab-'+k);if(!el||!DRAW[k])return;let d=el.querySelector(':scope>.draw');
+function drawSec(k){const el=$('tab-'+k);if(el){const d0=el.querySelector(':scope>.draw');if(d0)d0.remove();el.classList.remove('sp');}return;   /* drawings are switched off at the owner's request */
+  if(!el||!DRAW[k])return;let d=el.querySelector(':scope>.draw');
   if(!PW()){if(d)d.remove();el.classList.remove('sp');return;}
   if(!d){d=document.createElement('div');d.className='card draw';el.prepend(d);}el.classList.add('sp');
   try{d.innerHTML=DRAW[k]();}catch(err){d.innerHTML='';}}
