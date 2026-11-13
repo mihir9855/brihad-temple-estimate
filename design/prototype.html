@@ -1,0 +1,449 @@
+<title>Brihad Temple Estimate</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;500;600;700&family=Baloo+Bhai+2:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Mukta+Vaani:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: app shell — parts rail on the left, working area on the right; phone = bottom tabs + part chips.
+   Four switchable looks (data-style on body): 1 Indigo, 2 Graphite, 3 Paper, 4 Teal. */
+:root{
+  --bg:#f5f6fa; --surface:#ffffff; --surface2:#eef0f6; --line:#dfe3ec; --ink:#161a26; --muted:#667085;
+  --accent:#4f46e5; --accent-ink:#ffffff; --accent-soft:#e8e9fd; --warn:#b45309; --warn-soft:#fdf2df;
+  --side-bg:#ffffff; --side-ink:#161a26; --side-muted:#667085; --side-on:#e8e9fd; --side-on-ink:#4f46e5; --side-line:#dfe3ec;
+  --radius:14px; --radius-s:10px; --shadow:0 1px 2px rgba(22,26,38,.05),0 6px 20px rgba(22,26,38,.06);
+  --font:"Inter","Noto Sans Gujarati",system-ui,sans-serif; --head:"Noto Sans Gujarati","Inter",system-ui,sans-serif; --num:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1117; --surface:#181b24; --surface2:#20242f; --line:#2c3140; --ink:#eef0f6; --muted:#98a1b3;
+  --accent:#8b8cf8; --accent-ink:#0f1117; --accent-soft:#25264a; --warn:#fbbf24; --warn-soft:#3a2f14;
+  --side-bg:#181b24; --side-ink:#eef0f6; --side-muted:#98a1b3; --side-on:#25264a; --side-on-ink:#a5a6ff; --side-line:#2c3140;
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1117; --surface:#181b24; --surface2:#20242f; --line:#2c3140; --ink:#eef0f6; --muted:#98a1b3;
+  --accent:#8b8cf8; --accent-ink:#0f1117; --accent-soft:#25264a; --warn:#fbbf24; --warn-soft:#3a2f14;
+  --side-bg:#181b24; --side-ink:#eef0f6; --side-muted:#98a1b3; --side-on:#25264a; --side-on-ink:#a5a6ff; --side-line:#2c3140;
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}
+/* 2 Graphite: dark, gold accent */
+body[data-style="b"]{
+  --bg:#111214; --surface:#1a1c20; --surface2:#23262b; --line:#30343b; --ink:#f2f0ea; --muted:#9a9890;
+  --accent:#e2b24a; --accent-ink:#1a1405; --accent-soft:#3a3018; --warn:#f0a35a; --warn-soft:#38281a;
+  --side-bg:#0b0c0e; --side-ink:#f2f0ea; --side-muted:#8b8980; --side-on:#2a2414; --side-on-ink:#e2b24a; --side-line:#23262b;
+  --radius:12px; --radius-s:8px; --shadow:none;
+  --font:"Anek Gujarati","Inter",system-ui,sans-serif; --head:"Anek Gujarati","Inter",system-ui,sans-serif; color-scheme:dark}
+/* 3 Paper: white, black ink, flat and sharp */
+body[data-style="c"]{
+  --bg:#ffffff; --surface:#ffffff; --surface2:#f3f4f6; --line:#d6d9de; --ink:#0b0d12; --muted:#5b6370;
+  --accent:#0b57d0; --accent-ink:#ffffff; --accent-soft:#e3edfd; --warn:#9a4a00; --warn-soft:#fff1e0;
+  --side-bg:#f7f8fa; --side-ink:#0b0d12; --side-muted:#5b6370; --side-on:#0b0d12; --side-on-ink:#ffffff; --side-line:#d6d9de;
+  --radius:4px; --radius-s:3px; --shadow:none;
+  --font:"Mukta Vaani","Inter",system-ui,sans-serif; --head:"Mukta Vaani","Inter",system-ui,sans-serif; color-scheme:light}
+/* 4 Teal: soft, rounded, dark rail */
+body[data-style="d"]{
+  --bg:#eef4f4; --surface:#ffffff; --surface2:#e3eeee; --line:#d2e0e0; --ink:#0d2b2e; --muted:#587376;
+  --accent:#0d8a80; --accent-ink:#ffffff; --accent-soft:#d5f0ec; --warn:#a3540a; --warn-soft:#fdeed8;
+  --side-bg:#0d2b2e; --side-ink:#e6f4f2; --side-muted:#8fb3b1; --side-on:#14524f; --side-on-ink:#ffffff; --side-line:#1b4144;
+  --radius:22px; --radius-s:999px; --shadow:0 8px 28px rgba(13,43,46,.08);
+  --font:"Noto Sans Gujarati","Inter",system-ui,sans-serif; --head:"Baloo Bhai 2","Noto Sans Gujarati",system-ui,sans-serif; color-scheme:light}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+h1,h2,h3{font-family:var(--head);margin:0;text-wrap:balance}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer} input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: no-preference){.btn,.chip,.rail a,.seg button,.card{transition:background .15s,color .15s,border-color .15s,transform .15s}}
+
+.app{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100%}
+.rail{background:var(--side-bg);color:var(--side-ink);border-right:1px solid var(--side-line);padding:16px 12px;display:flex;flex-direction:column;gap:12px;align-self:start;position:sticky;top:env(safe-area-inset-top,0px);max-height:100vh;overflow:auto}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 6px}
+.logo{width:36px;height:36px;border-radius:var(--radius-s);background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+body[data-style="d"] .logo{border-radius:12px}
+.brand b{display:block;font-family:var(--head);font-size:15.5px;line-height:1.25}.brand small{color:var(--side-muted);font-size:12px}
+.rail .lab{font-size:11.5px;color:var(--side-muted);padding:6px 10px 0;letter-spacing:.04em}
+.rail a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius-s);font-size:14.5px;cursor:pointer;min-height:40px}
+.rail a:hover{background:color-mix(in srgb,var(--side-on) 55%,transparent)}
+.rail a.on{background:var(--side-on);color:var(--side-on-ink);font-weight:600}
+.rail a .c{margin-left:auto;font-size:12px;color:var(--side-muted)} .rail a.on .c{color:inherit}
+.rail a.off{color:var(--side-muted);cursor:default} .rail a.off:hover{background:transparent}
+
+.main{padding-block:16px 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:16px;min-width:0}
+.wrap>*{min-width:0}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bar h1{font-size:23px;line-height:1.2}.crumb{color:var(--muted);font-size:13px}
+.sp{flex:1}
+.styles{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-s);padding:4px 6px 4px 12px;font-size:13px;color:var(--muted)}
+.styles button{border:0;background:transparent;min-width:34px;min-height:34px;border-radius:var(--radius-s);font-family:var(--num);font-weight:600}
+.styles button.on{background:var(--accent);color:var(--accent-ink)}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius-s);padding:8px 16px;min-height:42px;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
+.btn.dan{color:var(--warn)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips .l{font-size:13px;color:var(--muted)}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:13.5px;min-height:38px}
+body[data-style="c"] .chip{border-radius:3px}
+.chip:hover{border-color:var(--accent)} .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-width:0}
+.card .hd{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.card .hd h2{font-size:16px}.card .bd{padding:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;min-width:0}
+.kpi small{color:var(--muted);font-size:12.5px;display:block}.kpi b{font-size:21px;display:block;font-family:var(--num);overflow-wrap:anywhere}
+.kpi b.t{font-family:var(--head);font-size:18px}.kpi span{color:var(--muted);font-size:12.5px}
+.kpi.acc{background:var(--accent);border-color:transparent;color:var(--accent-ink)}.kpi.acc small,.kpi.acc span{color:inherit;opacity:.85}
+.src{font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.warn{display:flex;gap:10px;background:var(--warn-soft);color:var(--warn);border-radius:var(--radius-s);padding:10px 14px;font-size:13.5px}
+body[data-style="d"] .warn{border-radius:16px}
+.tabs{display:flex;gap:4px;background:var(--surface2);padding:4px;border-radius:var(--radius-s)}
+.tabs button{border:0;background:transparent;padding:8px 20px;border-radius:var(--radius-s);color:var(--muted);min-height:40px}
+.tabs button.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.sx{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-weight:500;color:var(--muted);font-size:12.5px;text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line)} td.r,th.r{text-align:right}
+tr:last-child td{border-bottom:0} tr.tot td{font-weight:700;background:var(--surface2)}
+.fi{color:var(--muted);font-size:12.5px;display:block}
+td input.e{width:64px;text-align:right;border:1px dashed var(--line);background:transparent;border-radius:6px;padding:4px 6px;font-family:var(--num)}
+td input.e:hover,td input.e:focus{border-style:solid;border-color:var(--accent)}
+td input.en{width:150px;text-align:left;font-family:var(--font)}
+.split{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}.split>*{min-width:0}
+.split.in{grid-template-columns:minmax(0,1fr) 320px}
+.elev{padding:12px}.elev svg{width:100%;height:auto;display:block;max-height:540px}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.form>*{min-width:0}.full{grid-column:1/-1}
+.field>label,.field>.lb{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.box{flex:1 1 84px;display:flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--surface);padding:0 14px;min-height:46px;min-width:0}
+.box:focus-within{border-color:var(--accent)}
+.box input,.box select{border:0;background:transparent;outline:0;width:100%;min-width:0;font-size:16px;font-family:var(--num)}
+.box select{font-family:var(--font)}
+.box em{font-style:normal;color:var(--muted);font-size:13px;white-space:nowrap}
+.seg{display:flex;border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden;background:var(--surface)}
+.seg button{flex:1;border:0;background:transparent;padding:10px 6px;min-height:46px;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.live{background:var(--ink);color:var(--bg);border-radius:var(--radius);padding:18px;display:grid;gap:10px}
+body[data-style="b"] .live{background:var(--surface2);color:var(--ink);border:1px solid var(--accent)}
+.live .r{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent);padding-bottom:8px}
+.live small{opacity:.75}.live b{font-family:var(--num);font-size:17px;text-align:right}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.pc{padding:16px;display:grid;gap:10px;cursor:pointer}.pc.on{border-color:var(--accent);outline:2px solid var(--accent-soft)}
+.pc h3{font-size:16px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}
+.meta div{background:var(--surface2);border-radius:var(--radius-s);padding:8px 12px}body[data-style="d"] .meta div{border-radius:14px}
+.meta small{display:block;color:var(--muted);font-size:12px}
+.hb{display:grid;grid-template-columns:130px minmax(0,1fr) 110px;gap:12px;align-items:center;padding:8px 0;cursor:pointer}
+.hb .tr{height:10px;background:var(--surface2);border-radius:99px;overflow:hidden}.hb .fl{height:100%;background:var(--accent);border-radius:99px}
+.hb .v{text-align:right;font-size:13.5px}
+.bnav,.ppick{display:none}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)} .rail{display:none}
+  .bar h1{font-size:20px}.kpis{grid-template-columns:1fr 1fr}.split,.split.in,.form{grid-template-columns:minmax(0,1fr)}
+  .hb{grid-template-columns:92px minmax(0,1fr) 84px}
+  .ppick{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}.ppick .chip{white-space:nowrap;flex:none}
+  .tabs{width:100%}.tabs button{flex:1}
+  .elev svg{max-height:400px}
+  .bnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);z-index:10;
+    padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .bnav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--muted);min-height:50px;border-radius:var(--radius-s)}
+  .bnav button.on{color:var(--accent);font-weight:600}
+}
+</style>
+
+<div id="root"></div>
+
+<script>
+/* ===== Engine: Shilp Ratnakar rules. Internal unit = angul (1 angul = 0.75", 1 gaj = 24 angul = 18"); never displayed. ===== */
+const ceil = x => Math.max(0, Math.ceil(x - 1e-6));
+const IN = a => a * 0.75;
+const ftin = i => `${Math.floor(i / 12)}′-${i % 12}″`;
+const f1 = n => n.toLocaleString('en-IN', {minimumFractionDigits: 1, maximumFractionDigits: 1});
+const rs = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
+// value at g0 is v0; then +inc per gaj up to each breakpoint
+function stepFrom(G, g0, v0, segs){ let v = v0, prev = g0; for (const [upto, inc] of segs){ if (G > prev) v += inc * (Math.min(G, upto) - prev); prev = upto; } return v; }
+function interp(G, pts){ if (G <= pts[0][0]) return pts[0][1] * G / pts[0][0]; for (let i = 1; i < pts.length; i++){ const [g1, v1] = pts[i-1], [g2, v2] = pts[i]; if (G <= g2) return v1 + (v2 - v1) * (G - g1) / (g2 - g1); } return pts[pts.length-1][1]; }
+const low = (G, f) => G < 1 ? f(1) * G : f(G);
+const R = {
+  kurmashila: G => low(G, g => stepFrom(g, 1, 4, [[10,2],[20,1],[50,.5]])),
+  kurma:      G => low(G, g => stepFrom(g, 1, .5, [[15,.5],[31,.25],[50,.125]])),
+  disha:      G => low(G, g => stepFrom(g, 1, 7, [[5,2],[10,1],[20,.75],[50,.5]])),
+  bhit1:      G => low(G, g => stepFrom(g, 1, 4, [[50,.5]])),
+  pith1:      G => low(G, g => stepFrom(g, 1, 12, [[5,5],[10,4],[20,3],[36,1.5],[50,.75]])),
+  pith2:      G => G <= 5 ? interp(G, [[1,12],[2,16],[3,18],[4,27.5],[5,30]]) : stepFrom(G, 5, 30, [[10,4],[20,3],[36,2],[50,1]]),
+  jagApa:     G => G <= 4 ? interp(G, [[1,24],[2,36],[3,48],[4,60]]) : stepFrom(G, 4, 60, [[12,12],[24,8],[50,6]]),
+  jagMan:     G => low(G, g => stepFrom(g, 1, 12, [[12,12],[22,8],[32,6],[50,4.75]])),
+  man1:       G => G <= 5 ? interp(G, [[1,38],[2,62],[3,79],[4,101],[5,123]]) : stepFrom(G, 5, 123, [[10,14],[30,12],[50,9]]),
+  man2:       G => G <= 5 ? 24 * G : stepFrom(G, 5, 120, [[30,12],[50,9]]),
+  man3:       G => interp(G, [[1,33],[2,55],[3,77],[4,97],[5,120],[6,142],[7,161],[8,176],[9,187],[10,192],[15,246],[20,300],[25,354],[30,408],[35,510],[40,516],[45,570],[50,600]]),
+  man4:       G => G <= 5 ? 24 * G : stepFrom(G, 5, 120, [[13,12],[21,11],[50,10]]),
+  dNagar1:    G => low(G, g => stepFrom(g, 1, 16, [[4,16],[10,4],[20,3],[30,2],[50,1]])),
+  dNagar2:    G => low(G, g => stepFrom(g, 1, 16, [[4,16],[8,3],[50,2]])),
+  dBhumij:    G => low(G, g => stepFrom(g, 1, 12, [[5,12],[7,5],[9,4],[50,2]])),
+  dDravid:    G => low(G, g => stepFrom(g, 1, 10, [[6,10],[10,5],[50,2]])),
+};
+const SETS = {
+  '144': [['ખુરો',5,2],['કુંભો',20],['કલશ',8],['અંતરાલ',2.5],['કપોતિકા / કેવલ',8],['મંચિકા',9],['જંઘા',35],['ઉદ્ગમ / દોઢિયો',15],['ભરણી',8],['શિરાવટી',10],['કપોતાલી / પુષ્પકંઠ',8],['અંતરાલ',2.5],['છાદ્ય / છજ્જુ',13,10]],
+  '108': [['ખુરો',4],['કુંભો',15],['કલશ',6],['અંતરાલ',3],['કપોતાલી',6],['મંચિકા',6],['જંઘા',32],['ઉદ્ગમ',11],['ભરણી',6],['કપોતાલી',6],['અંતરાલ',3],['છજ્જુ',10,7]],
+  '27':  [['ખુરો',1],['કુંભો',4],['કલશ',1.5],['અંતરાલ',.5],['કેવલ',1.5],['મંચિ',1.5],['જંઘા',8],['ઉદ્ગમ',3],['ભરણી',1.5],['પુષ્પકંઠ',1.5],['અંતરાલ',.5],['છજ્જુ',2.5,2]],
+  '57':  [['ખુરો',2],['કુંભો',7],['કલશ',3],['અંતરપત્રિકા',1],['કપોતાલી',3],['અંતરાલ',.5],['મંચિકા',3],['જંઘા',15],['ઉદ્ગમ',5],['ભરણી',3],['અંતરપત્રિકા',.5],['શિરાવટી',4],['કપોતાલી',3],['માલા',3],['છજ્જુ',4,4]],
+};
+const PITH = {
+  maha:  [['જાડ્યકુંભ',9,5],['કર્ણિકા',7,3.5],['ગ્રાસપટ્ટી + છજ્જિકા',7,4.5],['ગજથર',12,4],['અશ્વથર',10,3],['નરથર',8,2]],
+  kamad: [['જાડ્યકુંભ',9,5],['કર્ણિકા',7,3.5],['ગ્રાસપટ્ટી',7,4.5]],
+  karna: [['જાડ્યકુંભ',9,5],['કર્ણિકા',7,3.5]],
+};
+const JAG = [['જાડ્યકુંભ',3,4],['કર્ણિકા',2],['છજ્જિકા',1.5],['ગ્રાસપટ્ટી',1.5],['ખુરક',2],['કુંભો',7],['કલશ',3],['અંતરાલ',1],['કેવલ / કપોતાલી',3],['પુષ્પકંઠ',4,4]];
+const JATI = [['nagar','નાગર'],['latin','લતિન'],['sandhar','સાંધાર'],['bhumij','ભૂમિજ'],['dravid','દ્રાવિડ'],['vimana','વિમાન'],['mishrak','મિશ્રક'],['pushpak','પુષ્પક'],['valabhi','વલભી'],['phansana','ફાંસના']];
+const DWAR_BY = {nagar:'n1',latin:'n1',sandhar:'n1',mishrak:'n1',pushpak:'n1',bhumij:'bh',dravid:'bh',vimana:'bh',valabhi:'bh',phansana:'dr'};
+const PRASAD = ['કેશરી 8/5','સર્વતોભદ્ર 8/9','નંદન 10/13','નંદશાલિક 10/17','નંદીશ 10/21','મંદર 12/25','શ્રીવત્સ 14/29','અમૃતોદ્ભવ 14/33','હિમવાન્ 14/37','હેમકૂટ 14/41','કૈલાસ 16/45','પૃથ્વીજય 16/49','ઇન્દ્રનીલ 16/53','મહાનીલ 16/57','ભૂધર 16/61','રત્નકૂટ 18/65','વૈડૂર્ય 18/69','પદ્મરાગ 18/73','વજ્રક 18/77','મુકુટોજ્જ્વલ 18/81','ઐરાવત 18/85','રાજહંસ 22/89','ગરુડ 22/93','વૃષભ 22/97','મેરુ 22/101']
+  .map(s => { const [n, t] = s.split(' '); const [tal, andak] = t.split('/'); return {n, tal, andak}; });
+const TILAK = ['તિલકસાગર','ગૌરી','રુદ્ર','શ્રી','હરિ','લક્ષ્મી','ભૂ','રંભા','ઇન્દ્ર','મંદિર','હેમવાન્','કૈલાસ','પૃથ્વી','ત્રિભુવન','ઇન્દ્રનીલ','સર્વાંગ','સુરવલ્લભ','સિંહ','મકરધ્વજ','મંગલ','તિલકાક્ષ','પદ્મ'];
+
+function tharRows(list, totalIn, keep){
+  const sum = list.reduce((a, t) => a + t[1], 0), unit = totalIn / sum;
+  const rows = list.map(([n, b, nk]) => ({n, b, h: Math.max(1, ceil(b * unit)), nik: ceil((nk || 0) * unit)}));
+  if (keep){ const rest = rows.slice(0, -1).reduce((a, r) => a + r.h, 0); rows[rows.length-1].h = Math.max(1, ceil(totalIn) - rest); }
+  return {rows, sum, unit, total: rows.reduce((a, r) => a + r.h, 0), book: ceil(totalIn)};
+}
+
+function compute(p){
+  const k = p.ratio / (p.ratio - 2);
+  const Px = p.gw * k, Pdx = p.gd * k, P = ceil(Px), Pd = ceil(Pdx), t = ceil(Px / p.ratio), G = Px / 18;
+  const dep = p.wall === 'brick' ? p.face : t;
+  const gradeK = p.grade === 'j' ? 1.2 : p.grade === 'k' ? 0.8 : 1;
+  const ring = (nm, h, nik, w = P, d = Pd, dp = dep) => [[nm + ' · આગળ-પાછળ', ceil(w + 2*nik), ceil(dp + nik), h, 2], [nm + ' · બાજુ', Math.max(0, ceil(d - 2*dp)), ceil(dp + nik), h, 2]];
+  const parts = [], W = [];
+  if (G > 50) W.push('પ્રાસાદ 75′ થી મોટો છે — ગ્રંથ ના નિયમ 75′ સુધી ના જ છે.');
+
+  // 1 paya
+  { const ks = ceil(IN(R.kurmashila(G))), kt = ceil(IN(R.kurmashila(G)) / 3), ku = ceil(IN(R.kurma(G)) * (p.grade==='j'?1.25:p.grade==='k'?.75:1)), ds = ceil(IN(R.disha(G))), dt = ceil(IN(R.disha(G)) / 4);
+    parts.push({key:'paya', name:'પાયો / ખાતમુહૂર્ત', src:'દ્વિતીય રત્ન · શ્લો. 97–124',
+      kpis:[['કૂર્મશિલા', ks+'″', 'ચોરસ'],['દિશા શિલા', ds+'″', '8 નંગ, ચોરસ'],['કૂર્મ', ku+'″', 'સોના / ચાંદી નો']],
+      meas:[['કૂર્મશિલા — પહોળાઈ (ચોરસ)', ks, 'શ્લો. 97–98'],['કૂર્મશિલા — જાડાઈ (પથ્થર)', kt, 'પહોળાઈ નો ⅓'],['કૂર્મશિલા નીચે પદ્મ', ceil(IN(R.kurmashila(G))/24), 'જાડાઈ નો ⅛'],['કૂર્મ (ઘન)', ku, 'શ્લો. 104–106'],['દિશા શિલા — પહોળાઈ (ચોરસ)', ds, 'શ્લો. 111–113'],['દિશા શિલા — જાડાઈ', dt, 'પહોળાઈ નો ¼']],
+      stone:[['કૂર્મશિલા (ધરણી)', ks, ks, kt, 1],['દિશા શિલા', ds, ds, dt, 8]],
+      warn:['ઈંટ ની કૂર્મશિલા ની જાડાઈ ગ્રંથ માં શંકાસ્પદ છે (⅙ કે ½) — ખાતરી કરવી.']}); }
+
+  // 2 bhit
+  { const names = ['મુક્તિક','પુષ્પક','ધર્મયશ'], hs = []; let h = IN(R.bhit1(G));
+    for (let i = 0; i < p.m.bhit; i++){ hs.push(h); h *= .75; }
+    const rows = hs.map((x, i) => ({n:`ભીત ${i+1} · ${names[i]}`, h: ceil(x), nik: ceil(hs.slice(i).reduce((a, y) => a + y/4, 0))}));
+    parts.push({key:'bhit', name:'ભીત', src:'દ્વિતીય રત્ન · શ્લો. 149–157',
+      kpis:[['ભીત', String(p.m.bhit), 'થર'],['કુલ ઊંચાઈ', rows.reduce((a,r)=>a+r.h,0)+'″', ftin(rows.reduce((a,r)=>a+r.h,0))],['પહેલી ભીત', rows[0].h+'″', 'સૌથી નીચે']],
+      thar:{rows: rows.map(r => ({...r, b:'—'})), total: rows.reduce((a,r)=>a+r.h,0), book: null, sumLabel:''},
+      stone: rows.flatMap(r => ring(r.n, r.h, r.nik)),
+      chips:[{l:'ભીત ની સંખ્યા', path:'bhit', opts:[[1,'1'],[2,'2'],[3,'3']]}],
+      warn:['ઉપર ની દરેક ભીત ¼ નાની અને પોતાની ઊંચાઈ ના ¼ જેટલી બહાર ગણી છે.']}); }
+
+  // 3 pith
+  let pithTotal = 0;
+  { const base = IN((p.m.pith === 1 ? R.pith1 : R.pith2)(G)) * gradeK;
+    const T = tharRows(PITH[p.m.pithType], base, p.m.keep); pithTotal = T.total;
+    parts.push({key:'pith', name:'પીઠ', src: p.m.pith === 1 ? 'દ્વિતીય રત્ન · શ્લો. 158–160, 166–172' : 'દ્વિતીય રત્ન · શ્લો. 161–162, 166–172',
+      kpis:[['કુલ ઊંચાઈ', T.total+'″', ftin(T.total)],['થર', String(T.rows.length), T.sum+' ભાગ'],['ભેદ', p.grade==='j'?'જ્યેષ્ઠ +⅕':p.grade==='k'?'કનિષ્ઠ −⅕':'મધ્યમ','','t']],
+      thar:T, stone: T.rows.flatMap(r => ring(r.n, r.h, r.nik)),
+      chips:[{l:'ઊંચાઈ', path:'pith', opts:[[1,'પદ્ધતિ 1'],[2,'પદ્ધતિ 2']]},{l:'પીઠ', path:'pithType', opts:[['maha','મહાપીઠ 53'],['kamad','કામદ 23'],['karna','કર્ણ 16']]}],
+      warn:[]}); }
+
+  // 4 jagati
+  { const base = IN((p.m.jag === 'apa' ? R.jagApa : R.jagMan)(G)); const T = tharRows(JAG, base, p.m.keep);
+    const has = p.jl > 0 && p.jw > 0;
+    parts.push({key:'jagati', name:'જગતી', src: p.m.jag === 'apa' ? 'અપરાજિત પૃચ્છા / દીપાર્ણવ' : 'પ્રાસાદ મંડન',
+      kpis:[['ઉદય (ઊંચાઈ)', T.total+'″', ftin(T.total)],['થર', '10', '28 ભાગ'],['જગતી', has ? `${ftin(p.jl)} × ${ftin(p.jw)}` : 'માપ નાખો', has ? f1(p.jl*p.jw/144)+' ચો. ફૂટ' : '', 't']],
+      thar:T, jagIn:true,
+      stone: has ? T.rows.flatMap(r => ring(r.n, r.h, r.nik, p.jl, p.jw, p.face)) : [],
+      chips:[{l:'ઉદય', path:'jag', opts:[['apa','અપરાજિત / દીપાર્ણવ'],['man','પ્રાસાદ મંડન']]}],
+      warn:['ગ્રંથ ના પૃ. 65–68 (જગતી) નથી. જગતી ની લંબાઈ-પહોળાઈ તમે નાખો ત્યારે પથ્થર ગણાશે; પથ્થર ' + p.face + '″ ની ફેસિંગ તરીકે ગણ્યો છે.']}); }
+
+  // 5 mandovar
+  let kumbhoH = 0;
+  { const base = IN(R['man' + p.m.man](G)); const T = tharRows(SETS[p.m.manSet], base, p.m.keep);
+    kumbhoH = (T.rows.find(r => r.n === 'કુંભો') || {h:0}).h;
+    const srcH = {1:'શ્લો. 3–4', 2:'શ્લો. 5–6', 3:'શ્લો. 7–15', 4:'શ્લો. 16–17'}[p.m.man];
+    const w = []; if (p.m.man === 3 && G > 35 && G < 40) w.push('રીત 3 માં 52′-6″ થી 60′ વચ્ચે ગ્રંથ માં કૂદ છે (છાપ્યા મુજબ).');
+    parts.push({key:'mandovar', name:'મંડોવર', src:'તૃતીય રત્ન · ' + srcH + ', 24–91',
+      kpis:[['કુલ ઊંચાઈ', T.total+'″', ftin(T.total)],['થર', String(T.rows.length), T.sum+' ભાગ'],['ઘેરાવો', f1(2*(P+Pd)/12), 'રનિંગ ફૂટ']],
+      thar:T, stone: T.rows.flatMap(r => ring(r.n, r.h, r.nik)),
+      chips:[{l:'ઊંચાઈ', path:'man', opts:[[1,'રીત 1'],[2,'રીત 2'],[3,'રીત 3'],[4,'રીત 4']]},{l:'થર', path:'manSet', opts:[['144','144 ભાગ'],['108','108'],['27','27'],['57','ચતુર્મુખ 57']]}],
+      warn:w}); }
+
+  // 6 deewal / garbhagruh
+  { const w = []; if (G > 10) w.push('પ્રાસાદ 15′ થી મોટો છે — ગ્રંથ મુજબ ભ્રમ (પ્રદક્ષિણા) સાથે કરવો (શ્લો. 110).');
+    w.push(p.wall === 'brick' ? 'દીવાલ ઈંટ ની છે; પથ્થર ફક્ત થર ની ' + p.face + '″ ફેસિંગ માં ગણ્યો છે.' : 'પૂરો પથ્થર: દીવાલ નો પથ્થર મંડોવર ના થર માં ગણાઈ ગયો છે.');
+    const pj = ceil(p.gw / 3);
+    parts.push({key:'deewal', name:'દીવાલ / ગર્ભગૃહ', src:'તૃતીય રત્ન · શ્લો. 103–119',
+      kpis:[['પ્રાસાદ', P+'″', ftin(P)],['દીવાલ', t+'″', ftin(t)],['ગર્ભગૃહ', f1(p.gw*p.gd/144), 'ચો. ફૂટ']],
+      meas:[['પ્રાસાદ ની પહોળાઈ (કર્ણ થી કર્ણ)', P, 'ગર્ભગૃહ + 2 દીવાલ'],['પ્રાસાદ ની ઊંડાઈ', Pd, ''],['દીવાલ ની જાડાઈ', t, 'પ્રાસાદ નો 1⁄' + p.ratio],['ગર્ભગૃહ પહોળાઈ', ceil(p.gw), ''],['ગર્ભગૃહ ઊંડાઈ', ceil(p.gd), ''],['પ્રતિમા — જ્યેષ્ઠ', pj, 'ગર્ભગૃહ નો ⅓ (ચતુર્થ રત્ન શ્લો. 127)'],['પ્રતિમા — મધ્યમ', ceil(p.gw/3*.9), '⅒ ઓછી'],['પ્રતિમા — કનિષ્ઠ', ceil(p.gw/3*.8), '⅕ ઓછી']],
+      stone:[], warn:w}); }
+
+  // 7 dwar
+  { const mth = p.m.dwar === 'auto' ? DWAR_BY[p.jati] : p.m.dwar;
+    const hx = IN({n1:R.dNagar1, n2:R.dNagar2, bh:R.dBhumij, dr:R.dDravid}[mth](G)), h = ceil(hx), w = ceil(hx/2 + hx/16);
+    const n = p.dev === 'shiv' ? 9 : 7, sw = ceil(hx * {3:1/6, 5:1/5, 7:1/4, 9:1/3}[n]), um = kumbhoH || ceil(hx/8);
+    const nmM = {n1:'નાગરાદિ રીત 1', n2:'નાગરાદિ રીત 2', bh:'ભૂમિજાદિ', dr:'દ્રાવિડાદિ'}[mth];
+    parts.push({key:'dwar', name:'દ્વાર', src:'તૃતીય રત્ન · શ્લો. 128–192',
+      kpis:[['દ્વાર ઊંચાઈ', h+'″', ftin(h)],['દ્વાર પહોળાઈ', w+'″', ftin(w)],['શાખા', String(n), 'કુલ પહોળાઈ ' + sw + '″']],
+      meas:[['દ્વાર ઊંચાઈ', h, nmM],['દ્વાર પહોળાઈ', w, 'ઊંચાઈ નો ½ + 1⁄16 (શ્લો. 137)'],['શાખા ની સંખ્યા', n + ' શાખા', p.dev === 'shiv' ? 'મહેશ્વર 9' : 'અન્ય દેવ 7 (શ્લો. 147)'],['શાખા ની કુલ પહોળાઈ (એક બાજુ)', sw, n === 9 ? 'દ્વાર ઊંચાઈ નો ⅓' : 'દ્વાર ઊંચાઈ નો ¼'],['ઉંબર ઊંચાઈ', um, 'કુંભા જેટલી (શ્લો. 186–190)'],['શંખાવટ લંબાઈ', w, 'દ્વાર પહોળાઈ જેટલી'],['શંખાવટ નિકાળો', ceil(w/2), 'લંબાઈ નો ½']],
+      stone:[['શાખા (ડાબી-જમણી)', h, sw, dep, 2],['ઓતરંગ', w + 2*sw, dep, sw, 1],['ઉંબર', w + 2*sw, dep, um, 1],['શંખાવટ', w, ceil(w/2), ceil(um/2), 1]],
+      chips:[{l:'રીત', path:'dwar', opts:[['auto','જાતિ પ્રમાણે'],['n1','નાગર 1'],['n2','નાગર 2'],['bh','ભૂમિજ'],['dr','દ્રાવિડ']]}],
+      warn:['ઓતરંગ અને શંખાવટ ની ઊંચાઈ ગ્રંથ માં ચોક્કસ નથી — અંદાજ મૂક્યો છે, હાથ થી બદલી શકાય.']}); }
+
+  // overrides, extras, totals
+  for (const pt of parts){
+    pt.stone = pt.stone.map((r, i) => { const o = p.ov[pt.key + ':' + i]; return o ? [r[0], ...o] : r; }).concat((p.extra[pt.key] || []).map(r => [...r, true]));
+    pt.cft = pt.stone.reduce((a, r) => a + r[1]*r[2]*r[3]*r[4]/1728, 0);
+  }
+  return {P, Pd, t, G, parts, total: parts.reduce((a, x) => a + x.cft, 0), warn: W, mando: parts[4].thar.total};
+}
+
+/* ===== State ===== */
+const newProj = (name) => ({name, gw:108, gd:108, ratio:5, wall:'brick', face:9, jati:'nagar', prasad:'k0', grade:'m', dev:'shiv', rate:1500, jl:0, jw:0,
+  m:{pith:1, pithType:'maha', jag:'apa', man:2, manSet:'144', dwar:'auto', bhit:3, keep:false}, ov:{}, extra:{}});
+let S = {style:'a', view:'input', part:'mandovar', tab:'maap', cur:0, projects:[newProj('શ્રી શિવ મંદિર (ઉદાહરણ)')]};
+try { const s = JSON.parse(localStorage.getItem('bte-proto') || 'null'); if (s && s.projects && s.projects.length) S = Object.assign(S, s); } catch (e) {}
+const save = () => { try { localStorage.setItem('bte-proto', JSON.stringify(S)); } catch (e) {} };
+const cur = () => S.projects[S.cur] || S.projects[0];
+
+/* ===== Views ===== */
+const ic = {
+  temple:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3 6H9z"/><path d="M7 8h10l2 5H5z"/><path d="M5 13h14v8H5z"/><path d="M10 21v-4h4v4"/></svg>',
+  grid:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>',
+  edit:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>',
+  chart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V10M11 20V4M17 20v-7M22 20H2"/></svg>',
+};
+const LATER = ['મંડપ','સ્તંભ','ઘુમ્મટ','શિખર','આમલસારો / કલશ','ધ્વજદંડ'];
+const seg = (path, val, opts, scope = 'p') => `<div class="seg">${opts.map(([v, t]) => `<button type="button" class="${String(v) === String(val) ? 'on' : ''}" data-set="${scope}.${path}" data-v="${v}">${t}</button>`).join('')}</div>`;
+const styleBar = () => `<div class="styles" role="group" aria-label="ડિઝાઇન">ડિઝાઇન ${['a','b','c','d'].map((s, i) => `<button type="button" class="${S.style === s ? 'on' : ''}" data-style="${s}" aria-label="ડિઝાઇન ${i+1}">${i+1}</button>`).join('')}</div>`;
+
+function vProjects(){
+  return `<div class="bar"><h1>પ્રોજેક્ટ</h1><span class="sp"></span>${styleBar()}<button class="btn pri" data-act="new">+ નવો પ્રોજેક્ટ</button></div>
+  <div class="plist">${S.projects.map((p, i) => { const c = compute(p); return `<article class="card pc ${i === S.cur ? 'on' : ''}" data-open="${i}" tabindex="0">
+    <h3>${esc(p.name)}</h3>
+    <div class="meta num"><div><small>ગર્ભગૃહ</small>${ftin(ceil(p.gw))} × ${ftin(ceil(p.gd))}</div><div><small>પ્રાસાદ</small>${ftin(c.P)}</div><div><small>કુલ પથ્થર</small>${f1(c.total)} CFT</div><div><small>અંદાજ</small>${rs(c.total * p.rate)}</div></div>
+    <div class="row"><span class="src">${JATI.find(j => j[0] === p.jati)[1]}</span><span class="sp"></span>${S.projects.length > 1 ? `<button class="btn dan" data-del="${i}">કાઢી નાખો</button>` : ''}</div></article>`; }).join('')}</div>`;
+}
+
+function vInput(p, c){
+  const fi = (id, v, u) => `<div class="box"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
+  return `<div class="bar"><div><div class="crumb">માહિતી</div><h1>${esc(p.name)}</h1></div><span class="sp"></span>${styleBar()}</div>
+  <div class="split in"><div class="card"><div class="bd form">
+    <div class="field full"><label for="name">મંદિર નું નામ</label><div class="box"><input id="name" value="${esc(p.name)}" data-in="name" style="font-family:var(--font)"></div></div>
+    <div class="field full"><div class="lb">ગર્ભગૃહ — અંદર નું માપ (પહોળાઈ × ઊંડાઈ)</div>
+      <div class="row">${fi('gwf', Math.floor(p.gw/12), 'ફૂટ')}${fi('gwi', ceil(p.gw % 12), 'ઇંચ')}<span style="color:var(--muted)">×</span>${fi('gdf', Math.floor(p.gd/12), 'ફૂટ')}${fi('gdi', ceil(p.gd % 12), 'ઇંચ')}</div></div>
+    <div class="field"><div class="lb">દીવાલ ની જાડાઈ (પ્રાસાદ નો ભાગ)</div>${seg('ratio', p.ratio, [[5,'⅕'],[5.5,'1⁄5½'],[6,'⅙']])}</div>
+    <div class="field"><div class="lb">દીવાલ નો પ્રકાર</div>${seg('wall', p.wall, [['brick','ઈંટ + પથ્થર'],['stone','પૂરો પથ્થર']])}
+      ${p.wall === 'brick' ? `<div class="row" style="margin-top:8px"><div class="box"><em style="margin-right:8px">પથ્થર ની જાડાઈ</em><input id="face" class="num" inputmode="numeric" value="${p.face}" data-in="face" style="text-align:right"><em>″</em></div></div>` : ''}</div>
+    <div class="field"><label for="jati">પ્રાસાદ ની જાતિ</label><div class="box"><select id="jati" data-in="jati">${JATI.map(([v, t]) => `<option value="${v}" ${v === p.jati ? 'selected' : ''}>${t}</option>`).join('')}</select></div></div>
+    <div class="field"><label for="prasad">પ્રાસાદ</label><div class="box"><select id="prasad" data-in="prasad"><optgroup label="કેશરાદિ 25">${PRASAD.map((x, i) => `<option value="k${i}" ${p.prasad === 'k'+i ? 'selected' : ''}>${x.n} · તલ ${x.tal} ભાગ · ${x.andak} અંડક</option>`).join('')}</optgroup><optgroup label="તિલકસાગરાદિ">${TILAK.map((x, i) => `<option value="t${i}" ${p.prasad === 't'+i ? 'selected' : ''}>${x}-તિલક</option>`).join('')}</optgroup></select></div></div>
+    <div class="field"><div class="lb">ભેદ</div>${seg('grade', p.grade, [['j','જ્યેષ્ઠ'],['m','મધ્યમ'],['k','કનિષ્ઠ']])}</div>
+    <div class="field"><div class="lb">દેવ</div>${seg('dev', p.dev, [['shiv','શિવ'],['vishnu','વિષ્ણુ'],['jain','જૈન'],['devi','દેવી']])}</div>
+    <div class="field"><label for="rate">પથ્થર નો દર</label><div class="box"><em style="margin-right:6px">₹</em><input id="rate" class="num" inputmode="numeric" value="${p.rate}" data-in="rate"><em>/ ઘન ફૂટ</em></div></div>
+    <div class="field"><div class="lb">થર નો સરવાળો</div>${seg('m.keep', p.m.keep, [[false,'રાઉન્ડ નો સરવાળો'],[true,'ગ્રંથ ની ઊંચાઈ રાખો']])}</div>
+  </div></div>
+  <div class="live"><small>આપોઆપ ગણતરી</small>
+    <div class="r"><small>પ્રાસાદ (કર્ણ થી કર્ણ)</small><b>${c.P}″ · ${ftin(c.P)}</b></div>
+    <div class="r"><small>દીવાલ ની જાડાઈ</small><b>${c.t}″ · ${ftin(c.t)}</b></div>
+    <div class="r"><small>મંડોવર ઊંચાઈ</small><b>${c.mando}″ · ${ftin(c.mando)}</b></div>
+    <div class="r"><small>કુલ પથ્થર</small><b>${f1(c.total)} CFT</b></div>
+    <div class="r" style="border:0"><small>કુલ અંદાજ</small><b>${rs(c.total * p.rate)}</b></div>
+    <button class="btn pri" data-nav="part" style="justify-content:center">ભાગ જુઓ →</button></div></div>
+  ${c.warn.map(w => `<div class="warn"><span>⚠</span><div>${w}</div></div>`).join('')}`;
+}
+
+function elev(T){
+  const H = 470, top = 16, x = 62, w = 130; let y = top + H, o = '';
+  T.rows.forEach((r, i) => { const h = r.h / T.total * H; y -= h; const nk = Math.min(r.nik * 1.4, 26), big = r.n.startsWith('જંઘા');
+    o += `<rect x="${x - nk}" y="${y}" width="${w + 2*nk}" height="${h}" fill="${big ? 'var(--accent-soft)' : i % 2 ? 'var(--surface2)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width=".8"/>`;
+    if (h > 12) o += `<text x="${x + w + 32}" y="${y + h/2 + 4}" font-size="10.5" fill="var(--ink)">${r.n}</text><text x="${x - 30}" y="${y + h/2 + 4}" font-size="10.5" text-anchor="end" fill="var(--muted)" font-family="Inter,sans-serif">${r.h}″</text>`; });
+  o += `<line x1="12" y1="${top}" x2="12" y2="${top + H}" stroke="var(--accent)" stroke-width="1.4"/>`;
+  return `<svg viewBox="0 0 340 500" role="img" aria-label="થર નું ચિત્ર">${o}</svg>`;
+}
+
+function vPart(p, c){
+  const pt = c.parts.find(x => x.key === S.part) || c.parts[4];
+  const chips = (pt.chips || []).map(ch => `<span class="l">${ch.l}:</span>${ch.opts.map(([v, t]) => `<button class="chip ${String(p.m[ch.path]) === String(v) ? 'on' : ''}" data-set="p.m.${ch.path}" data-v="${v}">${t}</button>`).join('')}`).join('');
+  const head = `<div class="bar"><div><div class="crumb">ભાગ › ${pt.name}</div><h1>${pt.name}</h1></div><span class="sp"></span>${styleBar()}</div>
+    <div class="ppick">${c.parts.map(x => `<button class="chip ${x.key === pt.key ? 'on' : ''}" data-part="${x.key}">${x.name}</button>`).join('')}</div>
+    <div class="bar"><div class="tabs" role="tablist"><button role="tab" class="${S.tab === 'maap' ? 'on' : ''}" data-tab="maap">માપ</button><button role="tab" class="${S.tab === 'stone' ? 'on' : ''}" data-tab="stone">પથ્થર</button></div><span class="sp"></span><span class="src">${pt.src}</span></div>
+    <div class="kpis">${pt.kpis.map(([l, v, s, cl]) => `<div class="kpi"><small>${l}</small><b class="${cl || ''}">${v}</b><span>${s || ''}</span></div>`).join('')}
+      <div class="kpi acc"><small>પથ્થર</small><b>${f1(pt.cft)} CFT</b><span class="num">${rs(pt.cft * p.rate)}</span></div></div>
+    ${chips ? `<div class="chips">${chips}</div>` : ''}`;
+  let body = '';
+  if (S.tab === 'maap'){
+    if (pt.jagIn) body += `<div class="card"><div class="bd"><div class="lb" style="font-size:13px;color:var(--muted);margin-bottom:6px">જગતી નું માપ (લંબાઈ × પહોળાઈ, ફૂટ માં)</div><div class="row" style="max-width:420px"><div class="box"><input id="jlf" class="num" inputmode="numeric" value="${p.jl ? Math.round(p.jl/12) : ''}" placeholder="લંબાઈ" data-in="jlf"><em>ફૂટ</em></div><span style="color:var(--muted)">×</span><div class="box"><input id="jwf" class="num" inputmode="numeric" value="${p.jw ? Math.round(p.jw/12) : ''}" placeholder="પહોળાઈ" data-in="jwf"><em>ફૂટ</em></div></div></div></div>`;
+    if (pt.thar){ const T = pt.thar;
+      body += `<div class="split"><div class="card elev">${elev(T)}</div><div class="card"><div class="hd"><h2>થર પ્રમાણે માપ</h2></div><div class="sx"><table><thead><tr><th>#</th><th>થર</th><th class="r">ભાગ</th><th class="r">ઊંચાઈ</th><th class="r">નિકાળો</th></tr></thead><tbody>
+        ${T.rows.map((r, i) => `<tr><td class="num" style="color:var(--muted)">${i+1}</td><td>${r.n}</td><td class="r num">${r.b}</td><td class="r num"><b>${r.h}″</b><span class="fi">${ftin(r.h)}</span></td><td class="r num">${r.nik ? r.nik + '″' : '—'}</td></tr>`).reverse().join('')}
+        <tr class="tot"><td></td><td>કુલ</td><td class="r num">${T.sum || ''}</td><td class="r num">${T.total}″<span class="fi">${ftin(T.total)}</span></td><td></td></tr></tbody></table></div></div></div>`;
+      if (T.book && T.total !== T.book) body += `<div class="warn"><span>⚠</span><div>દરેક થર ઉપર ના આખા ઇંચ માં ગણ્યો છે, એટલે સરવાળો <b class="num">${T.total}″</b> થાય છે; ગ્રંથ ની ઊંચાઈ <b class="num">${T.book}″</b> છે. "માહિતી" માં "ગ્રંથ ની ઊંચાઈ રાખો" પસંદ કરી શકાય.</div></div>`;
+    } else {
+      body += `<div class="card"><div class="sx"><table><thead><tr><th>માપ</th><th class="r">ઇંચ</th><th class="r">ફૂટ-ઇંચ</th><th>આધાર</th></tr></thead><tbody>
+        ${pt.meas.map(([l, v, n]) => typeof v === 'number' ? `<tr><td>${l}</td><td class="r num"><b>${v}″</b></td><td class="r num">${ftin(v)}</td><td style="color:var(--muted);font-size:13px">${n}</td></tr>` : `<tr><td>${l}</td><td class="r" colspan="2"><b>${v}</b></td><td style="color:var(--muted);font-size:13px">${n}</td></tr>`).join('')}</tbody></table></div></div>`;
+    }
+  } else {
+    body += pt.stone.length ? `<div class="card"><div class="hd"><h2>લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ</h2><span class="sp"></span><button class="btn" data-act="addrow">+ લાઇન ઉમેરો</button></div><div class="sx"><table><thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ ″</th><th class="r">પહોળાઈ ″</th><th class="r">ઊંચાઈ ″</th><th class="r">નંગ</th><th class="r">રનિંગ ફૂટ</th><th class="r">ઘન ફૂટ</th></tr></thead><tbody>
+      ${pt.stone.map((r, i) => { const ex = r[5], base = pt.stone.filter(x => !x[5]).length, k = ex ? `x:${i - base}` : `o:${i}`;
+        return `<tr><td>${ex ? `<input class="e en" id="s-${k}-n" value="${esc(r[0])}" data-st="${k}:0" aria-label="વસ્તુ">` : r[0]}</td>${[1,2,3,4].map(j => `<td class="r"><input class="e" id="s-${k}-${j}" inputmode="numeric" value="${r[j]}" data-st="${k}:${j}" aria-label="${['','લંબાઈ','પહોળાઈ','ઊંચાઈ','નંગ'][j]}"></td>`).join('')}<td class="r num">${f1(r[1]*r[4]/12)}</td><td class="r num"><b>${f1(r[1]*r[2]*r[3]*r[4]/1728)}</b></td></tr>`; }).join('')}
+      <tr class="tot"><td>કુલ ${pt.name}</td><td></td><td></td><td></td><td></td><td></td><td class="r num">${f1(pt.cft)}</td></tr></tbody></table></div></div>
+      <p style="color:var(--muted);font-size:13px;margin:0">દરેક ખાનું હાથ થી બદલી શકાય. ઘન ફૂટ = લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ ÷ 1728.</p>`
+      : `<div class="card"><div class="bd" style="color:var(--muted)">${pt.key === 'jagati' ? '"માપ" ટેબ માં જગતી ની લંબાઈ-પહોળાઈ નાખો, પછી પથ્થર ગણાશે.' : 'આ ભાગ માં અલગ પથ્થર ની લાઇન નથી.'} <button class="btn" data-act="addrow" style="margin-left:8px">+ લાઇન ઉમેરો</button></div></div>`;
+  }
+  return head + body + pt.warn.map(w => `<div class="warn"><span>⚠</span><div>${w}</div></div>`).join('');
+}
+
+function vSummary(p, c){
+  const mx = Math.max(1, ...c.parts.map(x => x.cft));
+  return `<div class="bar"><div><div class="crumb">${esc(p.name)}</div><h1>સારાંશ</h1></div><span class="sp"></span>${styleBar()}</div>
+  <div class="kpis"><div class="kpi"><small>ગર્ભગૃહ</small><b>${ftin(ceil(p.gw))}</b><span class="num">× ${ftin(ceil(p.gd))}</span></div><div class="kpi"><small>પ્રાસાદ</small><b>${ftin(c.P)}</b><span class="num">${c.P}″</span></div>
+    <div class="kpi"><small>કુલ પથ્થર</small><b>${f1(c.total)}</b><span>ઘન ફૂટ</span></div><div class="kpi acc"><small>કુલ ખર્ચ</small><b>${rs(c.total * p.rate)}</b><span class="num">${rs(p.rate)} / CFT</span></div></div>
+  <div class="card"><div class="hd"><h2>ભાગ પ્રમાણે પથ્થર</h2></div><div class="bd">${c.parts.map(x => `<div class="hb" data-part="${x.key}" tabindex="0"><span>${x.name}</span><div class="tr"><div class="fl" style="width:${x.cft / mx * 100}%"></div></div><span class="v num">${x.cft ? f1(x.cft) + ' CFT' : '—'}</span></div>`).join('')}
+    <div class="hb" style="border-top:1px solid var(--line);margin-top:6px;padding-top:12px;cursor:default"><b>કુલ</b><span></span><b class="v num">${f1(c.total)} CFT</b></div></div></div>
+  <div class="card"><div class="sx"><table><thead><tr><th>ભાગ</th><th class="r">ઘન ફૂટ</th><th class="r">ખર્ચ</th></tr></thead><tbody>${c.parts.map(x => `<tr><td>${x.name}</td><td class="r num">${f1(x.cft)}</td><td class="r num">${rs(x.cft * p.rate)}</td></tr>`).join('')}<tr class="tot"><td>કુલ</td><td class="r num">${f1(c.total)}</td><td class="r num">${rs(c.total * p.rate)}</td></tr></tbody></table></div></div>`;
+}
+
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function render(){
+  document.body.dataset.style = S.style;
+  const p = cur(), c = compute(p), v = S.view;
+  const nav = (id, t) => `<a class="${v === id ? 'on' : ''}" data-nav="${id}" tabindex="0">${t}</a>`;
+  document.getElementById('root').innerHTML = `<div class="app">
+    <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>શિલ્પ રત્નાકર આધારિત</small></div></div>
+      ${nav('projects', 'બધા પ્રોજેક્ટ')}${nav('input', 'માહિતી')}${nav('summary', 'સારાંશ')}
+      <div class="lab">ભાગ — નીચે થી ઉપર</div>
+      ${c.parts.map(x => `<a class="${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}<span class="c num">${x.cft ? f1(x.cft) : '—'}</span></a>`).join('')}
+      <div class="lab">પછી ના તબક્કા</div>${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}</aside>
+    <main class="main"><div class="wrap">${v === 'projects' ? vProjects() : v === 'input' ? vInput(p, c) : v === 'summary' ? vSummary(p, c) : vPart(p, c)}</div></main></div>
+    <nav class="bnav" aria-label="મુખ્ય">${[['projects','પ્રોજેક્ટ',ic.grid],['input','માહિતી',ic.edit],['part','ભાગ',ic.temple.replace(/20/g,'22')],['summary','સારાંશ',ic.chart]].map(([id, t, i]) => `<button class="${v === id ? 'on' : ''}" data-nav="${id}">${i}${t}</button>`).join('')}</nav>`;
+  save();
+}
+
+/* ===== Events ===== */
+const num = v => { const n = parseFloat(String(v).replace(/,/g, '')); return isFinite(n) && n >= 0 ? n : 0; };
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-style],[data-nav],[data-part],[data-tab],[data-set],[data-act],[data-del],[data-open]'); if (!t) return;
+  const p = cur(), d = t.dataset;
+  if (d.style) S.style = d.style;
+  else if (d.del !== undefined){ S.projects.splice(+d.del, 1); S.cur = 0; }
+  else if (d.nav) S.view = d.nav;
+  else if (d.part){ S.part = d.part; S.view = 'part'; }
+  else if (d.tab) S.tab = d.tab;
+  else if (d.set){ const path = d.set.split('.').slice(1); let v = d.v; if (v === 'true') v = true; else if (v === 'false') v = false; else if (!isNaN(v) && v !== '') v = +v;
+    let o = p; for (let i = 0; i < path.length - 1; i++) o = o[path[i]]; o[path[path.length-1]] = v; p.ov = {}; }
+  else if (d.act === 'new'){ S.projects.push(newProj('નવું મંદિર ' + (S.projects.length + 1))); S.cur = S.projects.length - 1; S.view = 'input'; }
+  else if (d.act === 'addrow'){ (p.extra[S.part] = p.extra[S.part] || []).push(['નવી લાઇન', 12, 12, 12, 1]); S.tab = 'stone'; }
+  else if (d.open !== undefined){ S.cur = +d.open; S.view = 'input'; }
+  render(); if (d.nav || d.part || d.open !== undefined) window.scrollTo(0, 0);
+});
+document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('a[data-nav],a[data-part],.hb,.pc')){ e.preventDefault(); e.target.click(); } });
+document.addEventListener('change', e => {
+  const t = e.target, p = cur(), c = compute(p);
+  if (t.dataset.in){ const k = t.dataset.in, g = id => num((document.getElementById(id) || {}).value);
+    if (k === 'name') p.name = t.value || 'મંદિર';
+    else if (k[0] === 'g'){ p.gw = Math.max(12, g('gwf') * 12 + g('gwi')); p.gd = Math.max(12, g('gdf') * 12 + g('gdi')); p.ov = {}; }
+    else if (k === 'face') p.face = Math.max(1, ceil(num(t.value)));
+    else if (k === 'rate') p.rate = num(t.value);
+    else if (k === 'jlf' || k === 'jwf'){ p.jl = g('jlf') * 12; p.jw = g('jwf') * 12; }
+    else p[k] = t.value;
+  } else if (t.dataset.st){ const [kind, i, j] = t.dataset.st.split(':'), pt = c.parts.find(x => x.key === S.part);
+    if (kind === 'x'){ const row = p.extra[S.part][+i]; row[+j] = +j === 0 ? t.value : ceil(num(t.value)); }
+    else { const r = pt.stone[+i].slice(1, 5); r[+j - 1] = ceil(num(t.value)); p.ov[S.part + ':' + i] = r; }
+  } else return;
+  const id = t.id; render(); const el = id && document.getElementById(id); if (el) el.focus();
+});
+render();
+</script>
