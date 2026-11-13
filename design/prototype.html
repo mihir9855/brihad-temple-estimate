@@ -21,28 +21,6 @@
   --accent:#8b8cf8; --accent-ink:#0f1117; --accent-soft:#25264a; --warn:#fbbf24; --warn-soft:#3a2f14;
   --side-bg:#181b24; --side-ink:#eef0f6; --side-muted:#98a1b3; --side-on:#25264a; --side-on-ink:#a5a6ff; --side-line:#2c3140;
   --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}
-/* 2 Graphite: dark, gold accent */
-body[data-style="b"]{
-  --bg:#111214; --surface:#1a1c20; --surface2:#23262b; --line:#30343b; --ink:#f2f0ea; --muted:#9a9890;
-  --accent:#e2b24a; --accent-ink:#1a1405; --accent-soft:#3a3018; --warn:#f0a35a; --warn-soft:#38281a;
-  --side-bg:#0b0c0e; --side-ink:#f2f0ea; --side-muted:#8b8980; --side-on:#2a2414; --side-on-ink:#e2b24a; --side-line:#23262b;
-  --radius:12px; --radius-s:8px; --shadow:none;
-  --font:"Anek Gujarati","Inter",system-ui,sans-serif; --head:"Anek Gujarati","Inter",system-ui,sans-serif; color-scheme:dark}
-/* 3 Paper: white, black ink, flat and sharp */
-body[data-style="c"]{
-  --bg:#ffffff; --surface:#ffffff; --surface2:#f3f4f6; --line:#d6d9de; --ink:#0b0d12; --muted:#5b6370;
-  --accent:#0b57d0; --accent-ink:#ffffff; --accent-soft:#e3edfd; --warn:#9a4a00; --warn-soft:#fff1e0;
-  --side-bg:#f7f8fa; --side-ink:#0b0d12; --side-muted:#5b6370; --side-on:#0b0d12; --side-on-ink:#ffffff; --side-line:#d6d9de;
-  --radius:4px; --radius-s:3px; --shadow:none;
-  --font:"Mukta Vaani","Inter",system-ui,sans-serif; --head:"Mukta Vaani","Inter",system-ui,sans-serif; color-scheme:light}
-/* 4 Teal: soft, rounded, dark rail */
-body[data-style="d"]{
-  --bg:#eef4f4; --surface:#ffffff; --surface2:#e3eeee; --line:#d2e0e0; --ink:#0d2b2e; --muted:#587376;
-  --accent:#0d8a80; --accent-ink:#ffffff; --accent-soft:#d5f0ec; --warn:#a3540a; --warn-soft:#fdeed8;
-  --side-bg:#0d2b2e; --side-ink:#e6f4f2; --side-muted:#8fb3b1; --side-on:#14524f; --side-on-ink:#ffffff; --side-line:#1b4144;
-  --radius:22px; --radius-s:999px; --shadow:0 8px 28px rgba(13,43,46,.08);
-  --font:"Noto Sans Gujarati","Inter",system-ui,sans-serif; --head:"Baloo Bhai 2","Noto Sans Gujarati",system-ui,sans-serif; color-scheme:light}
-
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
 h1,h2,h3{font-family:var(--head);margin:0;text-wrap:balance}
@@ -144,6 +122,51 @@ body[data-style="b"] .live{background:var(--surface2);color:var(--ink);border:1p
   .bnav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--muted);min-height:50px;border-radius:var(--radius-s)}
   .bnav button.on{color:var(--accent);font-weight:600}
 }
+
+/* ---- Layout 2: drawing-first CAD sheet ---- */
+body[data-style="b"]{--bg:#e9eef4;--surface:#ffffff;--surface2:#eef2f7;--line:#c9d3df;--ink:#16324f;--muted:#5f7690;--accent:#1d63c9;--accent-ink:#fff;--accent-soft:#dbe8fb;
+  --radius:6px;--radius-s:4px;--shadow:none;--font:"Mukta Vaani","Inter",sans-serif;--head:"Mukta Vaani","Inter",sans-serif;color-scheme:light}
+.lb2{padding-block:12px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:12px;max-width:1400px;margin:0 auto}
+.hb2,.hd4{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tot2{display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}.tot2 span{color:var(--muted);font-size:12.5px}.tot2 b{font-size:18px}
+.qk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 10px}
+.qk .ql{font-size:13px;color:var(--muted)} .box.q{flex:0 1 110px;min-height:40px}
+.g2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:12px;align-items:start}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  background-image:linear-gradient(var(--surface2) 1px,transparent 1px),linear-gradient(90deg,var(--surface2) 1px,transparent 1px);background-size:20px 20px;position:sticky;top:12px}
+.sheet-hd{display:flex;justify-content:space-between;padding:10px 12px;font-size:12px;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--line);background:var(--surface)}
+.cad{width:100%;height:auto;display:block;max-height:72vh}.bd2{cursor:pointer}.bd2:hover rect{stroke:var(--accent)}
+.det2{display:grid;gap:12px;min-width:0}.det2 .bar h1{font-size:22px}
+.det2 .kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .det2 .split{grid-template-columns:minmax(0,1fr)} .det2 .elev{display:none}
+/* ---- Layout 3: tiles ---- */
+body[data-style="c"]{--bg:#faf7f2;--surface:#ffffff;--surface2:#f3ede4;--line:#e8dfd2;--ink:#2b2118;--muted:#7a6a5a;--accent:#c2410c;--accent-ink:#fff;--accent-soft:#fde8dc;
+  --radius:20px;--radius-s:12px;--shadow:0 6px 24px rgba(43,33,24,.07);--font:"Noto Sans Gujarati","Inter",sans-serif;--head:"Baloo Bhai 2","Noto Sans Gujarati",sans-serif;color-scheme:light}
+.lc{padding-block:12px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px;max-width:1100px;margin:0 auto}
+.hc{display:grid;gap:12px}
+.hero{background:var(--ink);color:var(--bg);border-radius:var(--radius);padding:20px 22px}
+.hero small{opacity:.75}.hero h1{font-size:36px;font-family:var(--num);margin:2px 0}.hero .hs{opacity:.8;font-size:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.tile{display:grid;gap:2px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);min-height:118px;align-content:start}
+.tile:hover{border-color:var(--accent)} .tile.on{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.tile .tn{font-family:var(--head);font-size:17px;font-weight:600}.tile .tk{font-size:22px;font-weight:700}.tile .ts{font-size:12px;opacity:.7}.tile .tc{font-size:13px;margin-top:4px;opacity:.85}
+.tile.off{opacity:.5;box-shadow:none;border-style:dashed;background:transparent}
+.sheetc{background:var(--surface);border-radius:var(--radius);padding:16px;display:grid;gap:12px;border:1px solid var(--line);min-width:0}
+/* ---- Layout 4: BOQ sheet ---- */
+body[data-style="d"]{--bg:#ffffff;--surface:#ffffff;--surface2:#f2f5f3;--line:#dde3df;--ink:#111a15;--muted:#5d6b63;--accent:#127a4b;--accent-ink:#fff;--accent-soft:#e1f3e9;
+  --radius:2px;--radius-s:2px;--shadow:none;--font:"Anek Gujarati","Inter",sans-serif;--head:"Anek Gujarati","Inter",sans-serif;color-scheme:light}
+.ld{display:grid;min-height:100%}
+.hd4{padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:2px solid var(--ink)}
+.g4{display:grid;grid-template-columns:290px minmax(0,1fr)}
+.inp4{border-right:1px solid var(--line);padding:12px 16px;display:grid;gap:8px;align-content:start;background:var(--surface2)}
+.dh{font-size:11.5px;letter-spacing:.08em;color:var(--muted);margin-top:8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px}.dl{grid-column:1/-1;font-size:12.5px;color:var(--muted);margin-top:4px}.dl:empty{display:none}
+.inp4 .box{min-height:38px}.inp4 .seg button{min-height:36px;font-size:13px}
+.sum4{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.sum4 div{background:var(--surface);border:1px solid var(--line);padding:6px 8px}.sum4 small{display:block;color:var(--muted);font-size:11.5px}
+.boq{min-width:0;padding:0}.boq table{font-size:13.5px}.boq th{position:sticky;top:0;background:var(--surface);z-index:1}
+.boq td{padding:5px 10px}.boq tr.grp td{background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer;padding:8px 10px}
+.boq tr.grp .src{background:transparent;color:inherit;opacity:.6;font-weight:400}.boq td.it{padding-left:28px}
+.boq tfoot td{font-weight:700;font-size:15px;border-top:2px solid var(--ink);padding:10px}.boq .e{width:62px}
+@media (max-width:860px){.g2,.g4{grid-template-columns:minmax(0,1fr)}.sheet{position:static}.inp4{border-right:0}.hero h1{font-size:28px}.tiles{grid-template-columns:1fr 1fr}}
 </style>
 
 <div id="root"></div>
@@ -378,7 +401,7 @@ function vPart(p, c){
   } else {
     body += pt.stone.length ? `<div class="card"><div class="hd"><h2>લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ</h2><span class="sp"></span><button class="btn" data-act="addrow">+ લાઇન ઉમેરો</button></div><div class="sx"><table><thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ ″</th><th class="r">પહોળાઈ ″</th><th class="r">ઊંચાઈ ″</th><th class="r">નંગ</th><th class="r">રનિંગ ફૂટ</th><th class="r">ઘન ફૂટ</th></tr></thead><tbody>
       ${pt.stone.map((r, i) => { const ex = r[5], base = pt.stone.filter(x => !x[5]).length, k = ex ? `x:${i - base}` : `o:${i}`;
-        return `<tr><td>${ex ? `<input class="e en" id="s-${k}-n" value="${esc(r[0])}" data-st="${k}:0" aria-label="વસ્તુ">` : r[0]}</td>${[1,2,3,4].map(j => `<td class="r"><input class="e" id="s-${k}-${j}" inputmode="numeric" value="${r[j]}" data-st="${k}:${j}" aria-label="${['','લંબાઈ','પહોળાઈ','ઊંચાઈ','નંગ'][j]}"></td>`).join('')}<td class="r num">${f1(r[1]*r[4]/12)}</td><td class="r num"><b>${f1(r[1]*r[2]*r[3]*r[4]/1728)}</b></td></tr>`; }).join('')}
+        return `<tr><td>${ex ? `<input class="e en" id="s-${k}-n" value="${esc(r[0])}" data-st="${pt.key}:${k}:0" aria-label="વસ્તુ">` : r[0]}</td>${[1,2,3,4].map(j => `<td class="r"><input class="e" id="s-${k}-${j}" inputmode="numeric" value="${r[j]}" data-st="${pt.key}:${k}:${j}" aria-label="${['','લંબાઈ','પહોળાઈ','ઊંચાઈ','નંગ'][j]}"></td>`).join('')}<td class="r num">${f1(r[1]*r[4]/12)}</td><td class="r num"><b>${f1(r[1]*r[2]*r[3]*r[4]/1728)}</b></td></tr>`; }).join('')}
       <tr class="tot"><td>કુલ ${pt.name}</td><td></td><td></td><td></td><td></td><td></td><td class="r num">${f1(pt.cft)}</td></tr></tbody></table></div></div>
       <p style="color:var(--muted);font-size:13px;margin:0">દરેક ખાનું હાથ થી બદલી શકાય. ઘન ફૂટ = લંબાઈ × પહોળાઈ × ઊંચાઈ × નંગ ÷ 1728.</p>`
       : `<div class="card"><div class="bd" style="color:var(--muted)">${pt.key === 'jagati' ? '"માપ" ટેબ માં જગતી ની લંબાઈ-પહોળાઈ નાખો, પછી પથ્થર ગણાશે.' : 'આ ભાગ માં અલગ પથ્થર ની લાઇન નથી.'} <button class="btn" data-act="addrow" style="margin-left:8px">+ લાઇન ઉમેરો</button></div></div>`;
@@ -400,6 +423,9 @@ const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':
 function render(){
   document.body.dataset.style = S.style;
   const p = cur(), c = compute(p), v = S.view;
+  if (S.style === 'b') return renderB(p, c), save();
+  if (S.style === 'c') return renderC(p, c), save();
+  if (S.style === 'd') return renderD(p, c), save();
   const nav = (id, t) => `<a class="${v === id ? 'on' : ''}" data-nav="${id}" tabindex="0">${t}</a>`;
   document.getElementById('root').innerHTML = `<div class="app">
     <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>શિલ્પ રત્નાકર આધારિત</small></div></div>
@@ -415,9 +441,10 @@ function render(){
 /* ===== Events ===== */
 const num = v => { const n = parseFloat(String(v).replace(/,/g, '')); return isFinite(n) && n >= 0 ? n : 0; };
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-style],[data-nav],[data-part],[data-tab],[data-set],[data-act],[data-del],[data-open]'); if (!t) return;
+  const t = e.target.closest('[data-tog],[data-style],[data-nav],[data-part],[data-tab],[data-set],[data-act],[data-del],[data-open]'); if (!t) return;
   const p = cur(), d = t.dataset;
-  if (d.style) S.style = d.style;
+  if (d.tog){ S.open = S.open || {}; S.open[d.tog] = S.open[d.tog] === false; }
+  else if (d.style) S.style = d.style;
   else if (d.del !== undefined){ S.projects.splice(+d.del, 1); S.cur = 0; }
   else if (d.nav) S.view = d.nav;
   else if (d.part){ S.part = d.part; S.view = 'part'; }
@@ -427,7 +454,7 @@ document.addEventListener('click', e => {
   else if (d.act === 'new'){ S.projects.push(newProj('નવું મંદિર ' + (S.projects.length + 1))); S.cur = S.projects.length - 1; S.view = 'input'; }
   else if (d.act === 'addrow'){ (p.extra[S.part] = p.extra[S.part] || []).push(['નવી લાઇન', 12, 12, 12, 1]); S.tab = 'stone'; }
   else if (d.open !== undefined){ S.cur = +d.open; S.view = 'input'; }
-  render(); if (d.nav || d.part || d.open !== undefined) window.scrollTo(0, 0);
+  render(); if (d.top) window.scrollTo(0,0); if (d.nav || d.part || d.open !== undefined) window.scrollTo(0, 0);
 });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('a[data-nav],a[data-part],.hb,.pc')){ e.preventDefault(); e.target.click(); } });
 document.addEventListener('change', e => {
@@ -439,11 +466,91 @@ document.addEventListener('change', e => {
     else if (k === 'rate') p.rate = num(t.value);
     else if (k === 'jlf' || k === 'jwf'){ p.jl = g('jlf') * 12; p.jw = g('jwf') * 12; }
     else p[k] = t.value;
-  } else if (t.dataset.st){ const [kind, i, j] = t.dataset.st.split(':'), pt = c.parts.find(x => x.key === S.part);
-    if (kind === 'x'){ const row = p.extra[S.part][+i]; row[+j] = +j === 0 ? t.value : ceil(num(t.value)); }
-    else { const r = pt.stone[+i].slice(1, 5); r[+j - 1] = ceil(num(t.value)); p.ov[S.part + ':' + i] = r; }
+  } else if (t.dataset.st){ const [pk, kind, i, j] = t.dataset.st.split(':'), pt = c.parts.find(x => x.key === pk);
+    if (kind === 'x'){ const row = p.extra[pk][+i]; row[+j] = +j === 0 ? t.value : ceil(num(t.value)); }
+    else { const r = pt.stone[+i].slice(1, 5); r[+j - 1] = ceil(num(t.value)); p.ov[pk + ':' + i] = r; }
   } else return;
   const id = t.id; render(); const el = id && document.getElementById(id); if (el) el.focus();
 });
+
+/* ===== Layout 2: drawing-first (CAD sheet) ===== */
+function quick(p, c){
+  const fi = (id, v, u) => `<div class="box q"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
+  return `<div class="row qk"><span class="ql">ગર્ભગૃહ</span>${fi('gwf', Math.floor(p.gw/12), 'ફૂટ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ')}<span>×</span>${fi('gdf', Math.floor(p.gd/12), 'ફૂટ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ')}
+    <div class="box q"><select id="jati" data-in="jati">${JATI.map(([v, t]) => `<option value="${v}" ${v === p.jati ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+    <div class="box q"><em>₹</em><input id="rate" class="num" inputmode="numeric" value="${p.rate}" data-in="rate"><em>/CFT</em></div></div>`;
+}
+function stack(c, sel){
+  const keys = ['jagati','pith','bhit','mandovar'];
+  const H = {jagati: c.parts[3].thar.total, bhit: c.parts[1].thar.total, pith: c.parts[2].thar.total, mandovar: c.parts[4].thar.total};
+  const shik = Math.round(c.P * 1.33); const tot = H.jagati + H.bhit + H.pith + H.mandovar + shik;
+  const VH = 620, sc = VH / tot, cx = 210, Pw = Math.min(220, 220);
+  let y = 650, o = '';
+  const band = (k, h, w, label) => { const hh = h * sc; y -= hh; const on = sel === k;
+    o += `<g class="bd2" data-part="${k}"><rect x="${cx - w/2}" y="${y}" width="${w}" height="${hh}" fill="${on ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${on ? 2 : 1}"/>
+      <text x="${cx + w/2 + 14}" y="${y + hh/2 + 4}" font-size="13" fill="var(--ink)">${label}</text><text x="${cx - w/2 - 12}" y="${y + hh/2 + 4}" font-size="12" text-anchor="end" fill="var(--muted)" font-family="Inter">${h}″</text></g>`; };
+  band('jagati', H.jagati, 380, 'જગતી'); band('bhit', H.bhit, 270, 'ભીત'); band('pith', H.pith, 250, 'પીઠ');
+  // mandovar with thars
+  { const hh = H.mandovar * sc, top = y - hh, on = sel === 'mandovar'; let yy = y;
+    o += `<g class="bd2" data-part="mandovar">`;
+    c.parts[4].thar.rows.forEach(r => { const h = r.h * sc; yy -= h; const nk = r.nik * sc * 1.5; o += `<rect x="${cx - Pw/2 - nk}" y="${yy}" width="${Pw + 2*nk}" height="${h}" fill="${on ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${on ? 1.4 : .7}"/>`; });
+    const dh = c.parts[6].kpis[0][1].replace('″','') * sc, dw = c.parts[6].kpis[1][1].replace('″','') * sc;
+    o += `<rect x="${cx - dw/2}" y="${y - dh}" width="${dw}" height="${dh}" fill="var(--bg)" stroke="var(--ink)" stroke-width=".8" data-part="dwar" class="bd2"/>`;
+    o += `<text x="${cx + Pw/2 + 14}" y="${top + hh/2 + 4}" font-size="13" fill="var(--ink)">મંડોવર</text><text x="${cx - Pw/2 - 12}" y="${top + hh/2 + 4}" font-size="12" text-anchor="end" fill="var(--muted)" font-family="Inter">${H.mandovar}″</text></g>`;
+    y = top; }
+  // shikhar outline (later phase)
+  const sh = shik * sc; o += `<path d="M${cx - Pw/2 + 10} ${y} C ${cx - Pw/2 + 20} ${y - sh*.6}, ${cx - 30} ${y - sh*.95}, ${cx} ${y - sh} C ${cx + 30} ${y - sh*.95}, ${cx + Pw/2 - 20} ${y - sh*.6}, ${cx + Pw/2 - 10} ${y} Z" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/><text x="${cx}" y="${y - sh*.45}" font-size="12" text-anchor="middle" fill="var(--muted)">શિખર — પછી</text>`;
+  o += `<line x1="20" y1="650" x2="400" y2="650" stroke="var(--ink)" stroke-width="1.5"/>`;
+  return `<svg viewBox="0 0 470 670" class="cad" role="img" aria-label="મંદિર નું ચિત્ર">${o}</svg>`;
+}
+function partBody(p, c, pt){ // shared detail (maap + stone) for layouts 2 and 3
+  const saveView = S.view; const html = vPart(p, c).split('<div class="kpis">')[1]; S.view = saveView;
+  return '<div class="kpis">' + html;
+}
+function renderB(p, c){
+  const sel = S.part, pt = c.parts.find(x => x.key === sel) || c.parts[4];
+  document.getElementById('root').innerHTML = `<div class="lb2">
+    <header class="hb2"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>${esc(p.name)}</small></div></div><span class="sp"></span>
+      <div class="tot2 num"><span>${f1(c.total)} CFT</span><b>${rs(c.total * p.rate)}</b></div>${styleBar()}</header>
+    ${quick(p, c)}
+    <div class="g2"><section class="sheet"><div class="sheet-hd"><span>ELEVATION · પ્રાસાદ ${ftin(c.P)}</span><span>ભાગ પર ક્લિક કરો</span></div>${stack(c, sel)}
+      <div class="chips" style="padding:0 12px 12px">${c.parts.map(x => `<button class="chip ${x.key === pt.key ? 'on' : ''}" data-part="${x.key}">${x.name}</button>`).join('')}</div></section>
+      <section class="det2"><div class="bar"><h1>${pt.name}</h1><span class="sp"></span><div class="tabs"><button class="${S.tab === 'maap' ? 'on' : ''}" data-tab="maap">માપ</button><button class="${S.tab === 'stone' ? 'on' : ''}" data-tab="stone">પથ્થર</button></div></div>${partBody(p, c, pt)}</section></div></div>`;
+}
+/* ===== Layout 3: tiles + summary hero ===== */
+function renderC(p, c){
+  const open = S.part, pt = c.parts.find(x => x.key === open);
+  const key = x => x.kpis[0];
+  document.getElementById('root').innerHTML = `<div class="lc">
+    <header class="hc"><div class="row" style="justify-content:space-between"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b></div></div>${styleBar()}</div>
+      <div class="hero"><div><small>${esc(p.name)}</small><h1 class="num">${rs(c.total * p.rate)}</h1><div class="hs num">${f1(c.total)} ઘન ફૂટ પથ્થર · પ્રાસાદ ${ftin(c.P)} · મંડોવર ${ftin(c.mando)}</div></div></div>
+      ${quick(p, c)}</header>
+    <div class="tiles">${c.parts.map(x => `<button class="tile ${x.key === open ? 'on' : ''}" data-part="${x.key}"><span class="tn">${x.name}</span><span class="tk num">${key(x)[1]}</span><span class="ts">${key(x)[0]}</span><span class="tc num">${x.cft ? f1(x.cft) + ' CFT' : '—'}</span></button>`).join('')}
+      ${LATER.map(n => `<div class="tile off"><span class="tn">${n}</span><span class="ts">પછી ના તબક્કા માં</span></div>`).join('')}</div>
+    ${pt ? `<section class="sheetc"><div class="bar"><h1>${pt.name}</h1><span class="sp"></span><div class="tabs"><button class="${S.tab === 'maap' ? 'on' : ''}" data-tab="maap">માપ</button><button class="${S.tab === 'stone' ? 'on' : ''}" data-tab="stone">પથ્થર</button></div></div>${partBody(p, c, pt)}</section>` : ''}</div>`;
+}
+/* ===== Layout 4: estimate sheet (BOQ) ===== */
+function renderD(p, c){
+  S.open = S.open || {};
+  const fi = (id, v, u, l) => `<label class="dl" for="${id}">${l}</label><div class="box"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
+  const rows = c.parts.map(pt => { const op = S.open[pt.key] !== false;
+    return `<tr class="grp" data-tog="${pt.key}"><td colspan="6"><span class="car">${op ? '▾' : '▸'}</span> ${pt.name} <span class="src">${pt.src}</span></td><td class="r num">${f1(pt.cft)}</td><td class="r num">${rs(pt.cft * p.rate)}</td></tr>` +
+      (op ? pt.stone.map((r, i) => { const ex = r[5], base = pt.stone.filter(x => !x[5]).length, k = ex ? `x:${i - base}` : `o:${i}`, cf = r[1]*r[2]*r[3]*r[4]/1728;
+        return `<tr><td class="it">${ex ? `<input class="e en" id="d-${pt.key}-${k}-n" value="${esc(r[0])}" data-st="${pt.key}:${k}:0">` : r[0]}</td>${[1,2,3,4].map(j => `<td class="r"><input class="e" id="d-${pt.key}-${k}-${j}" inputmode="numeric" value="${r[j]}" data-st="${pt.key}:${k}:${j}"></td>`).join('')}<td class="r num">${f1(r[1]*r[4]/12)}</td><td class="r num">${f1(cf)}</td><td class="r num">${rs(cf * p.rate)}</td></tr>`; }).join('') +
+        (pt.stone.length ? '' : `<tr><td colspan="8" class="it" style="color:var(--muted)">${pt.key === 'jagati' ? 'જગતી નું માપ ડાબી બાજુ નાખો.' : 'પથ્થર ની લાઇન નથી.'}</td></tr>`) : ''); }).join('');
+  document.getElementById('root').innerHTML = `<div class="ld">
+    <header class="hd4"><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><span class="crumb">${esc(p.name)} · અંદાજ પત્રક</span><span class="sp"></span>${styleBar()}</header>
+    <div class="g4"><aside class="inp4">
+      <div class="dh">માહિતી</div>
+      <div class="dg">${fi('gwf', Math.floor(p.gw/12), 'ફૂટ', 'ગર્ભગૃહ પહોળાઈ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ', '')}${fi('gdf', Math.floor(p.gd/12), 'ફૂટ', 'ગર્ભગૃહ ઊંડાઈ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ', '')}
+        ${fi('face', p.face, '″', 'પથ્થર ની જાડાઈ')}${fi('rate', p.rate, '₹/CFT', 'દર')}
+        ${fi('jlf', p.jl ? Math.round(p.jl/12) : '', 'ફૂટ', 'જગતી લંબાઈ')}${fi('jwf', p.jw ? Math.round(p.jw/12) : '', 'ફૂટ', 'જગતી પહોળાઈ')}</div>
+      <div class="dh">દીવાલ</div>${seg('ratio', p.ratio, [[5,'⅕'],[5.5,'1⁄5½'],[6,'⅙']])}${seg('wall', p.wall, [['brick','ઈંટ + પથ્થર'],['stone','પૂરો પથ્થર']])}
+      <div class="dh">રીત</div>${seg('m.man', p.m.man, [[1,'મં. 1'],[2,'મં. 2'],[3,'મં. 3'],[4,'મં. 4']])}${seg('m.pith', p.m.pith, [[1,'પીઠ 1'],[2,'પીઠ 2']])}${seg('grade', p.grade, [['j','જ્યેષ્ઠ'],['m','મધ્યમ'],['k','કનિષ્ઠ']])}
+      <div class="sum4"><div><small>પ્રાસાદ</small><b class="num">${ftin(c.P)}</b></div><div><small>દીવાલ</small><b class="num">${c.t}″</b></div><div><small>મંડોવર</small><b class="num">${ftin(c.mando)}</b></div></div>
+    </aside>
+    <section class="boq"><div class="sx"><table><thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ ″</th><th class="r">પહોળાઈ ″</th><th class="r">ઊંચાઈ ″</th><th class="r">નંગ</th><th class="r">RFT</th><th class="r">CFT</th><th class="r">₹</th></tr></thead>
+      <tbody>${rows}</tbody><tfoot><tr><td colspan="6">કુલ</td><td class="r num">${f1(c.total)}</td><td class="r num">${rs(c.total * p.rate)}</td></tr></tfoot></table></div></section></div></div>`;
+}
 render();
 </script>
