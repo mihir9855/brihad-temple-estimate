@@ -30,7 +30,7 @@ button{font:inherit;color:inherit;cursor:pointer} input,select{font:inherit;colo
 @media (prefers-reduced-motion: no-preference){.btn,.chip,.rail a,.seg button,.card{transition:background .15s,color .15s,border-color .15s,transform .15s}}
 
 .app{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100%}
-.rail{background:var(--side-bg);color:var(--side-ink);border-right:1px solid var(--side-line);padding:16px 12px;display:flex;flex-direction:column;gap:12px;align-self:start;position:sticky;top:env(safe-area-inset-top,0px);max-height:100vh;overflow:auto}
+.rail{background:var(--side-bg);color:var(--side-ink);border-right:1px solid var(--side-line);padding:16px 12px;display:flex;flex-direction:column;gap:12px;align-self:stretch;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}
 .brand{display:flex;gap:10px;align-items:center;padding:4px 6px}
 .logo{width:36px;height:36px;border-radius:var(--radius-s);background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
 body[data-style="d"] .logo{border-radius:12px}
@@ -124,8 +124,7 @@ body[data-style="b"] .live{background:var(--surface2);color:var(--ink);border:1p
 }
 
 /* ---- Layout 2: drawing-first CAD sheet ---- */
-body[data-style="b"]{--bg:#e9eef4;--surface:#ffffff;--surface2:#eef2f7;--line:#c9d3df;--ink:#16324f;--muted:#5f7690;--accent:#1d63c9;--accent-ink:#fff;--accent-soft:#dbe8fb;
-  --radius:6px;--radius-s:4px;--shadow:none;--font:"Mukta Vaani","Inter",sans-serif;--head:"Mukta Vaani","Inter",sans-serif;color-scheme:light}
+
 .lb2{padding-block:12px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:12px;max-width:1400px;margin:0 auto}
 .hb2,.hd4{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .tot2{display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}.tot2 span{color:var(--muted);font-size:12.5px}.tot2 b{font-size:18px}
@@ -139,8 +138,7 @@ body[data-style="b"]{--bg:#e9eef4;--surface:#ffffff;--surface2:#eef2f7;--line:#c
 .det2{display:grid;gap:12px;min-width:0}.det2 .bar h1{font-size:22px}
 .det2 .kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .det2 .split{grid-template-columns:minmax(0,1fr)} .det2 .elev{display:none}
 /* ---- Layout 3: tiles ---- */
-body[data-style="c"]{--bg:#faf7f2;--surface:#ffffff;--surface2:#f3ede4;--line:#e8dfd2;--ink:#2b2118;--muted:#7a6a5a;--accent:#c2410c;--accent-ink:#fff;--accent-soft:#fde8dc;
-  --radius:20px;--radius-s:12px;--shadow:0 6px 24px rgba(43,33,24,.07);--font:"Noto Sans Gujarati","Inter",sans-serif;--head:"Baloo Bhai 2","Noto Sans Gujarati",sans-serif;color-scheme:light}
+
 .lc{padding-block:12px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px;max-width:1100px;margin:0 auto}
 .hc{display:grid;gap:12px}
 .hero{background:var(--ink);color:var(--bg);border-radius:var(--radius);padding:20px 22px}
@@ -152,8 +150,7 @@ body[data-style="c"]{--bg:#faf7f2;--surface:#ffffff;--surface2:#f3ede4;--line:#e
 .tile.off{opacity:.5;box-shadow:none;border-style:dashed;background:transparent}
 .sheetc{background:var(--surface);border-radius:var(--radius);padding:16px;display:grid;gap:12px;border:1px solid var(--line);min-width:0}
 /* ---- Layout 4: BOQ sheet ---- */
-body[data-style="d"]{--bg:#ffffff;--surface:#ffffff;--surface2:#f2f5f3;--line:#dde3df;--ink:#111a15;--muted:#5d6b63;--accent:#127a4b;--accent-ink:#fff;--accent-soft:#e1f3e9;
-  --radius:2px;--radius-s:2px;--shadow:none;--font:"Anek Gujarati","Inter",sans-serif;--head:"Anek Gujarati","Inter",sans-serif;color-scheme:light}
+
 .ld{display:grid;min-height:100%}
 .hd4{padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:2px solid var(--ink)}
 .g4{display:grid;grid-template-columns:290px minmax(0,1fr)}
@@ -167,6 +164,18 @@ body[data-style="d"]{--bg:#ffffff;--surface:#ffffff;--surface2:#f2f5f3;--line:#d
 .boq tr.grp .src{background:transparent;color:inherit;opacity:.6;font-weight:400}.boq td.it{padding-left:28px}
 .boq tfoot td{font-weight:700;font-size:15px;border-top:2px solid var(--ink);padding:10px}.boq .e{width:62px}
 @media (max-width:860px){.g2,.g4{grid-template-columns:minmax(0,1fr)}.sheet{position:static}.inp4{border-right:0}.hero h1{font-size:28px}.tiles{grid-template-columns:1fr 1fr}}
+
+.hero{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between}
+.hero .hr{display:flex;gap:22px;flex-wrap:wrap}.hero .hr small{display:block;opacity:.7;font-size:12px}.hero .hr b{font-size:19px}
+.ql{font-size:13px;color:var(--muted)}
+.tile .tk{font-family:var(--num)}
+.dpair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}.dpair>*{min-width:0}
+.dcard .dbody{padding:10px;background-image:linear-gradient(var(--surface2) 1px,transparent 1px),linear-gradient(90deg,var(--surface2) 1px,transparent 1px);background-size:22px 22px;border-radius:0 0 var(--radius) var(--radius)}
+svg.dw{width:100%;height:auto;display:block;max-height:640px}.dpair.big svg.dw{max-height:78vh}
+.hit{cursor:pointer}.hit:hover rect,.hit:hover path,.hit:hover polygon{stroke:var(--accent)}
+.pdraw .card{box-shadow:none}.pdraw.solo{max-width:560px}
+.railtot{margin-top:auto;background:var(--accent);color:var(--accent-ink);border-radius:var(--radius-s);padding:10px 12px;display:grid}.railtot small{opacity:.8;font-size:12px}.railtot b{font-size:18px}.railtot span{font-size:13px;opacity:.9}
+@media (max-width:860px){.dpair{grid-template-columns:minmax(0,1fr)}.hero .hr{gap:14px}}
 </style>
 
 <div id="root"></div>
@@ -306,12 +315,61 @@ function compute(p){
       chips:[{l:'રીત', path:'dwar', opts:[['auto','જાતિ પ્રમાણે'],['n1','નાગર 1'],['n2','નાગર 2'],['bh','ભૂમિજ'],['dr','દ્રાવિડ']]}],
       warn:['ઓતરંગ અને શંખાવટ ની ઊંચાઈ ગ્રંથ માં ચોક્કસ નથી — અંદાજ મૂક્યો છે, હાથ થી બદલી શકાય.']}); }
 
+  const ptK = k => parts.find(x => x.key === k);
+  const MR = ptK('mandovar').thar.rows;
+  const upTo = name => { let h = 0; for (const r of MR){ h += r.h; if (r.n.startsWith(name)) return h; } return h; };
+  const mandK = G <= 3 ? 2 : G <= 4 ? 1.75 : G <= 10 ? 1.5 : 1.25, mk0 = p.m.mandK || mandK, mand = ceil(Px * mk0), pad = p.m.pad || 5, mid = ceil(mand * (pad === 5 ? 2/5 : pad === 7 ? 3/7 : 4/9));
+  const stCount = p.m.stCount || 12;
+  parts.push({key:'mandap', name:'મંડપ', src:'ચતુર્થ રત્ન · શ્લો. 1–17',
+    kpis:[['મંડપ', ftin(mand), 'ચોરસ'],['મધ્ય ખંડ', ftin(mid), pad + ' ભાગ માંથી'],['વિસ્તાર', f1(mand*mand/144), 'ચો. ફૂટ']],
+    meas:[['મંડપ ની પહોળાઈ (ચોરસ)', mand, 'પ્રાસાદ × ' + mk0],['પદ વિભાગ', pad + ' ભાગ', 'શ્લો. 15'],['મધ્ય ખંડ', mid, ''],['બાજુ ના ખંડ', ceil((mand - mid)/2), ''],['કોલી (પ્રાસાદ અને મંડપ વચ્ચે)', ceil(Px*.12), 'અંદાજ'],['મંડપ ની ભોંય', f1(mand*mand/144) + ' ચો. ફૂટ', 'ફરસ']],
+    stone:[['ફરસ (લાદી)', mand, mand, 2, 1]],
+    chips:[{l:'માપ', path:'mandK', opts:[[0,'પ્રાસાદ પ્રમાણે'],[1,'× 1'],[1.25,'× 1¼'],[1.5,'× 1½'],[1.75,'× 1¾'],[2,'× 2']]},{l:'પદ', path:'pad', opts:[[5,'5'],[7,'7'],[9,'9']]}],
+    warn:['ફરસ ની જાડાઈ 2″ ધારી છે — બદલી શકાય.']});
+  { const wA = G <= 3 ? interp(G, [[1,4],[2,7],[3,9]]) : stepFrom(G, 3, 9, [[12,2],[16,1.25],[40,1],[50,.75]]);
+    const sw = ceil(IN(wA)), Hb = upTo('ભરણી'), u = Hb / 7;
+    const rows = [['કુંભી',1],['સ્તંભ',5],['ભારણું',.5],['શરુ',.5],['પાટ',1]].map(([n, b]) => ({n, b, h: ceil(b*u), nik:0}));
+    const tot = rows.reduce((a,r)=>a+r.h,0);
+    parts.push({key:'stambh', name:'સ્તંભ', src:'ચતુર્થ રત્ન · શ્લો. 51–67',
+      kpis:[['સ્તંભ પહોળાઈ', sw + '″', 'ચોરસ'],['ઊભણી', tot + '″', ftin(tot)],['નંગ', String(stCount), 'મંડપ માં']],
+      thar:{rows, sum:8, total: tot, book: ceil(Hb*8/7)},
+      stone:[['કુંભી', ceil(sw*1.25), ceil(sw*1.25), rows[0].h, stCount],['સ્તંભ', sw, sw, rows[1].h, stCount],['ભારણું', ceil(sw*1.15), ceil(sw*1.15), rows[2].h, stCount],['શરુ', ceil(sw*1.3), ceil(sw*1.3), rows[3].h, stCount],['પાટ', mid, sw, rows[4].h, stCount]],
+      chips:[{l:'નંગ', path:'stCount', opts:[[4,'4'],[8,'8'],[12,'12'],[16,'16'],[20,'20']]}],
+      warn:['સ્તંભ ની ટોચ મંડોવર ના ઉદ્ગમ, ભારણું ભરણી ની સમતલ (શ્લો. 57–58). પાટ ની લંબાઈ = મધ્ય ખંડ.']}); }
+  { const D = mid, list = [['કર્ણદર્દરી',7],['રૂપકંઠ',4],['ગવાળું',6.5],['ગવાળું',6],['કોલ',5],['ગવાળું',4.5]];
+    const T = tharRows(list, D/2, p.m.keep);
+    parts.push({key:'ghummat', name:'ઘુમ્મટ', src:'ચતુર્થ રત્ન · શ્લો. 93–102',
+      kpis:[['વ્યાસ', ftin(ceil(D)), 'મધ્ય ખંડ જેટલો'],['ઊંચાઈ', T.total + '″', 'વ્યાસ નો ½'],['થર', String(T.rows.length), 'રીત 2']],
+      thar:T, stone: T.rows.map((r, i) => [r.n + ' (ગોળ)', ceil(Math.PI * D * (1 - i/(T.rows.length+1))), ceil(dep), r.h, 1]),
+      warn:['ઘુમ્મટ અષ્ટકોણ → 16 બાજુ → ગોળ; થર ની લંબાઈ ગોળ ઘેરાવા પ્રમાણે અંદાજ.']}); }
+  const gK = p.grade === 'j' ? 1.25 : p.grade === 'k' ? 1.5 : 4/3;
+  const Bw = P, Sh = ceil(Bw * gK), Sk = ceil(Bw * .6);
+  { const slant = Math.sqrt(Sh*Sh + ((Bw - Sk)/2)**2), avg = (Bw + Sk)/2;
+    parts.push({key:'shikhar', name:'શિખર', src:'પંચમ રત્ન · શ્લો. 16–47',
+      kpis:[['રેખા ઊંચાઈ', Sh + '″', ftin(Sh)],['પાયો', Bw + '″', 'કર્ણ થી કર્ણ'],['સ્કંધ', Sk + '″', 'પાયા ના 6⁄10']],
+      meas:[['શિખર રેખા ઊંચાઈ (પાયાચા થી સ્કંધ)', Sh, p.grade === 'j' ? 'પાયો × 1¼' : p.grade === 'k' ? 'પાયો × 1½' : 'પાયો × 1⅓'],['પાયા ની પહોળાઈ', Bw, '10 ભાગ: કર્ણ 2 · પઢરો 1½ · ભદ્ર 3'],['સ્કંધ (બંધન) ની પહોળાઈ', Sk, '6 ભાગ (શ્લો. 23)'],
+        ['કર્ણ શૃંગ ઊંચાઈ', ceil(Sh*.32), 'અંદાજ'],['પહેલું ઉરુશૃંગ ઊંચાઈ', ceil(Sh*7/13), '13 માં 7 ભાગ (શ્લો. 21–22)'],['શુકનાસ ઊંચાઈ', ceil(Sh*11/21), '21 માં 11 ભાગ (નિઘંટ)'],['ધ્વજ કલાબો નિકાળો', ceil(IN(G)), 'દર 1′-6″ એ ¾″']],
+      stone:[['શિખર ની ચાર બાજુ (પડ)', ceil(avg), ceil(dep), ceil(slant), 4],['કર્ણ શૃંગ', ceil(Bw*.2), ceil(Bw*.2), ceil(Sh*.32), 4],['ઉરુશૃંગ', ceil(Bw*.3), ceil(dep), ceil(Sh*7/13), 4]],
+      warn:['શિખર નો પથ્થર ' + dep + '″ ના પડ તરીકે અંદાજ્યો છે; શૃંગ-ઉરુશૃંગ ની સંખ્યા પ્રાસાદ ના પ્રકાર પ્રમાણે બદલાય.']}); }
+  { const Aw = ceil(Bw*.6), Ah = ceil(Aw/2), q = Ah/4, Kw = ceil(Px/8 * (p.grade === 'j' ? 17/16 : p.grade === 'm' ? 33/32 : 1)), Kh = ceil(Kw*1.5);
+    const rows = [['ગ્રીવા',.75],['આમલસારો',1.25],['ચંદ્રિકા',1],['આમલસારી (ઝંજરી)',1]].map(([n,b]) => ({n, b, h: ceil(b*q), nik:0}));
+    parts.push({key:'amalsaro', name:'આમલસારો / કલશ', src:'પંચમ રત્ન · શ્લો. 57–66',
+      kpis:[['આમલસારો', Aw + '″', 'પહોળાઈ'],['ઊંચાઈ', Ah + '″', 'પહોળાઈ નો ½'],['કલશ', Kw + '″ × ' + Kh + '″', 'પહોળાઈ × ઊંચાઈ']],
+      thar:{rows, sum:4, total: rows.reduce((a,r)=>a+r.h,0), book: Ah},
+      stone:[['ગ્રીવા', ceil(Aw*.72), ceil(Aw*.72), rows[0].h, 1],['આમલસારો', Aw, Aw, rows[1].h, 1],['ચંદ્રિકા', ceil(Aw*.84), ceil(Aw*.84), rows[2].h, 1],['આમલસારી', ceil(Aw*.6), ceil(Aw*.6), rows[3].h, 1],['કલશ', Kw, Kw, Kh, 1]],
+      warn:['કલશ પ્રાસાદ નો ⅛ (+1⁄16 જ્યેષ્ઠ, +1⁄32 મધ્યમ); 9 × 6 ભાગ: ગ્રીવા+પીઠ 1, અંડક 3, છજ્જી 1, કણી 1, બીજપૂર 3.']}); }
+  { const L = ceil(Px * (p.grade === 'j' ? 1 : p.grade === 'm' ? .9 : .8)), th = ceil(IN(stepFrom(Math.max(G,1), 1, .75, [[50,.5]]))), mk = ceil(L/6);
+    parts.push({key:'dhwaj', name:'ધ્વજદંડ', src:'પંચમ રત્ન · શ્લો. 76–93',
+      kpis:[['લંબાઈ', L + '″', ftin(L)],['જાડાઈ', th + '″', 'ગોળ'],['પતાકા પહોળાઈ', ceil(L/8) + '″', 'લંબાઈ દંડ જેટલી']],
+      meas:[['ધ્વજદંડ લંબાઈ', L, 'પ્રાસાદ પહોળાઈ (રીત 1)'],['ધ્વજદંડ જાડાઈ', th, 'દર 1′-6″ એ +⅜″'],['મર્કટી (પાટલી) લંબાઈ', mk, 'દંડ નો 1⁄6'],['મર્કટી પહોળાઈ', ceil(mk/2), ''],['મર્કટી જાડાઈ', ceil(mk/6), ''],['પતાકા લંબાઈ', L, 'દંડ જેટલી'],['પતાકા પહોળાઈ', ceil(L/8), 'દંડ નો ⅛'],['પર્વ', 'એકી સંખ્યા', 'શ્લો. 84–87']],
+      stone:[], warn:['ધ્વજદંડ લાકડા / ધાતુ નો હોય — પથ્થર માં ગણ્યો નથી. સ્થાન: પાછળ જમણો પઢરો (શ્લો. 56, 93).']}); }
+  parts.splice(parts.findIndex(x => x.key === 'paya'), 1);
   // overrides, extras, totals
   for (const pt of parts){
     pt.stone = pt.stone.map((r, i) => { const o = p.ov[pt.key + ':' + i]; return o ? [r[0], ...o] : r; }).concat((p.extra[pt.key] || []).map(r => [...r, true]));
     pt.cft = pt.stone.reduce((a, r) => a + r[1]*r[2]*r[3]*r[4]/1728, 0);
   }
-  return {P, Pd, t, G, parts, total: parts.reduce((a, x) => a + x.cft, 0), warn: W, mando: parts[4].thar.total};
+  return {P, Pd, t, G, parts, total: parts.reduce((a, x) => a + x.cft, 0), warn: W, mando: parts.find(x => x.key === 'mandovar').thar.total};
 }
 
 /* ===== State ===== */
@@ -329,9 +387,9 @@ const ic = {
   edit:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>',
   chart:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V10M11 20V4M17 20v-7M22 20H2"/></svg>',
 };
-const LATER = ['મંડપ','સ્તંભ','ઘુમ્મટ','શિખર','આમલસારો / કલશ','ધ્વજદંડ'];
+const LATER = [];
 const seg = (path, val, opts, scope = 'p') => `<div class="seg">${opts.map(([v, t]) => `<button type="button" class="${String(v) === String(val) ? 'on' : ''}" data-set="${scope}.${path}" data-v="${v}">${t}</button>`).join('')}</div>`;
-const styleBar = () => `<div class="styles" role="group" aria-label="ડિઝાઇન">ડિઝાઇન ${['a','b','c','d'].map((s, i) => `<button type="button" class="${S.style === s ? 'on' : ''}" data-style="${s}" aria-label="ડિઝાઇન ${i+1}">${i+1}</button>`).join('')}</div>`;
+const styleBar = () => ''; const _oldStyleBar = () => `<div class="styles" role="group" aria-label="ડિઝાઇન">ડિઝાઇન ${['a','b','c','d'].map((s, i) => `<button type="button" class="${S.style === s ? 'on' : ''}" data-style="${s}" aria-label="ડિઝાઇન ${i+1}">${i+1}</button>`).join('')}</div>`;
 
 function vProjects(){
   return `<div class="bar"><h1>પ્રોજેક્ટ</h1><span class="sp"></span>${styleBar()}<button class="btn pri" data-act="new">+ નવો પ્રોજેક્ટ</button></div>
@@ -432,7 +490,7 @@ function render(){
       ${nav('projects', 'બધા પ્રોજેક્ટ')}${nav('input', 'માહિતી')}${nav('summary', 'સારાંશ')}
       <div class="lab">ભાગ — નીચે થી ઉપર</div>
       ${c.parts.map(x => `<a class="${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}<span class="c num">${x.cft ? f1(x.cft) : '—'}</span></a>`).join('')}
-      <div class="lab">પછી ના તબક્કા</div>${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}</aside>
+      ${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}</aside>
     <main class="main"><div class="wrap">${v === 'projects' ? vProjects() : v === 'input' ? vInput(p, c) : v === 'summary' ? vSummary(p, c) : vPart(p, c)}</div></main></div>
     <nav class="bnav" aria-label="મુખ્ય">${[['projects','પ્રોજેક્ટ',ic.grid],['input','માહિતી',ic.edit],['part','ભાગ',ic.temple.replace(/20/g,'22')],['summary','સારાંશ',ic.chart]].map(([id, t, i]) => `<button class="${v === id ? 'on' : ''}" data-nav="${id}">${i}${t}</button>`).join('')}</nav>`;
   save();
@@ -552,5 +610,239 @@ function renderD(p, c){
     <section class="boq"><div class="sx"><table><thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ ″</th><th class="r">પહોળાઈ ″</th><th class="r">ઊંચાઈ ″</th><th class="r">નંગ</th><th class="r">RFT</th><th class="r">CFT</th><th class="r">₹</th></tr></thead>
       <tbody>${rows}</tbody><tfoot><tr><td colspan="6">કુલ</td><td class="r num">${f1(c.total)}</td><td class="r num">${rs(c.total * p.rate)}</td></tr></tfoot></table></div></section></div></div>`;
 }
+
+/* ===================== FINAL DESIGN: sidebar (1) + hero/tiles (3) + CAD drawings ===================== */
+const fmtDim = i => ftin(ceil(i));
+function planInfo(p, c){
+  const pr = p.prasad[0] === 'k' ? PRASAD[+p.prasad.slice(1)] : null;
+  const kesh = pr && +pr.tal === 8;
+  // segments along one side: [name, bhag, projection bhag]
+  const segs = kesh ? [['કર્ણ',2,0],['ભદ્ર',4,1],['કર્ણ',2,0]] : [['કર્ણ',2,0],['પઢરો',1.5,.25],['ભદ્ર',3,.75],['પઢરો',1.5,.25],['કર્ણ',2,0]];
+  const tot = kesh ? 8 : 10;
+  return {segs, tot, label: kesh ? 'કેશરી · તલ 8 ભાગ' : 'તલ 10 ભાગ (રેખા 2 · પઢરો 1½ · ભદ્ર 3)'};
+}
+function sideOffsets(len, info){ const b = len / info.tot; let x = -len/2; return info.segs.map(([n, w, pj]) => { const a = x; x += w*b; return {n, a, z: x, pj: pj*b, w: w*b}; }); }
+
+function elevSVG(p, c, sel){
+  const P = c.P, pt = k => c.parts.find(x => x.key === k);
+  const J = pt('jagati').thar, B = pt('bhit').thar, PI = pt('pith').thar, M = pt('mandovar').thar;
+  const info = planInfo(p, c), segs = sideOffsets(P, info);
+  const gK = p.grade === 'j' ? 1.25 : p.grade === 'k' ? 1.5 : 4/3;
+  const Bw = P, Sh = Bw * gK, Sk = 0.6 * Bw, Aw = 0.62 * Bw, Ah = Aw / 2, Kw = P / 8, Kh = Kw * 1.5, Dl = P * (p.grade === 'j' ? 1 : p.grade === 'k' ? .8 : .9);
+  const jagH = J.total, bH = B.total, pH = PI.total, mH = M.total;
+  const top = jagH + bH + pH + mH + Sh + Ah + Kh;
+  const pithCum = []; { let cum = 0; for (let i = PI.rows.length - 1; i >= 0; i--){ cum += PI.rows[i].nik; pithCum[i] = cum; } }
+  const pithBase = P + 2 * (pithCum[0] || 0);
+  const MP = pt('mandap'), mandW = +(MP.meas[0][1]), koli = ceil(P*.12), ST = pt('stambh');
+  let jl0 = -(pithBase/2 + P*.3), jr0 = P/2 + koli + mandW + P*.3;
+  if (p.jl > 0){ const mid0 = (jl0 + jr0)/2; jl0 = mid0 - p.jl/2; jr0 = mid0 + p.jl/2; }
+  const jagW = jr0 - jl0;
+  const W = jagW + 2*30 + 140, Ht = Math.max(top, jagH + bH + pH + mH + Sh + Dl * .9) + 40;
+  const fs = Math.max(Ht, W) / 52, sw = fs / 9;
+  const X0 = 150 - jl0; // center x
+  const Y = v => Ht - 20 - v; // inch -> svg y
+  let o = '', y = 0;
+  const hl = k => sel === k;
+  const st = k => `stroke="${hl(k) ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${hl(k) ? sw*2.2 : sw}"`;
+  const fl = (k, alt) => `fill="${hl(k) ? 'var(--accent-soft)' : alt ? 'var(--surface2)' : 'var(--surface)'}"`;
+  const rect = (x, yy, w, h, k, alt) => `<rect x="${X0 + x}" y="${Y(yy + h)}" width="${w}" height="${h}" ${fl(k, alt)} ${st(k)}/>`;
+  // ground
+  o += `<line x1="${X0 + jl0 - 40}" y1="${Y(0)}" x2="${X0 + jr0 + 40}" y2="${Y(0)}" stroke="var(--ink)" stroke-width="${sw*2.5}"/>`;
+  // jagati
+  o += `<g data-part="jagati" class="hit">`; J.rows.forEach((r, i) => { const nk = r.nik; o += rect(jl0 - nk, y, jagW + 2*nk, r.h, 'jagati', i % 2); y += r.h; }); o += `</g>`;
+  const yJ = y;
+  // bhit
+  o += `<g data-part="bhit" class="hit">`; B.rows.forEach((r, i) => { const w = pithBase + 2*r.nik; o += rect(-w/2, y, w, r.h, 'bhit', i % 2); y += r.h; }); o += `</g>`;
+  // pith (stepped)
+  o += `<g data-part="pith" class="hit">`; PI.rows.forEach((r, i) => { const w = P + 2*pithCum[i]; o += rect(-w/2, y, w, r.h, 'pith', i % 2);
+    if (r.n.includes('ગજ')) for (let k = -w/2 + r.h*0.6; k < w/2 - r.h; k += r.h*1.6) o += `<circle cx="${X0 + k + r.h*.5}" cy="${Y(y + r.h/2)}" r="${r.h*.28}" fill="none" stroke="var(--muted)" stroke-width="${sw*.8}"/>`;
+    y += r.h; }); o += `</g>`;
+  const yM0 = y;
+  // ---- mandap (side) : pith, stambh, paat, chhajja, samvarana ----
+  { const x0 = P/2 + koli, x1 = x0 + mandW, pyB = yJ; let yy = pyB;
+    o += `<g data-part="mandap" class="hit">`;
+    PI.rows.forEach((r, i) => { o += rect(x0 - P*.02, yy, mandW + pithCum[i] + P*.02, r.h, 'mandap', i % 2); yy += r.h; });
+    const sr = ST.thar.rows, sH = ST.thar.total, sw2 = +ST.kpis[0][1].replace('″',''), n = 4;
+    const ub = yy;
+    o += `</g><g data-part="stambh" class="hit">`;
+    for (let k = 0; k < n; k++){ const cx = x0 + sw2*.8 + (mandW - sw2*1.6) * k/(n-1); let yc = ub;
+      sr.slice(0, 4).forEach((r, j) => { const w = j === 1 ? sw2 : sw2*1.3; o += `<rect x="${X0 + cx - w/2}" y="${Y(yc + r.h)}" width="${w}" height="${r.h}" ${fl('stambh', j % 2)} ${st('stambh')}/>`; yc += r.h; }); }
+    o += `</g><g data-part="mandap" class="hit">`;
+    const paY = ub + sr.slice(0,4).reduce((a, r) => a + r.h, 0), paH = sr[4].h;
+    o += rect(x0 - koli, paY, mandW + koli, paH, 'mandap', 1);
+    const chY = paY + paH, chH = paH*1.1;
+    o += `<polygon points="${X0 + x0 - koli},${Y(chY + chH)} ${X0 + x1 - sw2*.3},${Y(chY + chH)} ${X0 + x1 + sw2*1.2},${Y(chY)} ${X0 + x0 - koli},${Y(chY)}" ${fl('mandap')} ${st('mandap')}/>`;
+    // koli wall between
+    o += rect(P/2, ub, koli, paY - ub, 'mandap', 1);
+    // samvarana: stepped tiers
+    let ty = chY + chH, tw = mandW*.98; const tiers = 5, th = mandW*.42 / tiers;
+    for (let k = 0; k < tiers; k++){ const cx = (x0 + x1)/2; o += `<rect x="${X0 + cx - tw/2}" y="${Y(ty + th)}" width="${tw}" height="${th}" ${fl('ghummat', k % 2)} ${st('ghummat')} data-part="ghummat"/>`; ty += th; tw *= .78; }
+    const cx = (x0 + x1)/2, kw = mandW/12;
+    o += `<path d="M${X0 + cx - kw} ${Y(ty)} Q ${X0 + cx - kw*1.4} ${Y(ty + kw*1.2)} ${X0 + cx} ${Y(ty + kw*2.2)} Q ${X0 + cx + kw*1.4} ${Y(ty + kw*1.2)} ${X0 + cx + kw} ${Y(ty)} Z" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    o += `</g>`; }
+  // mandovar
+  o += `<g data-part="mandovar" class="hit">`;
+  let ky = y, kumboTop = y, jangha = null, chh = null;
+  M.rows.forEach((r, i) => {
+    const isCh = i === M.rows.length - 1;
+    if (isCh){ const w0 = P + 2*r.nik, w1 = P + 2*Math.max(2, r.nik*.15);
+      o += `<polygon points="${X0 - w1/2},${Y(ky + r.h)} ${X0 + w1/2},${Y(ky + r.h)} ${X0 + w0/2},${Y(ky + r.h*.25)} ${X0 + w0/2},${Y(ky)} ${X0 - w0/2},${Y(ky)} ${X0 - w0/2},${Y(ky + r.h*.25)}" ${fl('mandovar')} ${st('mandovar')}/>`; chh = {y: ky, h: r.h}; }
+    else o += rect(-(P/2 + r.nik), ky, P + 2*r.nik, r.h, 'mandovar', i % 2);
+    if (r.n.startsWith('કુંભો')){ kumboTop = ky + r.h;
+      segs.forEach(sg => { const n = Math.max(1, Math.round(sg.w / (r.h * 1.1))); const ww = sg.w / n; for (let q = 0; q < n; q++){ const cx = X0 + sg.a + ww*(q + .5);
+        o += `<polygon points="${cx - ww*.32},${Y(ky + r.h*.12)} ${cx + ww*.32},${Y(ky + r.h*.12)} ${cx},${Y(ky + r.h*.85)}" fill="none" stroke="var(--muted)" stroke-width="${sw*.8}"/>`; } }); }
+    if (r.n.startsWith('જંઘા')) jangha = {y: ky, h: r.h};
+    ky += r.h; });
+  // plan offset lines across mandovar (excluding khuro & chhajja)
+  const y1 = yM0 + M.rows[0].h, y2 = chh ? chh.y : ky;
+  segs.slice(1).forEach(sg => o += `<line x1="${X0 + sg.a}" y1="${Y(y1)}" x2="${X0 + sg.a}" y2="${Y(y2)}" stroke="var(--ink)" stroke-width="${sw*.8}"/>`);
+  segs.filter(sg => sg.pj > 0).forEach(sg => o += `<rect x="${X0 + sg.a}" y="${Y(y2)}" width="${sg.w}" height="${y2 - y1}" fill="var(--ink)" opacity=".045"/>`);
+  // jangha niches on karna segments (gokhla with udgam)
+  if (jangha) segs.filter(sg => sg.n === 'કર્ણ' || sg.n === 'પઢરો').forEach(sg => { const nw = Math.min(sg.w * .55, jangha.h * .45), cx = X0 + (sg.a + sg.z)/2, b = jangha.y + jangha.h*.1, h = jangha.h*.62;
+    o += `<rect x="${cx - nw/2}" y="${Y(b + h)}" width="${nw}" height="${h}" fill="var(--bg)" stroke="var(--ink)" stroke-width="${sw*.8}"/>
+      <line x1="${cx - nw/2 + nw*.12}" y1="${Y(b)}" x2="${cx - nw/2 + nw*.12}" y2="${Y(b + h)}" stroke="var(--ink)" stroke-width="${sw*.6}"/><line x1="${cx + nw/2 - nw*.12}" y1="${Y(b)}" x2="${cx + nw/2 - nw*.12}" y2="${Y(b + h)}" stroke="var(--ink)" stroke-width="${sw*.6}"/>
+      <polygon points="${cx - nw*.62},${Y(b + h)} ${cx + nw*.62},${Y(b + h)} ${cx},${Y(b + h + jangha.h*.24)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>`; });
+  o += `</g>`;
+  // door
+  { const dw = pt('dwar'), h = +dw.kpis[0][1].replace('″',''), w = +dw.kpis[1][1].replace('″',''), sh = Math.min(+dw.kpis[2][2].replace(/\D/g,'') || w*.3, w*.5), b = kumboTop;
+    o += `<g data-part="dwar" class="hit"><rect x="${X0 - w/2 - sh}" y="${Y(b + h + sh)}" width="${w + 2*sh}" height="${h + sh}" ${fl('dwar')} ${st('dwar')}/><rect x="${X0 - w/2}" y="${Y(b + h)}" width="${w}" height="${h}" fill="var(--bg)" ${st('dwar')}/>
+      ${[1,2].map(q => `<line x1="${X0 - w/2 - sh*q/3}" y1="${Y(b)}" x2="${X0 - w/2 - sh*q/3}" y2="${Y(b + h + sh*q/3)}" stroke="var(--muted)" stroke-width="${sw*.6}"/><line x1="${X0 + w/2 + sh*q/3}" y1="${Y(b)}" x2="${X0 + w/2 + sh*q/3}" y2="${Y(b + h + sh*q/3)}" stroke="var(--muted)" stroke-width="${sw*.6}"/>`).join('')}</g>`; }
+  const yS0 = ky;
+  // shikhar
+  const curve = (cx, yb, bw, h, sk) => { const L = cx - bw/2, R = cx + bw/2, l2 = cx - sk/2, r2 = cx + sk/2;
+    return `M${L} ${Y(yb)} C ${L} ${Y(yb + h*.55)}, ${l2 - sk*.12} ${Y(yb + h*.93)}, ${l2} ${Y(yb + h)} L ${r2} ${Y(yb + h)} C ${r2 + sk*.12} ${Y(yb + h*.93)}, ${R} ${Y(yb + h*.55)}, ${R} ${Y(yb)} Z`; };
+  const mini = (cx, yb, bw, h) => { const sk = bw*.6, aw = bw*.62, ah = aw/2, kw = bw/7;
+    return `<path d="${curve(cx, yb, bw, h, sk)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>${[.25,.5,.75].map(f => `<line x1="${cx - (bw/2 - (bw-sk)/2*f*f)}" y1="${Y(yb + h*f)}" x2="${cx + (bw/2 - (bw-sk)/2*f*f)}" y2="${Y(yb + h*f)}" stroke="var(--muted)" stroke-width="${sw*.5}"/>`).join('')}
+      <rect x="${cx - aw/2}" y="${Y(yb + h + ah*.7)}" width="${aw}" height="${ah*.5}" rx="${ah*.25}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>
+      <path d="M${cx - kw/2} ${Y(yb + h + ah*.7)} Q ${cx - kw*.7} ${Y(yb + h + ah*.7 + kw*.8)} ${cx} ${Y(yb + h + ah*.7 + kw*1.4)} Q ${cx + kw*.7} ${Y(yb + h + ah*.7 + kw*.8)} ${cx + kw/2} ${Y(yb + h + ah*.7)} Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>`; };
+  o += `<g data-part="shikhar" class="hit">`;
+  o += `<path d="${curve(X0, yS0, Bw, Sh, Sk)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*1.2}"/>`;
+  // rekha lines (padhro / bhadra) following curve, and bhumi bands
+  segs.slice(1).forEach(sg => { const fx = sg.a / (Bw/2);
+    o += `<path d="M${X0 + sg.a} ${Y(yS0)} C ${X0 + sg.a} ${Y(yS0 + Sh*.55)}, ${X0 + fx*(Sk/2 + Sk*.12)} ${Y(yS0 + Sh*.93)}, ${X0 + fx*Sk/2} ${Y(yS0 + Sh)}" fill="none" stroke="var(--muted)" stroke-width="${sw*.6}"/>`; });
+  for (let k = 1; k < 9; k++){ const f = k/9, half = Bw/2 - (Bw - Sk)/2 * Math.pow(f, 2.2);
+    o += `<line x1="${X0 - half}" y1="${Y(yS0 + Sh*f)}" x2="${X0 + half}" y2="${Y(yS0 + Sh*f)}" stroke="var(--muted)" stroke-width="${sw*.4}" opacity=".7"/>`; }
+  // karna shrung + urushrung on bhadra
+  const ks = segs[0].w;
+  o += mini(X0 + segs[0].a + ks*.5, yS0, ks*1.05, Sh*.32) + mini(X0 + segs[segs.length-1].a + ks*.5, yS0, ks*1.05, Sh*.32);
+  const bh = segs.find(sg => sg.n === 'ભદ્ર'); if (bh){ o += mini(X0, yS0 + Sh*.18, bh.w*1.25, Sh*.52) + mini(X0, yS0, bh.w*1.05, Sh*7/13*.62); }
+  // amalsaro (griva 3/4, amalsaro 5/4, chandrika 1, amalsari 1 of Ah/4)
+  { const q = Ah/4; let yy = yS0 + Sh;
+    o += `<rect x="${X0 - Aw*.36}" y="${Y(yy + q*.75)}" width="${Aw*.72}" height="${q*.75}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`; yy += q*.75;
+    o += `<rect x="${X0 - Aw/2}" y="${Y(yy + q*1.25)}" width="${Aw}" height="${q*1.25}" rx="${q*.6}" fill="var(--surface2)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    for (let k = -Aw/2 + Aw/14; k < Aw/2; k += Aw/14) o += `<line x1="${X0 + k}" y1="${Y(yy + q*.15)}" x2="${X0 + k}" y2="${Y(yy + q*1.1)}" stroke="var(--muted)" stroke-width="${sw*.5}"/>`; yy += q*1.25;
+    o += `<rect x="${X0 - Aw*.42}" y="${Y(yy + q)}" width="${Aw*.84}" height="${q}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`; yy += q;
+    o += `<rect x="${X0 - Aw*.3}" y="${Y(yy + q)}" width="${Aw*.6}" height="${q}" rx="${q*.4}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`; yy += q;
+    // kalash: 9 high x 6 wide grid
+    const u = Kh/9, v = Kw/6;
+    const ys = [yy, yy+u, yy+4*u, yy+5*u, yy+6*u, yy+9*u];
+    o += `<path d="M${X0 - 2*v} ${Y(ys[0])} L ${X0 - 2*v} ${Y(ys[1])} C ${X0 - 3.4*v} ${Y(ys[1] + u*.4)}, ${X0 - 3.4*v} ${Y(ys[2] - u*.4)}, ${X0 - 1*v} ${Y(ys[2])} L ${X0 - 2*v} ${Y(ys[3])} L ${X0 - 1.5*v} ${Y(ys[4])} Q ${X0 - 1.6*v} ${Y(ys[4] + 1.6*u)} ${X0} ${Y(ys[5])} Q ${X0 + 1.6*v} ${Y(ys[4] + 1.6*u)} ${X0 + 1.5*v} ${Y(ys[4])} L ${X0 + 2*v} ${Y(ys[3])} L ${X0 + 1*v} ${Y(ys[2])} C ${X0 + 3.4*v} ${Y(ys[2] - u*.4)}, ${X0 + 3.4*v} ${Y(ys[1] + u*.4)}, ${X0 + 2*v} ${Y(ys[1])} L ${X0 + 2*v} ${Y(ys[0])} Z" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    // dhwajdand at back-right padhro
+    const dx = X0 + Sk*.42, d0 = yS0 + Sh*.9, d1 = d0 + Dl*.55;
+    o += `<line x1="${dx}" y1="${Y(d0)}" x2="${dx}" y2="${Y(d1)}" stroke="var(--ink)" stroke-width="${sw*2}"/><path d="M${dx} ${Y(d1)} q ${Dl*.18} ${Dl*.02} ${Dl*.32} ${Dl*.1} q -${Dl*.12} ${Dl*.02} -${Dl*.2} ${Dl*.12} q -${Dl*.06} -${Dl*.05} -${Dl*.12} -${Dl*.1}" fill="var(--accent)" opacity=".85"/>`;
+  }
+  o += `</g>`;
+  // dimension chain on left
+  const dims = [['જગતી', 0, yJ], ['ભીત + પીઠ', yJ, yM0], ['મંડોવર', yM0, yS0], ['શિખર', yS0, yS0 + Sh], ['આમલસારો + કલશ', yS0 + Sh, yS0 + Sh + Ah + Kh]];
+  const dx = X0 + jl0 - 70;
+  dims.forEach(([n, a, b]) => { o += `<line x1="${dx}" y1="${Y(a)}" x2="${dx}" y2="${Y(b)}" stroke="var(--accent)" stroke-width="${sw*1.2}"/><line x1="${dx - 8}" y1="${Y(a)}" x2="${dx + 8}" y2="${Y(a)}" stroke="var(--accent)" stroke-width="${sw*1.2}"/>
+    ${b - a > fs*2.4 ? `<text x="${dx - fs*.5}" y="${Y((a+b)/2)}" font-size="${fs}" fill="var(--accent)" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 ${dx - fs*.5} ${Y((a+b)/2)})">${fmtDim(b - a)}</text>` : ''}`; });
+  const dx2 = dx - fs*2.6, tt = yS0 + Sh + Ah + Kh;
+  o += `<line x1="${dx2}" y1="${Y(0)}" x2="${dx2}" y2="${Y(tt)}" stroke="var(--ink)" stroke-width="${sw}"/><line x1="${dx2 - 8}" y1="${Y(tt)}" x2="${dx2 + 8}" y2="${Y(tt)}" stroke="var(--ink)" stroke-width="${sw}"/>
+    <text x="${dx2 - fs*.5}" y="${Y(tt/2)}" font-size="${fs*1.1}" fill="var(--ink)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" transform="rotate(-90 ${dx2 - fs*.5} ${Y(tt/2)})">${fmtDim(tt)}</text>`;
+  // part labels right
+  const lx = X0 + jr0 + 46;
+  [['જગતી', yJ/2], ['પીઠ', (yJ + yM0)/2], ['મંડોવર', (yM0 + yS0)/2], ['શિખર', yS0 + Sh/2]].forEach(([n, yy]) => o += `<text x="${lx}" y="${Y(yy) + fs*.35}" font-size="${fs}" fill="var(--muted)">${n}</text>`);
+  // bottom width
+  o += `<text x="${X0}" y="${Y(0) + fs*1.4}" font-size="${fs*.9}" fill="var(--muted)" text-anchor="middle" font-family="Inter,sans-serif">પ્રાસાદ ${fmtDim(P)} · જગતી ${fmtDim(jagW)}${p.jl > 0 ? '' : ' (અંદાજ)'}</text>`;
+  const minX = dx2 - fs*2;
+  return `<svg class="dw" viewBox="${minX} 0 ${W + 160 - minX} ${Ht + fs*2}" role="img" aria-label="એલિવેશન">${o}</svg>`;
+}
+
+function planSVG(p, c, sel){
+  const P = c.P, D = c.Pd, t = c.t, info = planInfo(p, c);
+  const sx = sideOffsets(P, info), sy = sideOffsets(D, info);
+  const dw = c.parts.find(x => x.key === 'dwar'), doorW = +dw.kpis[1][1].replace('″','');
+  const MPp = c.parts.find(x => x.key === 'mandap'), mand = +MPp.meas[0][1], swp = +c.parts.find(x => x.key === 'stambh').kpis[0][1].replace('″','');
+  const fs = Math.max(P, D + mand) / 26, sw = fs / 9;
+  // outline polygon clockwise, front (bottom, +y) side gets door
+  const pts = [];
+  sx.forEach(sg => { pts.push([sg.a, -D/2 - sg.pj], [sg.z, -D/2 - sg.pj]); });                // back (top)
+  sy.forEach(sg => { pts.push([P/2 + sg.pj, sg.a], [P/2 + sg.pj, sg.z]); });                  // right
+  sx.slice().reverse().forEach(sg => { pts.push([sg.z, D/2 + sg.pj], [sg.a, D/2 + sg.pj]); }); // front
+  sy.slice().reverse().forEach(sg => { pts.push([-P/2 - sg.pj, sg.z], [-P/2 - sg.pj, sg.a]); }); // left
+  const mg = fs * 5, minX = -P/2 - mg - fs*3, minY = -D/2 - mg - fs*2, W = P + 2*mg + fs*6, H = D + mand + 2*mg + fs*4;
+  const on = sel === 'deewal';
+  let o = '';
+  // mandap (later phase) dashed
+  o += `<rect x="${-mand/2}" y="${D/2 + P*.12}" width="${mand}" height="${mand*.9}" fill="${sel === 'mandap' ? 'var(--accent-soft)' : 'none'}" stroke="${sel === 'mandap' ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sw*1.2}" data-part="mandap" class="hit"/>
+    ${[0,1,2,3].flatMap(i => [0,1,2,3].map(j => (i === 0 || i === 3 || j === 0 || j === 3) ? `<rect x="${-mand/2 + swp/2 + (mand - swp*2)*i/3}" y="${D/2 + P*.12 + swp/2 + (mand*.9 - swp*2)*j/3}" width="${swp}" height="${swp}" fill="${sel === 'stambh' ? 'var(--accent)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width="${sw}" data-part="stambh" class="hit"/>` : '')).join('')}
+    <circle cx="0" cy="${D/2 + P*.12 + mand*.45}" r="${mand*.2}" fill="none" stroke="var(--muted)" stroke-dasharray="${fs*.4} ${fs*.3}" stroke-width="${sw}" data-part="ghummat" class="hit"/>
+    <text x="0" y="${D/2 + P*.12 + mand*.45 + fs*.35}" font-size="${fs}" fill="var(--muted)" text-anchor="middle">મંડપ ${fmtDim(mand)}</text>
+    <rect x="${-doorW*1.2}" y="${D/2}" width="${doorW*2.4}" height="${P*.12}" fill="none" stroke="var(--muted)" stroke-width="${sw}"/>`;
+  o += `<g data-part="deewal" class="hit"><path d="M${pts.map(q => q.join(' ')).join(' L ')} Z M${-ceil(p.gw)/2} ${-ceil(p.gd)/2} L ${ceil(p.gw)/2} ${-ceil(p.gd)/2} L ${ceil(p.gw)/2} ${ceil(p.gd)/2} L ${-ceil(p.gw)/2} ${ceil(p.gd)/2} Z" fill-rule="evenodd" fill="${on ? 'var(--accent-soft)' : 'var(--surface2)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sw*1.6}"/></g>`;
+  // door opening
+  o += `<g data-part="dwar" class="hit"><rect x="${-doorW/2}" y="${ceil(p.gd)/2 - sw}" width="${doorW}" height="${(D - ceil(p.gd))/2 + sw*2 + 2}" fill="var(--bg)" stroke="none"/>
+    <line x1="${-doorW/2}" y1="${ceil(p.gd)/2}" x2="${-doorW/2}" y2="${D/2 + (sx.find(s => s.n === 'ભદ્ર') || {pj:0}).pj}" stroke="var(--ink)" stroke-width="${sw*1.2}"/><line x1="${doorW/2}" y1="${ceil(p.gd)/2}" x2="${doorW/2}" y2="${D/2 + (sx.find(s => s.n === 'ભદ્ર') || {pj:0}).pj}" stroke="var(--ink)" stroke-width="${sw*1.2}"/></g>`;
+  // inside label + kurmashila (center)
+  o += `<text x="0" y="${-fs*.6}" font-size="${fs*1.15}" text-anchor="middle" fill="var(--ink)" font-weight="600">ગર્ભગૃહ</text>
+    <text x="0" y="${fs*1}" font-size="${fs}" text-anchor="middle" fill="var(--muted)" font-family="Inter,sans-serif">${fmtDim(p.gw)} × ${fmtDim(p.gd)}</text>`;
+  // dimension chain on top: segments
+  const yd = -D/2 - mg*.55, yd2 = -D/2 - mg*.95;
+  sx.forEach(sg => o += `<line x1="${sg.a}" y1="${yd - fs*.3}" x2="${sg.a}" y2="${yd + fs*.3}" stroke="var(--accent)" stroke-width="${sw}"/><text x="${(sg.a + sg.z)/2}" y="${yd - fs*.35}" font-size="${fs*.8}" text-anchor="middle" fill="var(--accent)" font-family="Inter,sans-serif">${fmtDim(sg.w)}</text>`);
+  o += `<line x1="${-P/2}" y1="${yd}" x2="${P/2}" y2="${yd}" stroke="var(--accent)" stroke-width="${sw}"/><line x1="${P/2}" y1="${yd - fs*.3}" x2="${P/2}" y2="${yd + fs*.3}" stroke="var(--accent)" stroke-width="${sw}"/>`;
+  o += `<line x1="${-P/2}" y1="${yd2}" x2="${P/2}" y2="${yd2}" stroke="var(--ink)" stroke-width="${sw}"/><text x="0" y="${yd2 - fs*.4}" font-size="${fs*.95}" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" font-weight="600">${fmtDim(P)} (કર્ણ થી કર્ણ)</text>`;
+  // left: depth + wall
+  const xd = -P/2 - mg*.6;
+  o += `<line x1="${xd}" y1="${-D/2}" x2="${xd}" y2="${D/2}" stroke="var(--ink)" stroke-width="${sw}"/><text x="${xd - fs*.5}" y="0" font-size="${fs*.95}" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" transform="rotate(-90 ${xd - fs*.5} 0)">${fmtDim(D)}</text>`;
+  // wall thickness callout right
+  const xr = P/2 + fs*.2;
+  o += `<line x1="${ceil(p.gw)/2}" y1="${-D/4}" x2="${P/2}" y2="${-D/4}" stroke="var(--accent)" stroke-width="${sw}"/><text x="${(ceil(p.gw)/2 + P/2)/2}" y="${-D/4 - fs*.4}" font-size="${fs*.8}" text-anchor="middle" fill="var(--accent)" font-family="Inter,sans-serif">${t}″</text>`;
+  o += `<text x="${-P/2}" y="${minY + H - fs*.6}" font-size="${fs*.8}" fill="var(--muted)">${info.label} · કર્ણ / પઢરો / ભદ્ર ના નિકાળા સાથે</text>`;
+  return `<svg class="dw" viewBox="${minX} ${minY} ${W} ${H}" role="img" aria-label="પ્લાન">${o}</svg>`;
+}
+
+const drawCard = (title, svg, src) => `<div class="card dcard"><div class="hd"><h2>${title}</h2><span class="sp"></span>${src ? `<span class="src">${src}</span>` : ''}</div><div class="dbody">${svg}</div></div>`;
+
+function vHome(p, c){
+  const key = x => x.kpis[0];
+  const fi = (id, v, u) => `<div class="box"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
+  return `<div class="hero"><div class="hl"><small>${esc(p.name)}</small><h1 class="num">${rs(c.total * p.rate)}</h1><div class="hs num">${f1(c.total)} ઘન ફૂટ પથ્થર · ${rs(p.rate)} / CFT</div></div>
+      <div class="hr num"><div><small>પ્રાસાદ</small><b>${ftin(c.P)}</b></div><div><small>દીવાલ</small><b>${c.t}″</b></div><div><small>મંડોવર</small><b>${ftin(c.mando)}</b></div></div></div>
+    <div class="card"><div class="bd row"><span class="ql">ગર્ભગૃહ</span>${fi('gwf', Math.floor(p.gw/12), 'ફૂટ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ')}<span style="color:var(--muted)">×</span>${fi('gdf', Math.floor(p.gd/12), 'ફૂટ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ')}<button class="btn" data-nav="input">બધી માહિતી →</button></div></div>
+    <div class="tiles">${c.parts.map(x => `<button class="tile" data-part="${x.key}"><span class="tn">${x.name}</span><span class="tk num">${key(x)[1]}</span><span class="ts">${key(x)[0]}</span><span class="tc num">${x.cft ? f1(x.cft) + ' CFT · ' + rs(x.cft * p.rate) : '—'}</span></button>`).join('')}</div>
+    <div class="dpair">${drawCard('એલિવેશન', elevSVG(p, c, null))}${drawCard('પ્લાન', planSVG(p, c, null))}</div>`;
+}
+function vDraw(p, c){
+  return `<div class="bar"><div><div class="crumb">${esc(p.name)}</div><h1>ચિત્ર</h1></div><span class="sp"></span><span class="crumb">ભાગ પર ક્લિક કરો</span></div>
+    <div class="dpair big">${drawCard('એલિવેશન', elevSVG(p, c, S.part), 'શિલ્પ રત્નાકર મુજબ')}${drawCard('પ્લાન', planSVG(p, c, S.part), planInfo(p, c).label)}</div>`;
+}
+function render(){
+  const p = cur(), c = compute(p);
+  let v = S.view; if (!['home','input','draw','part','summary','projects'].includes(v)) v = S.view = 'home';
+  document.body.dataset.style = 'a';
+  const nav = (id, t) => `<a class="${v === id ? 'on' : ''}" data-nav="${id}" tabindex="0">${t}</a>`;
+  let main;
+  if (v === 'home') main = vHome(p, c);
+  else if (v === 'input') main = vInput(p, c);
+  else if (v === 'draw') main = vDraw(p, c);
+  else if (v === 'summary') main = vSummary(p, c);
+  else if (v === 'projects') main = vProjects();
+  else { main = vPart(p, c); const pt = c.parts.find(x => x.key === S.part) || c.parts[4];
+    const dr = ['deewal','mandap'].includes(pt.key) ? drawCard('પ્લાન', planSVG(p, c, pt.key)) : drawCard('એલિવેશન', elevSVG(p, c, pt.key));
+    main = main.replace(/<div class="card elev">[\s\S]*?<\/svg><\/div>/, '<div class="pdraw">' + dr + '</div>');
+    if (!pt.thar && S.tab === 'maap') main += `<div class="pdraw solo">${dr}</div>`; }
+  document.getElementById('root').innerHTML = `<div class="app">
+    <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>${esc(p.name)}</small></div></div>
+      ${nav('home', 'ડેશબોર્ડ')}${nav('input', 'માહિતી')}${nav('draw', 'ચિત્ર (એલિવેશન / પ્લાન)')}${nav('summary', 'સારાંશ')}${nav('projects', 'બધા પ્રોજેક્ટ')}
+      <div class="lab">ભાગ — નીચે થી ઉપર</div>
+      ${c.parts.map(x => `<a class="${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}<span class="c num">${x.cft ? f1(x.cft) : '—'}</span></a>`).join('')}
+      ${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}
+      <div class="railtot num"><small>કુલ</small><b>${f1(c.total)} CFT</b><span>${rs(c.total * p.rate)}</span></div></aside>
+    <main class="main"><div class="wrap">${main}</div></main></div>
+    <nav class="bnav" aria-label="મુખ્ય">${[['home','ડેશબોર્ડ',ic.chart],['input','માહિતી',ic.edit],['draw','ચિત્ર',ic.temple.replace(/20/g,'22')],['projects','પ્રોજેક્ટ',ic.grid]].map(([id, t, i]) => `<button class="${v === id ? 'on' : ''}" data-nav="${id}">${i}${t}</button>`).join('')}</nav>`;
+  save();
+}
+S.view = 'home';
 render();
 </script>
