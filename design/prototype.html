@@ -176,9 +176,42 @@ svg.dw{width:100%;height:auto;display:block;max-height:640px}.dpair.big svg.dw{m
 .pdraw .card{box-shadow:none}.pdraw.solo{max-width:560px}
 .railtot{margin-top:auto;background:var(--accent);color:var(--accent-ink);border-radius:var(--radius-s);padding:10px 12px;display:grid}.railtot small{opacity:.8;font-size:12px}.railtot b{font-size:18px}.railtot span{font-size:13px;opacity:.9}
 @media (max-width:860px){.dpair{grid-template-columns:minmax(0,1fr)}.hero .hr{gap:14px}}
+.themes{margin-top:8px}.themes button{min-height:38px;font-size:13px}
+.thm{display:none;float:right;min-height:34px;padding:4px 12px;background:transparent;color:inherit;border-color:currentColor}
+@media (max-width:860px){.thm{display:inline-flex}}
+.hero{background:#161a26;color:#f5f6fa}:root[data-theme="dark"] .hero{background:#232838}
+
+.ibtn{border:1px solid var(--side-line);background:transparent;color:var(--side-ink);width:34px;height:34px;border-radius:999px;flex:none;font-size:15px}
+.ell{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rail a{min-height:36px;padding:7px 10px}
+.grp{display:grid;gap:1px}.gh{display:flex;justify-content:space-between;align-items:center;border:0;background:transparent;color:var(--side-ink);padding:7px 10px;border-radius:var(--radius-s);font-weight:600;font-size:14px;min-height:36px}
+.gh:hover{background:color-mix(in srgb,var(--side-on) 55%,transparent)}.gh .c{font-weight:400;font-size:12px;color:var(--side-muted)}
+.rail a.sub{padding-left:28px;font-size:14px;min-height:34px}
+.pdfb{margin-top:auto;justify-content:center}.railtot{margin-top:6px}
+.srcs{font-size:12.5px;color:var(--muted)}
+details.notes{background:var(--warn-soft);color:var(--warn);border-radius:var(--radius-s);padding:8px 14px;font-size:13.5px}
+details.notes summary{cursor:pointer;font-weight:600;min-height:28px}details.notes ul{margin:6px 0 2px;padding-left:18px;display:grid;gap:4px}
+.pfilter{gap:12px}.ptable td{vertical-align:middle}.ptable tr.cur td{background:var(--accent-soft)}
+.plink{cursor:pointer;color:var(--ink)}.plink:hover b{color:var(--accent)}
+.acts{white-space:nowrap}.btn.sm{min-height:34px;padding:4px 10px;font-size:13px;margin-left:4px}
+.st{font-size:12.5px;border-radius:999px;padding:3px 10px;white-space:nowrap}.st-bhav{background:var(--surface2);color:var(--muted)}.st-chalu{background:var(--accent-soft);color:var(--accent)}.st-puru{background:#dcfce7;color:#166534}
+:root[data-theme="dark"] .st-puru{background:#14361f;color:#86efac}
+.pdfroot{position:fixed;left:-10000px;top:0}
+.pg{width:794px;height:1123px;background:#fff;color:#111;padding:36px 40px;font-family:"Noto Sans Gujarati","Inter",sans-serif;font-size:12px;box-sizing:border-box;overflow:hidden;
+  --ink:#111;--muted:#555;--surface:#fff;--surface2:#f1f3f6;--bg:#fff;--accent:#3730a3;--accent-soft:#e0e7ff;--line:#d6d9de}
+.pg .ph{display:flex;justify-content:space-between;gap:10px;border-bottom:2px solid #111;padding-bottom:6px;margin-bottom:14px;font-size:11px;color:#444}
+.pg h1{font-size:22px;margin:0 0 10px}.pg h2{font-size:15px;margin:14px 0 6px}.pg h2 small{font-weight:400;color:#666;font-size:11px}
+.pg table{width:100%;border-collapse:collapse;font-size:11.5px}.pg th,.pg td{border-bottom:1px solid #ddd;padding:4px 6px;text-align:left}.pg .r{text-align:right}
+.pg tr.tot td{font-weight:700;background:#f1f3f6}.pg .kv td:nth-child(odd){color:#666;width:16%}
+.pg .two{display:grid;grid-template-columns:1fr 1.35fr;gap:14px}.pg .pd svg{width:100%;max-height:430px;height:auto}
+.pdraw .dbody{display:flex;justify-content:center}svg.pd2{max-height:560px;width:100%}
+.split:has(.pdraw){grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+@media (max-width:860px){.split:has(.pdraw){grid-template-columns:minmax(0,1fr)}}
 </style>
 
 <div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 /* ===== Engine: Shilp Ratnakar rules. Internal unit = angul (1 angul = 0.75", 1 gaj = 24 angul = 18"); never displayed. ===== */
@@ -377,7 +410,7 @@ const newProj = (name) => ({name, gw:108, gd:108, ratio:5, wall:'brick', face:9,
   m:{pith:1, pithType:'maha', jag:'apa', man:2, manSet:'144', dwar:'auto', bhit:3, keep:false}, ov:{}, extra:{}});
 let S = {style:'a', view:'input', part:'mandovar', tab:'maap', cur:0, projects:[newProj('શ્રી શિવ મંદિર (ઉદાહરણ)')]};
 try { const s = JSON.parse(localStorage.getItem('bte-proto') || 'null'); if (s && s.projects && s.projects.length) S = Object.assign(S, s); } catch (e) {}
-const save = () => { try { localStorage.setItem('bte-proto', JSON.stringify(S)); } catch (e) {} };
+let save = () => { try { localStorage.setItem('bte-proto', JSON.stringify(S)); } catch (e) {} };
 const cur = () => S.projects[S.cur] || S.projects[0];
 
 /* ===== Views ===== */
@@ -469,7 +502,7 @@ function vPart(p, c){
 
 function vSummary(p, c){
   const mx = Math.max(1, ...c.parts.map(x => x.cft));
-  return `<div class="bar"><div><div class="crumb">${esc(p.name)}</div><h1>સારાંશ</h1></div><span class="sp"></span>${styleBar()}</div>
+  return `<div class="bar"><div><div class="crumb">${esc(p.name)}</div><h1>સારાંશ</h1></div><span class="sp"></span><button class="btn pri" data-act="pdfcur">⇩ PDF</button></div>
   <div class="kpis"><div class="kpi"><small>ગર્ભગૃહ</small><b>${ftin(ceil(p.gw))}</b><span class="num">× ${ftin(ceil(p.gd))}</span></div><div class="kpi"><small>પ્રાસાદ</small><b>${ftin(c.P)}</b><span class="num">${c.P}″</span></div>
     <div class="kpi"><small>કુલ પથ્થર</small><b>${f1(c.total)}</b><span>ઘન ફૂટ</span></div><div class="kpi acc"><small>કુલ ખર્ચ</small><b>${rs(c.total * p.rate)}</b><span class="num">${rs(p.rate)} / CFT</span></div></div>
   <div class="card"><div class="hd"><h2>ભાગ પ્રમાણે પથ્થર</h2></div><div class="bd">${c.parts.map(x => `<div class="hb" data-part="${x.key}" tabindex="0"><span>${x.name}</span><div class="tr"><div class="fl" style="width:${x.cft / mx * 100}%"></div></div><span class="v num">${x.cft ? f1(x.cft) + ' CFT' : '—'}</span></div>`).join('')}
@@ -478,30 +511,14 @@ function vSummary(p, c){
 }
 
 const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-function render(){
-  document.body.dataset.style = S.style;
-  const p = cur(), c = compute(p), v = S.view;
-  if (S.style === 'b') return renderB(p, c), save();
-  if (S.style === 'c') return renderC(p, c), save();
-  if (S.style === 'd') return renderD(p, c), save();
-  const nav = (id, t) => `<a class="${v === id ? 'on' : ''}" data-nav="${id}" tabindex="0">${t}</a>`;
-  document.getElementById('root').innerHTML = `<div class="app">
-    <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>શિલ્પ રત્નાકર આધારિત</small></div></div>
-      ${nav('projects', 'બધા પ્રોજેક્ટ')}${nav('input', 'માહિતી')}${nav('summary', 'સારાંશ')}
-      <div class="lab">ભાગ — નીચે થી ઉપર</div>
-      ${c.parts.map(x => `<a class="${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}<span class="c num">${x.cft ? f1(x.cft) : '—'}</span></a>`).join('')}
-      ${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}</aside>
-    <main class="main"><div class="wrap">${v === 'projects' ? vProjects() : v === 'input' ? vInput(p, c) : v === 'summary' ? vSummary(p, c) : vPart(p, c)}</div></main></div>
-    <nav class="bnav" aria-label="મુખ્ય">${[['projects','પ્રોજેક્ટ',ic.grid],['input','માહિતી',ic.edit],['part','ભાગ',ic.temple.replace(/20/g,'22')],['summary','સારાંશ',ic.chart]].map(([id, t, i]) => `<button class="${v === id ? 'on' : ''}" data-nav="${id}">${i}${t}</button>`).join('')}</nav>`;
-  save();
-}
 
 /* ===== Events ===== */
 const num = v => { const n = parseFloat(String(v).replace(/,/g, '')); return isFinite(n) && n >= 0 ? n : 0; };
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-tog],[data-style],[data-nav],[data-part],[data-tab],[data-set],[data-act],[data-del],[data-open]'); if (!t) return;
+  const t = e.target.closest('[data-theme-set],[data-tog],[data-nav],[data-part],[data-tab],[data-set],[data-act],[data-del],[data-open]'); if (!t) return;
   const p = cur(), d = t.dataset;
-  if (d.tog){ S.open = S.open || {}; S.open[d.tog] = S.open[d.tog] === false; }
+  if (d.themeSet){ S.theme = d.themeSet; }
+  else if (d.tog){ S.open = S.open || {}; S.open[d.tog] = S.open[d.tog] === false; }
   else if (d.style) S.style = d.style;
   else if (d.del !== undefined){ S.projects.splice(+d.del, 1); S.cur = 0; }
   else if (d.nav) S.view = d.nav;
@@ -514,6 +531,9 @@ document.addEventListener('click', e => {
   else if (d.open !== undefined){ S.cur = +d.open; S.view = 'input'; }
   render(); if (d.top) window.scrollTo(0,0); if (d.nav || d.part || d.open !== undefined) window.scrollTo(0, 0);
 });
+let liveT = 0;
+document.addEventListener('input', e => { const t = e.target; if (!(t.dataset.in || t.dataset.st) || ['name','client','place','date'].includes(t.dataset.in)) return;
+  clearTimeout(liveT); liveT = setTimeout(() => t.isConnected && t.dispatchEvent(new Event('change', {bubbles: true})), 450); });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('a[data-nav],a[data-part],.hb,.pc')){ e.preventDefault(); e.target.click(); } });
 document.addEventListener('change', e => {
   const t = e.target, p = cur(), c = compute(p);
@@ -528,88 +548,8 @@ document.addEventListener('change', e => {
     if (kind === 'x'){ const row = p.extra[pk][+i]; row[+j] = +j === 0 ? t.value : ceil(num(t.value)); }
     else { const r = pt.stone[+i].slice(1, 5); r[+j - 1] = ceil(num(t.value)); p.ov[pk + ':' + i] = r; }
   } else return;
-  const id = t.id; render(); const el = id && document.getElementById(id); if (el) el.focus();
+  const id = t.id; render(); const el = id && document.getElementById(id); if (el){ el.focus(); try { el.setSelectionRange(el.value.length, el.value.length); } catch (e) {} }
 });
-
-/* ===== Layout 2: drawing-first (CAD sheet) ===== */
-function quick(p, c){
-  const fi = (id, v, u) => `<div class="box q"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
-  return `<div class="row qk"><span class="ql">ગર્ભગૃહ</span>${fi('gwf', Math.floor(p.gw/12), 'ફૂટ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ')}<span>×</span>${fi('gdf', Math.floor(p.gd/12), 'ફૂટ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ')}
-    <div class="box q"><select id="jati" data-in="jati">${JATI.map(([v, t]) => `<option value="${v}" ${v === p.jati ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
-    <div class="box q"><em>₹</em><input id="rate" class="num" inputmode="numeric" value="${p.rate}" data-in="rate"><em>/CFT</em></div></div>`;
-}
-function stack(c, sel){
-  const keys = ['jagati','pith','bhit','mandovar'];
-  const H = {jagati: c.parts[3].thar.total, bhit: c.parts[1].thar.total, pith: c.parts[2].thar.total, mandovar: c.parts[4].thar.total};
-  const shik = Math.round(c.P * 1.33); const tot = H.jagati + H.bhit + H.pith + H.mandovar + shik;
-  const VH = 620, sc = VH / tot, cx = 210, Pw = Math.min(220, 220);
-  let y = 650, o = '';
-  const band = (k, h, w, label) => { const hh = h * sc; y -= hh; const on = sel === k;
-    o += `<g class="bd2" data-part="${k}"><rect x="${cx - w/2}" y="${y}" width="${w}" height="${hh}" fill="${on ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${on ? 2 : 1}"/>
-      <text x="${cx + w/2 + 14}" y="${y + hh/2 + 4}" font-size="13" fill="var(--ink)">${label}</text><text x="${cx - w/2 - 12}" y="${y + hh/2 + 4}" font-size="12" text-anchor="end" fill="var(--muted)" font-family="Inter">${h}″</text></g>`; };
-  band('jagati', H.jagati, 380, 'જગતી'); band('bhit', H.bhit, 270, 'ભીત'); band('pith', H.pith, 250, 'પીઠ');
-  // mandovar with thars
-  { const hh = H.mandovar * sc, top = y - hh, on = sel === 'mandovar'; let yy = y;
-    o += `<g class="bd2" data-part="mandovar">`;
-    c.parts[4].thar.rows.forEach(r => { const h = r.h * sc; yy -= h; const nk = r.nik * sc * 1.5; o += `<rect x="${cx - Pw/2 - nk}" y="${yy}" width="${Pw + 2*nk}" height="${h}" fill="${on ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${on ? 1.4 : .7}"/>`; });
-    const dh = c.parts[6].kpis[0][1].replace('″','') * sc, dw = c.parts[6].kpis[1][1].replace('″','') * sc;
-    o += `<rect x="${cx - dw/2}" y="${y - dh}" width="${dw}" height="${dh}" fill="var(--bg)" stroke="var(--ink)" stroke-width=".8" data-part="dwar" class="bd2"/>`;
-    o += `<text x="${cx + Pw/2 + 14}" y="${top + hh/2 + 4}" font-size="13" fill="var(--ink)">મંડોવર</text><text x="${cx - Pw/2 - 12}" y="${top + hh/2 + 4}" font-size="12" text-anchor="end" fill="var(--muted)" font-family="Inter">${H.mandovar}″</text></g>`;
-    y = top; }
-  // shikhar outline (later phase)
-  const sh = shik * sc; o += `<path d="M${cx - Pw/2 + 10} ${y} C ${cx - Pw/2 + 20} ${y - sh*.6}, ${cx - 30} ${y - sh*.95}, ${cx} ${y - sh} C ${cx + 30} ${y - sh*.95}, ${cx + Pw/2 - 20} ${y - sh*.6}, ${cx + Pw/2 - 10} ${y} Z" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/><text x="${cx}" y="${y - sh*.45}" font-size="12" text-anchor="middle" fill="var(--muted)">શિખર — પછી</text>`;
-  o += `<line x1="20" y1="650" x2="400" y2="650" stroke="var(--ink)" stroke-width="1.5"/>`;
-  return `<svg viewBox="0 0 470 670" class="cad" role="img" aria-label="મંદિર નું ચિત્ર">${o}</svg>`;
-}
-function partBody(p, c, pt){ // shared detail (maap + stone) for layouts 2 and 3
-  const saveView = S.view; const html = vPart(p, c).split('<div class="kpis">')[1]; S.view = saveView;
-  return '<div class="kpis">' + html;
-}
-function renderB(p, c){
-  const sel = S.part, pt = c.parts.find(x => x.key === sel) || c.parts[4];
-  document.getElementById('root').innerHTML = `<div class="lb2">
-    <header class="hb2"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>${esc(p.name)}</small></div></div><span class="sp"></span>
-      <div class="tot2 num"><span>${f1(c.total)} CFT</span><b>${rs(c.total * p.rate)}</b></div>${styleBar()}</header>
-    ${quick(p, c)}
-    <div class="g2"><section class="sheet"><div class="sheet-hd"><span>ELEVATION · પ્રાસાદ ${ftin(c.P)}</span><span>ભાગ પર ક્લિક કરો</span></div>${stack(c, sel)}
-      <div class="chips" style="padding:0 12px 12px">${c.parts.map(x => `<button class="chip ${x.key === pt.key ? 'on' : ''}" data-part="${x.key}">${x.name}</button>`).join('')}</div></section>
-      <section class="det2"><div class="bar"><h1>${pt.name}</h1><span class="sp"></span><div class="tabs"><button class="${S.tab === 'maap' ? 'on' : ''}" data-tab="maap">માપ</button><button class="${S.tab === 'stone' ? 'on' : ''}" data-tab="stone">પથ્થર</button></div></div>${partBody(p, c, pt)}</section></div></div>`;
-}
-/* ===== Layout 3: tiles + summary hero ===== */
-function renderC(p, c){
-  const open = S.part, pt = c.parts.find(x => x.key === open);
-  const key = x => x.kpis[0];
-  document.getElementById('root').innerHTML = `<div class="lc">
-    <header class="hc"><div class="row" style="justify-content:space-between"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b></div></div>${styleBar()}</div>
-      <div class="hero"><div><small>${esc(p.name)}</small><h1 class="num">${rs(c.total * p.rate)}</h1><div class="hs num">${f1(c.total)} ઘન ફૂટ પથ્થર · પ્રાસાદ ${ftin(c.P)} · મંડોવર ${ftin(c.mando)}</div></div></div>
-      ${quick(p, c)}</header>
-    <div class="tiles">${c.parts.map(x => `<button class="tile ${x.key === open ? 'on' : ''}" data-part="${x.key}"><span class="tn">${x.name}</span><span class="tk num">${key(x)[1]}</span><span class="ts">${key(x)[0]}</span><span class="tc num">${x.cft ? f1(x.cft) + ' CFT' : '—'}</span></button>`).join('')}
-      ${LATER.map(n => `<div class="tile off"><span class="tn">${n}</span><span class="ts">પછી ના તબક્કા માં</span></div>`).join('')}</div>
-    ${pt ? `<section class="sheetc"><div class="bar"><h1>${pt.name}</h1><span class="sp"></span><div class="tabs"><button class="${S.tab === 'maap' ? 'on' : ''}" data-tab="maap">માપ</button><button class="${S.tab === 'stone' ? 'on' : ''}" data-tab="stone">પથ્થર</button></div></div>${partBody(p, c, pt)}</section>` : ''}</div>`;
-}
-/* ===== Layout 4: estimate sheet (BOQ) ===== */
-function renderD(p, c){
-  S.open = S.open || {};
-  const fi = (id, v, u, l) => `<label class="dl" for="${id}">${l}</label><div class="box"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
-  const rows = c.parts.map(pt => { const op = S.open[pt.key] !== false;
-    return `<tr class="grp" data-tog="${pt.key}"><td colspan="6"><span class="car">${op ? '▾' : '▸'}</span> ${pt.name} <span class="src">${pt.src}</span></td><td class="r num">${f1(pt.cft)}</td><td class="r num">${rs(pt.cft * p.rate)}</td></tr>` +
-      (op ? pt.stone.map((r, i) => { const ex = r[5], base = pt.stone.filter(x => !x[5]).length, k = ex ? `x:${i - base}` : `o:${i}`, cf = r[1]*r[2]*r[3]*r[4]/1728;
-        return `<tr><td class="it">${ex ? `<input class="e en" id="d-${pt.key}-${k}-n" value="${esc(r[0])}" data-st="${pt.key}:${k}:0">` : r[0]}</td>${[1,2,3,4].map(j => `<td class="r"><input class="e" id="d-${pt.key}-${k}-${j}" inputmode="numeric" value="${r[j]}" data-st="${pt.key}:${k}:${j}"></td>`).join('')}<td class="r num">${f1(r[1]*r[4]/12)}</td><td class="r num">${f1(cf)}</td><td class="r num">${rs(cf * p.rate)}</td></tr>`; }).join('') +
-        (pt.stone.length ? '' : `<tr><td colspan="8" class="it" style="color:var(--muted)">${pt.key === 'jagati' ? 'જગતી નું માપ ડાબી બાજુ નાખો.' : 'પથ્થર ની લાઇન નથી.'}</td></tr>`) : ''); }).join('');
-  document.getElementById('root').innerHTML = `<div class="ld">
-    <header class="hd4"><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><span class="crumb">${esc(p.name)} · અંદાજ પત્રક</span><span class="sp"></span>${styleBar()}</header>
-    <div class="g4"><aside class="inp4">
-      <div class="dh">માહિતી</div>
-      <div class="dg">${fi('gwf', Math.floor(p.gw/12), 'ફૂટ', 'ગર્ભગૃહ પહોળાઈ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ', '')}${fi('gdf', Math.floor(p.gd/12), 'ફૂટ', 'ગર્ભગૃહ ઊંડાઈ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ', '')}
-        ${fi('face', p.face, '″', 'પથ્થર ની જાડાઈ')}${fi('rate', p.rate, '₹/CFT', 'દર')}
-        ${fi('jlf', p.jl ? Math.round(p.jl/12) : '', 'ફૂટ', 'જગતી લંબાઈ')}${fi('jwf', p.jw ? Math.round(p.jw/12) : '', 'ફૂટ', 'જગતી પહોળાઈ')}</div>
-      <div class="dh">દીવાલ</div>${seg('ratio', p.ratio, [[5,'⅕'],[5.5,'1⁄5½'],[6,'⅙']])}${seg('wall', p.wall, [['brick','ઈંટ + પથ્થર'],['stone','પૂરો પથ્થર']])}
-      <div class="dh">રીત</div>${seg('m.man', p.m.man, [[1,'મં. 1'],[2,'મં. 2'],[3,'મં. 3'],[4,'મં. 4']])}${seg('m.pith', p.m.pith, [[1,'પીઠ 1'],[2,'પીઠ 2']])}${seg('grade', p.grade, [['j','જ્યેષ્ઠ'],['m','મધ્યમ'],['k','કનિષ્ઠ']])}
-      <div class="sum4"><div><small>પ્રાસાદ</small><b class="num">${ftin(c.P)}</b></div><div><small>દીવાલ</small><b class="num">${c.t}″</b></div><div><small>મંડોવર</small><b class="num">${ftin(c.mando)}</b></div></div>
-    </aside>
-    <section class="boq"><div class="sx"><table><thead><tr><th>વસ્તુ</th><th class="r">લંબાઈ ″</th><th class="r">પહોળાઈ ″</th><th class="r">ઊંચાઈ ″</th><th class="r">નંગ</th><th class="r">RFT</th><th class="r">CFT</th><th class="r">₹</th></tr></thead>
-      <tbody>${rows}</tbody><tfoot><tr><td colspan="6">કુલ</td><td class="r num">${f1(c.total)}</td><td class="r num">${rs(c.total * p.rate)}</td></tr></tfoot></table></div></section></div></div>`;
-}
 
 /* ===================== FINAL DESIGN: sidebar (1) + hero/tiles (3) + CAD drawings ===================== */
 const fmtDim = i => ftin(ceil(i));
@@ -650,6 +590,7 @@ function elevSVG(p, c, sel){
   o += `<line x1="${X0 + jl0 - 40}" y1="${Y(0)}" x2="${X0 + jr0 + 40}" y2="${Y(0)}" stroke="var(--ink)" stroke-width="${sw*2.5}"/>`;
   // jagati
   o += `<g data-part="jagati" class="hit">`; J.rows.forEach((r, i) => { const nk = r.nik; o += rect(jl0 - nk, y, jagW + 2*nk, r.h, 'jagati', i % 2); y += r.h; }); o += `</g>`;
+  for (let xx = jl0 + P*.4; xx < jr0 - P*.2; xx += P*.55) o += `<line x1="${X0 + xx}" y1="${Y(J.rows[0].h)}" x2="${X0 + xx}" y2="${Y(y - J.rows[J.rows.length-1].h)}" stroke="var(--muted)" stroke-width="${sw*.7}"/>`;
   const yJ = y;
   // bhit
   o += `<g data-part="bhit" class="hit">`; B.rows.forEach((r, i) => { const w = pithBase + 2*r.nik; o += rect(-w/2, y, w, r.h, 'bhit', i % 2); y += r.h; }); o += `</g>`;
@@ -672,11 +613,13 @@ function elevSVG(p, c, sel){
     o += rect(x0 - koli, paY, mandW + koli, paH, 'mandap', 1);
     const chY = paY + paH, chH = paH*1.1;
     o += `<polygon points="${X0 + x0 - koli},${Y(chY + chH)} ${X0 + x1 - sw2*.3},${Y(chY + chH)} ${X0 + x1 + sw2*1.2},${Y(chY)} ${X0 + x0 - koli},${Y(chY)}" ${fl('mandap')} ${st('mandap')}/>`;
+    { const bH = paH*.9, by = chY + chH; o += `<rect x="${X0 + x0 - koli}" y="${Y(by + bH)}" width="${mandW + koli}" height="${bH*.18}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+      for (let xx = x0 - koli + bH*.5; xx < x1 - bH*.3; xx += bH*.9) o += `<circle cx="${X0 + xx}" cy="${Y(by + bH*.42)}" r="${bH*.3}" fill="none" stroke="var(--ink)" stroke-width="${sw*.8}"/>`; }
     // koli wall between
     o += rect(P/2, ub, koli, paY - ub, 'mandap', 1);
     // samvarana: stepped tiers
-    let ty = chY + chH, tw = mandW*.98; const tiers = 5, th = mandW*.42 / tiers;
-    for (let k = 0; k < tiers; k++){ const cx = (x0 + x1)/2; o += `<rect x="${X0 + cx - tw/2}" y="${Y(ty + th)}" width="${tw}" height="${th}" ${fl('ghummat', k % 2)} ${st('ghummat')} data-part="ghummat"/>`; ty += th; tw *= .78; }
+    let ty = chY + chH + paH*.9, tw = mandW*.92; const tiers = 7, th = mandW*.4 / tiers;
+    for (let k = 0; k < tiers; k++){ const cx = (x0 + x1)/2; o += `<rect x="${X0 + cx - tw/2}" y="${Y(ty + th)}" width="${tw}" height="${th}" ${fl('ghummat', k % 2)} ${st('ghummat')} data-part="ghummat"/>`; ty += th; tw *= .84; }
     const cx = (x0 + x1)/2, kw = mandW/12;
     o += `<path d="M${X0 + cx - kw} ${Y(ty)} Q ${X0 + cx - kw*1.4} ${Y(ty + kw*1.2)} ${X0 + cx} ${Y(ty + kw*2.2)} Q ${X0 + cx + kw*1.4} ${Y(ty + kw*1.2)} ${X0 + cx + kw} ${Y(ty)} Z" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="${sw}"/>`;
     o += `</g>`; }
@@ -710,7 +653,7 @@ function elevSVG(p, c, sel){
   const yS0 = ky;
   // shikhar
   const curve = (cx, yb, bw, h, sk) => { const L = cx - bw/2, R = cx + bw/2, l2 = cx - sk/2, r2 = cx + sk/2;
-    return `M${L} ${Y(yb)} C ${L} ${Y(yb + h*.55)}, ${l2 - sk*.12} ${Y(yb + h*.93)}, ${l2} ${Y(yb + h)} L ${r2} ${Y(yb + h)} C ${r2 + sk*.12} ${Y(yb + h*.93)}, ${R} ${Y(yb + h*.55)}, ${R} ${Y(yb)} Z`; };
+    return `M${L} ${Y(yb)} C ${L - bw*.04} ${Y(yb + h*.62)}, ${l2 - sk*.2} ${Y(yb + h*.93)}, ${l2} ${Y(yb + h)} L ${r2} ${Y(yb + h)} C ${r2 + sk*.2} ${Y(yb + h*.93)}, ${R + bw*.04} ${Y(yb + h*.62)}, ${R} ${Y(yb)} Z`; };
   const mini = (cx, yb, bw, h) => { const sk = bw*.6, aw = bw*.62, ah = aw/2, kw = bw/7;
     return `<path d="${curve(cx, yb, bw, h, sk)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>${[.25,.5,.75].map(f => `<line x1="${cx - (bw/2 - (bw-sk)/2*f*f)}" y1="${Y(yb + h*f)}" x2="${cx + (bw/2 - (bw-sk)/2*f*f)}" y2="${Y(yb + h*f)}" stroke="var(--muted)" stroke-width="${sw*.5}"/>`).join('')}
       <rect x="${cx - aw/2}" y="${Y(yb + h + ah*.7)}" width="${aw}" height="${ah*.5}" rx="${ah*.25}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>
@@ -724,8 +667,16 @@ function elevSVG(p, c, sel){
     o += `<line x1="${X0 - half}" y1="${Y(yS0 + Sh*f)}" x2="${X0 + half}" y2="${Y(yS0 + Sh*f)}" stroke="var(--muted)" stroke-width="${sw*.4}" opacity=".7"/>`; }
   // karna shrung + urushrung on bhadra
   const ks = segs[0].w;
+  const bh = segs.find(sg => sg.n === 'ભદ્ર');
+  if (bh) o += mini(X0, yS0 + Sh*.34, bh.w*1.3, Sh*.5);
+  o += mini(X0 - P/2 + ks*1.25, yS0 + Sh*.16, ks*1.05, Sh*.42) + mini(X0 + P/2 - ks*1.25, yS0 + Sh*.16, ks*1.05, Sh*.42);
+  if (bh) o += mini(X0, yS0 + Sh*.14, bh.w*1.15, Sh*.48);
   o += mini(X0 + segs[0].a + ks*.5, yS0, ks*1.05, Sh*.32) + mini(X0 + segs[segs.length-1].a + ks*.5, yS0, ks*1.05, Sh*.32);
-  const bh = segs.find(sg => sg.n === 'ભદ્ર'); if (bh){ o += mini(X0, yS0 + Sh*.18, bh.w*1.25, Sh*.52) + mini(X0, yS0, bh.w*1.05, Sh*7/13*.62); }
+  if (bh) o += mini(X0, yS0, bh.w*1.0, Sh*7/13*.6);
+  // shikhar pethi with row of kuta domes (as in the CAD)
+  { const ph = Sh*.05, n = 9; o += `<rect x="${X0 - Bw*.52}" y="${Y(yS0 + ph)}" width="${Bw*1.04}" height="${ph}" fill="var(--surface2)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    for (let k = 0; k < n; k++){ const cx = X0 - Bw*.46 + Bw*.92*k/(n-1), dw2 = Bw*.045; if (Math.abs(cx - X0) < bh.w*.55) continue;
+      o += `<path d="M${cx - dw2} ${Y(yS0 + ph)} Q ${cx - dw2} ${Y(yS0 + ph + dw2*2.4)} ${cx} ${Y(yS0 + ph + dw2*2.8)} Q ${cx + dw2} ${Y(yS0 + ph + dw2*2.4)} ${cx + dw2} ${Y(yS0 + ph)} Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>`; } }
   // amalsaro (griva 3/4, amalsaro 5/4, chandrika 1, amalsari 1 of Ah/4)
   { const q = Ah/4; let yy = yS0 + Sh;
     o += `<rect x="${X0 - Aw*.36}" y="${Y(yy + q*.75)}" width="${Aw*.72}" height="${q*.75}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`; yy += q*.75;
@@ -760,46 +711,174 @@ function elevSVG(p, c, sel){
 }
 
 function planSVG(p, c, sel){
-  const P = c.P, D = c.Pd, t = c.t, info = planInfo(p, c);
+  // Plan like the owner's CAD: jagati outline, prasad with karna/padhra/bhadra offsets and chamfered rekha corners,
+  // garbhagruh, koli with pilasters, open mandap with 12 stambh and octagon (ghummat) lines, sopan in front.
+  const P = c.P, D = c.Pd, t = c.t, info = planInfo(p, c), gw = ceil(p.gw), gd = ceil(p.gd);
   const sx = sideOffsets(P, info), sy = sideOffsets(D, info);
   const dw = c.parts.find(x => x.key === 'dwar'), doorW = +dw.kpis[1][1].replace('″','');
   const MPp = c.parts.find(x => x.key === 'mandap'), mand = +MPp.meas[0][1], swp = +c.parts.find(x => x.key === 'stambh').kpis[0][1].replace('″','');
-  const fs = Math.max(P, D + mand) / 26, sw = fs / 9;
-  // outline polygon clockwise, front (bottom, +y) side gets door
-  const pts = [];
-  sx.forEach(sg => { pts.push([sg.a, -D/2 - sg.pj], [sg.z, -D/2 - sg.pj]); });                // back (top)
-  sy.forEach(sg => { pts.push([P/2 + sg.pj, sg.a], [P/2 + sg.pj, sg.z]); });                  // right
-  sx.slice().reverse().forEach(sg => { pts.push([sg.z, D/2 + sg.pj], [sg.a, D/2 + sg.pj]); }); // front
-  sy.slice().reverse().forEach(sg => { pts.push([-P/2 - sg.pj, sg.z], [-P/2 - sg.pj, sg.a]); }); // left
-  const mg = fs * 5, minX = -P/2 - mg - fs*3, minY = -D/2 - mg - fs*2, W = P + 2*mg + fs*6, H = D + mand + 2*mg + fs*4;
-  const on = sel === 'deewal';
+  const bh = sx.find(s => s.n === 'ભદ્ર') || sx[1], koliW = Math.max(bh.w, doorW + 2*swp), koliL = ceil(P * .25);
+  const yK0 = D/2 + bh.pj, yM0 = yK0 + koliL, yM1 = yM0 + mand, sopL = ceil(mand * .22), mg = ceil(P * .3);
+  const jx = Math.max(P/2 + bh.pj, mand/2) + mg, jy0 = -D/2 - bh.pj - mg, jy1 = yM1 + mg;
+  const fs = (jy1 - jy0) / 42, sw = fs / 8;
+  const hl = k => sel === k, stk = k => hl(k) ? 'var(--accent)' : 'var(--ink)';
   let o = '';
-  // mandap (later phase) dashed
-  o += `<rect x="${-mand/2}" y="${D/2 + P*.12}" width="${mand}" height="${mand*.9}" fill="${sel === 'mandap' ? 'var(--accent-soft)' : 'none'}" stroke="${sel === 'mandap' ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sw*1.2}" data-part="mandap" class="hit"/>
-    ${[0,1,2,3].flatMap(i => [0,1,2,3].map(j => (i === 0 || i === 3 || j === 0 || j === 3) ? `<rect x="${-mand/2 + swp/2 + (mand - swp*2)*i/3}" y="${D/2 + P*.12 + swp/2 + (mand*.9 - swp*2)*j/3}" width="${swp}" height="${swp}" fill="${sel === 'stambh' ? 'var(--accent)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width="${sw}" data-part="stambh" class="hit"/>` : '')).join('')}
-    <circle cx="0" cy="${D/2 + P*.12 + mand*.45}" r="${mand*.2}" fill="none" stroke="var(--muted)" stroke-dasharray="${fs*.4} ${fs*.3}" stroke-width="${sw}" data-part="ghummat" class="hit"/>
-    <text x="0" y="${D/2 + P*.12 + mand*.45 + fs*.35}" font-size="${fs}" fill="var(--muted)" text-anchor="middle">મંડપ ${fmtDim(mand)}</text>
-    <rect x="${-doorW*1.2}" y="${D/2}" width="${doorW*2.4}" height="${P*.12}" fill="none" stroke="var(--muted)" stroke-width="${sw}"/>`;
-  o += `<g data-part="deewal" class="hit"><path d="M${pts.map(q => q.join(' ')).join(' L ')} Z M${-ceil(p.gw)/2} ${-ceil(p.gd)/2} L ${ceil(p.gw)/2} ${-ceil(p.gd)/2} L ${ceil(p.gw)/2} ${ceil(p.gd)/2} L ${-ceil(p.gw)/2} ${ceil(p.gd)/2} Z" fill-rule="evenodd" fill="${on ? 'var(--accent-soft)' : 'var(--surface2)'}" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sw*1.6}"/></g>`;
-  // door opening
-  o += `<g data-part="dwar" class="hit"><rect x="${-doorW/2}" y="${ceil(p.gd)/2 - sw}" width="${doorW}" height="${(D - ceil(p.gd))/2 + sw*2 + 2}" fill="var(--bg)" stroke="none"/>
-    <line x1="${-doorW/2}" y1="${ceil(p.gd)/2}" x2="${-doorW/2}" y2="${D/2 + (sx.find(s => s.n === 'ભદ્ર') || {pj:0}).pj}" stroke="var(--ink)" stroke-width="${sw*1.2}"/><line x1="${doorW/2}" y1="${ceil(p.gd)/2}" x2="${doorW/2}" y2="${D/2 + (sx.find(s => s.n === 'ભદ્ર') || {pj:0}).pj}" stroke="var(--ink)" stroke-width="${sw*1.2}"/></g>`;
-  // inside label + kurmashila (center)
-  o += `<text x="0" y="${-fs*.6}" font-size="${fs*1.15}" text-anchor="middle" fill="var(--ink)" font-weight="600">ગર્ભગૃહ</text>
-    <text x="0" y="${fs*1}" font-size="${fs}" text-anchor="middle" fill="var(--muted)" font-family="Inter,sans-serif">${fmtDim(p.gw)} × ${fmtDim(p.gd)}</text>`;
-  // dimension chain on top: segments
-  const yd = -D/2 - mg*.55, yd2 = -D/2 - mg*.95;
-  sx.forEach(sg => o += `<line x1="${sg.a}" y1="${yd - fs*.3}" x2="${sg.a}" y2="${yd + fs*.3}" stroke="var(--accent)" stroke-width="${sw}"/><text x="${(sg.a + sg.z)/2}" y="${yd - fs*.35}" font-size="${fs*.8}" text-anchor="middle" fill="var(--accent)" font-family="Inter,sans-serif">${fmtDim(sg.w)}</text>`);
-  o += `<line x1="${-P/2}" y1="${yd}" x2="${P/2}" y2="${yd}" stroke="var(--accent)" stroke-width="${sw}"/><line x1="${P/2}" y1="${yd - fs*.3}" x2="${P/2}" y2="${yd + fs*.3}" stroke="var(--accent)" stroke-width="${sw}"/>`;
-  o += `<line x1="${-P/2}" y1="${yd2}" x2="${P/2}" y2="${yd2}" stroke="var(--ink)" stroke-width="${sw}"/><text x="0" y="${yd2 - fs*.4}" font-size="${fs*.95}" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" font-weight="600">${fmtDim(P)} (કર્ણ થી કર્ણ)</text>`;
-  // left: depth + wall
-  const xd = -P/2 - mg*.6;
-  o += `<line x1="${xd}" y1="${-D/2}" x2="${xd}" y2="${D/2}" stroke="var(--ink)" stroke-width="${sw}"/><text x="${xd - fs*.5}" y="0" font-size="${fs*.95}" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" transform="rotate(-90 ${xd - fs*.5} 0)">${fmtDim(D)}</text>`;
-  // wall thickness callout right
-  const xr = P/2 + fs*.2;
-  o += `<line x1="${ceil(p.gw)/2}" y1="${-D/4}" x2="${P/2}" y2="${-D/4}" stroke="var(--accent)" stroke-width="${sw}"/><text x="${(ceil(p.gw)/2 + P/2)/2}" y="${-D/4 - fs*.4}" font-size="${fs*.8}" text-anchor="middle" fill="var(--accent)" font-family="Inter,sans-serif">${t}″</text>`;
-  o += `<text x="${-P/2}" y="${minY + H - fs*.6}" font-size="${fs*.8}" fill="var(--muted)">${info.label} · કર્ણ / પઢરો / ભદ્ર ના નિકાળા સાથે</text>`;
+  // jagati outline with corner steps
+  const st = mg * .35;
+  const jag = [[-jx, jy0 + st],[-jx + st, jy0 + st],[-jx + st, jy0],[jx - st, jy0],[jx - st, jy0 + st],[jx, jy0 + st],[jx, jy1 - st],[jx - st, jy1 - st],[jx - st, jy1],[-jx + st, jy1],[-jx + st, jy1 - st],[-jx, jy1 - st]];
+  o += `<g data-part="jagati" class="hit"><path d="M${jag.map(q => q.join(' ')).join(' L ')} Z" fill="${hl('jagati') ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${stk('jagati')}" stroke-width="${sw*1.4}"/>
+    <path d="M${jag.map(([x, y]) => [x * (jx - fs*.8)/jx, jy0 + fs*.8 + (y - jy0) * (jy1 - jy0 - fs*1.6)/(jy1 - jy0)].join(' ')).join(' L ')} Z" fill="none" stroke="var(--muted)" stroke-width="${sw*.6}"/></g>`;
+  // sopan (steps) in front
+  const sw0 = mand * .42;
+  o += `<g>${Array.from({length: 7}, (_, i) => `<line x1="${-sw0/2}" y1="${jy1 + i*sopL/7}" x2="${sw0/2}" y2="${jy1 + i*sopL/7}" stroke="var(--ink)" stroke-width="${sw*.7}"/>`).join('')}<rect x="${-sw0/2}" y="${jy1}" width="${sw0}" height="${sopL}" fill="none" stroke="var(--ink)" stroke-width="${sw}"/></g>`;
+  // prasad outline: segments on back, left, right; front is open to koli
+  const pts = [];
+  sx.forEach(sg => pts.push([sg.a, -D/2 - sg.pj], [sg.z, -D/2 - sg.pj]));
+  sy.forEach(sg => pts.push([P/2 + sg.pj, sg.a], [P/2 + sg.pj, sg.z]));
+  sx.slice().reverse().forEach(sg => pts.push([sg.z, D/2 + sg.pj], [sg.a, D/2 + sg.pj]));
+  sy.slice().reverse().forEach(sg => pts.push([-P/2 - sg.pj, sg.z], [-P/2 - sg.pj, sg.a]));
+  // chamfer the four rekha corners (45°, like the CAD)
+  const ch = sx[0].w * .35, out = [];
+  pts.forEach(([x, y]) => { const corner = Math.abs(Math.abs(x) - P/2) < .01 && Math.abs(Math.abs(y) - D/2) < .01;
+    if (corner && !out.some(q => q[2] && q[0] === x && q[1] === y)){ const sxn = Math.sign(x), syn = Math.sign(y);
+      // order matters: entering along one edge, leaving along the other
+      const prev = out[out.length - 1]; const alongX = prev && Math.abs(prev[1] - y) < .01;
+      if (alongX){ out.push([x - sxn*ch, y, 1], [x, y - syn*ch, 1]); } else { out.push([x, y - syn*ch, 1], [x - sxn*ch, y, 1]); }
+    } else if (!corner) out.push([x, y, 0]); });
+  const dedup = out.filter((q, i) => i === 0 || Math.abs(q[0] - out[i-1][0]) > .01 || Math.abs(q[1] - out[i-1][1]) > .01);
+  const on = hl('deewal');
+  o += `<g data-part="deewal" class="hit"><path d="M${dedup.map(q => q[0] + ' ' + q[1]).join(' L ')} Z M${-gw/2} ${-gd/2} L ${gw/2} ${-gd/2} L ${gw/2} ${gd/2} L ${-gw/2} ${gd/2} Z" fill-rule="evenodd" fill="${on ? 'var(--accent-soft)' : 'var(--surface2)'}" stroke="${stk('deewal')}" stroke-width="${sw*1.6}"/>
+    ${sx.slice(1).map(sg => `<line x1="${sg.a}" y1="${-D/2 - sg.pj}" x2="${sg.a}" y2="${-D/2 - sg.pj + t*.35}" stroke="var(--ink)" stroke-width="${sw*.7}"/>`).join('')}</g>`;
+  // garbhagruh niche on back wall (bhadra gokhlo)
+  o += `<path d="M${-bh.w*.25} ${-gd/2} L ${-bh.w*.25} ${-gd/2 - t*.25} L ${bh.w*.25} ${-gd/2 - t*.25} L ${bh.w*.25} ${-gd/2}" fill="var(--bg)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+  // door opening + koli (antarala) with pilasters
+  o += `<g data-part="dwar" class="hit"><rect x="${-doorW/2}" y="${gd/2 - sw}" width="${doorW}" height="${yK0 - gd/2 + sw*2}" fill="var(--bg)"/>
+    <line x1="${-doorW/2}" y1="${gd/2}" x2="${-doorW/2}" y2="${yK0}" stroke="${stk('dwar')}" stroke-width="${sw*1.4}"/><line x1="${doorW/2}" y1="${gd/2}" x2="${doorW/2}" y2="${yK0}" stroke="${stk('dwar')}" stroke-width="${sw*1.4}"/></g>`;
+  o += `<path d="M${-koliW/2} ${yK0} L ${-koliW/2} ${yM0} M${koliW/2} ${yK0} L ${koliW/2} ${yM0}" stroke="var(--ink)" stroke-width="${sw*1.4}"/>`;
+  [[-koliW/2, yK0 + swp*.6],[koliW/2, yK0 + swp*.6],[-koliW/2, yM0 - swp*.6],[koliW/2, yM0 - swp*.6]].forEach(([x, y]) => o += `<rect x="${x - swp*.35}" y="${y - swp*.35}" width="${swp*.7}" height="${swp*.7}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw}"/>`);
+  // mandap: open, 12 stambh on perimeter, octagon lines (ghummat), centre cross
+  const mx = i => -mand/2 + swp/2 + (mand - swp) * i/3, my = j => yM0 + swp/2 + (mand - swp) * j/3;
+  o += `<rect x="${-mand/2}" y="${yM0}" width="${mand}" height="${mand}" fill="${hl('mandap') ? 'var(--accent-soft)' : 'none'}" stroke="${stk('mandap')}" stroke-width="${sw}" data-part="mandap" class="hit"/>`;
+  const oct = [[1,0],[2,0],[3,1],[3,2],[2,3],[1,3],[0,2],[0,1]];
+  o += `<path d="M${oct.map(([i, j]) => mx(i) + ' ' + my(j)).join(' L ')} Z" fill="none" stroke="${hl('ghummat') ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sw*(hl('ghummat') ? 2 : 1)}" data-part="ghummat" class="hit"/>`;
+  o += `<line x1="${mx(0)}" y1="${(my(1)+my(2))/2}" x2="${mx(3)}" y2="${(my(1)+my(2))/2}" stroke="var(--muted)" stroke-width="${sw*.6}"/><line x1="${(mx(1)+mx(2))/2}" y1="${my(0)}" x2="${(mx(1)+mx(2))/2}" y2="${my(3)}" stroke="var(--muted)" stroke-width="${sw*.6}"/>`;
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) if (i === 0 || i === 3 || j === 0 || j === 3){
+    const x = mx(i), y = my(j), s = swp;
+    o += `<g data-part="stambh" class="hit"><rect x="${x - s*.6}" y="${y - s*.6}" width="${s*1.2}" height="${s*1.2}" fill="${hl('stambh') ? 'var(--accent-soft)' : 'var(--surface)'}" stroke="${stk('stambh')}" stroke-width="${sw}"/><rect x="${x - s*.45}" y="${y - s*.45}" width="${s*.9}" height="${s*.9}" fill="none" stroke="var(--ink)" stroke-width="${sw*.6}"/><rect x="${x - s*.3}" y="${y - s*.3}" width="${s*.6}" height="${s*.6}" fill="none" stroke="var(--ink)" stroke-width="${sw*.6}"/></g>`; }
+  // labels
+  o += `<text x="0" y="${-fs*.3}" font-size="${fs*1.05}" text-anchor="middle" fill="var(--ink)" font-weight="600">ગર્ભગૃહ</text><text x="0" y="${fs*1}" font-size="${fs*.9}" text-anchor="middle" fill="var(--muted)" font-family="Inter,sans-serif">${fmtDim(gw)} × ${fmtDim(gd)}</text>`;
+  o += `<text x="0" y="${(yM0 + yM1)/2 + fs*.35}" font-size="${fs}" text-anchor="middle" fill="var(--muted)">મંડપ</text>`;
+  // dimensions (CAD style): ink = structure, accent = overall
+  const dim = (x1, y1, x2, y2, label, col = 'var(--ink)', off = 0, vert = false) => {
+    const tx = (x1 + x2)/2, ty = (y1 + y2)/2;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${sw}"/>
+      ${vert ? `<line x1="${x1 - fs*.3}" y1="${y1}" x2="${x1 + fs*.3}" y2="${y1}" stroke="${col}" stroke-width="${sw}"/><line x1="${x2 - fs*.3}" y1="${y2}" x2="${x2 + fs*.3}" y2="${y2}" stroke="${col}" stroke-width="${sw}"/>
+        <text x="${tx - fs*.45 - off}" y="${ty}" font-size="${fs*.8}" fill="${col}" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 ${tx - fs*.45 - off} ${ty})">${label}</text>`
+      : `<line x1="${x1}" y1="${y1 - fs*.3}" x2="${x1}" y2="${y1 + fs*.3}" stroke="${col}" stroke-width="${sw}"/><line x1="${x2}" y1="${y2 - fs*.3}" x2="${x2}" y2="${y2 + fs*.3}" stroke="${col}" stroke-width="${sw}"/>
+        <text x="${tx}" y="${ty - fs*.35}" font-size="${fs*.8}" fill="${col}" text-anchor="middle" font-family="Inter,sans-serif">${label}</text>`}`; };
+  // back side segments of prasad (left of the plan in the CAD; here on top)
+  const yb = -D/2 - bh.pj - fs*1.6;
+  sx.forEach(sg => o += dim(sg.a, yb, sg.z, yb, fmtDim(sg.w)));
+  o += dim(-P/2, yb - fs*1.5, P/2, yb - fs*1.5, fmtDim(P) + ' (કર્ણ થી કર્ણ)');
+  // garbhagruh inner width, wall
+  o += dim(-gw/2, -gd/2 + fs*1.4, gw/2, -gd/2 + fs*1.4, fmtDim(gw), 'var(--muted)');
+  o += dim(gw/2, -gd/4, P/2, -gd/4, t + '″', 'var(--muted)');
+  // right side: prasad depth, koli, mandap
+  const xr = jx + fs*1.2;
+  o += dim(xr, -D/2, xr, D/2, fmtDim(D), 'var(--ink)', 0, true) + dim(xr, yK0, xr, yM0, fmtDim(koliL), 'var(--ink)', 0, true) + dim(xr, yM0, xr, yM1, fmtDim(mand), 'var(--ink)', 0, true);
+  // overall jagati
+  const xr2 = xr + fs*2.2;
+  o += dim(xr2, jy0, xr2, jy1, fmtDim(jy1 - jy0) + ' જગતી', 'var(--accent)', 0, true);
+  o += dim(-jx, jy1 + sopL + fs*1.6, jx, jy1 + sopL + fs*1.6, fmtDim(2*jx) + ' જગતી', 'var(--accent)');
+  o += dim(-mand/2, yM1 - fs*1.2, mand/2, yM1 - fs*1.2, fmtDim(mand), 'var(--muted)');
+  const minX = -jx - fs*2, minY = yb - fs*3.2, W = 2*jx + fs*8, H = (jy1 + sopL + fs*3) - minY;
   return `<svg class="dw" viewBox="${minX} ${minY} ${W} ${H}" role="img" aria-label="પ્લાન">${o}</svg>`;
+}
+
+/* ===================== Drawing of every item in a part ===================== */
+function profileSVG(rows, o = {}){
+  // rows bottom -> top: {n, h, w}; draws a centred elevation with each item's height and width dimensioned
+  const H = rows.reduce((a, r) => a + r.h, 0), W = Math.max(...rows.map(r => r.w));
+  const fs = Math.max(H, W*.55) / 24, sw = fs / 10, lw = fs * 9.5;
+  const X = lw + fs*3.4 + W/2, Y = v => H + fs*1.2 - v;
+  let s = '', y = 0;
+  rows.forEach((r, i) => {
+    const x = X - r.w/2, top = Y(y + r.h);
+    if (r.shape === 'round') s += `<rect x="${x}" y="${top}" width="${r.w}" height="${r.h}" rx="${Math.min(r.h, r.w)/2}" fill="${i % 2 ? 'var(--surface2)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    else if (r.shape === 'slope') s += `<polygon points="${X - r.w*.35},${top} ${X + r.w*.35},${top} ${X + r.w/2},${Y(y + r.h*.25)} ${X + r.w/2},${Y(y)} ${x},${Y(y)} ${x},${Y(y + r.h*.25)}" fill="var(--surface2)" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    else s += `<rect x="${x}" y="${top}" width="${r.w}" height="${r.h}" fill="${r.hl ? 'var(--accent-soft)' : i % 2 ? 'var(--surface2)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width="${sw}"/>`;
+    if (r.deco === 'tri'){ const n = Math.max(2, Math.round(r.w / (r.h*1.1))), ww = r.w / n; for (let q = 0; q < n; q++){ const cx = x + ww*(q + .5); s += `<polygon points="${cx - ww*.3},${Y(y + r.h*.12)} ${cx + ww*.3},${Y(y + r.h*.12)} ${cx},${Y(y + r.h*.85)}" fill="none" stroke="var(--muted)" stroke-width="${sw*.8}"/>`; } }
+    if (r.deco === 'niche'){ [-.3, 0, .3].forEach(f => { const nw = Math.min(r.w*.14, r.h*.42), cx = X + r.w*f, b = y + r.h*.1, h = r.h*.62;
+      s += `<rect x="${cx - nw/2}" y="${Y(b + h)}" width="${nw}" height="${h}" fill="var(--bg)" stroke="var(--ink)" stroke-width="${sw*.8}"/><polygon points="${cx - nw*.62},${Y(b + h)} ${cx + nw*.62},${Y(b + h)} ${cx},${Y(b + h + r.h*.22)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${sw*.8}"/>`; }); }
+    // left: height dim per item
+    const dx = X - W/2 - fs*1.4;
+    s += `<line x1="${dx}" y1="${Y(y)}" x2="${dx}" y2="${top}" stroke="var(--accent)" stroke-width="${sw}"/><line x1="${dx - fs*.25}" y1="${top}" x2="${dx + fs*.25}" y2="${top}" stroke="var(--accent)" stroke-width="${sw}"/>
+      <text x="${dx - fs*.35}" y="${(Y(y) + top)/2 + fs*.32}" font-size="${fs*.85}" text-anchor="end" fill="var(--accent)" font-family="Inter,sans-serif">${r.h}″</text>`;
+    // right: name + width
+    s += `<line x1="${X + r.w/2}" y1="${(Y(y) + top)/2}" x2="${X + W/2 + fs*.8}" y2="${(Y(y) + top)/2}" stroke="var(--line)" stroke-width="${sw*.7}"/>
+      <text x="${X + W/2 + fs*1}" y="${(Y(y) + top)/2 + fs*.32}" font-size="${fs*.85}" fill="var(--ink)">${r.n}${o.widths === false ? '' : ` <tspan fill="var(--muted)" font-family="Inter,sans-serif">· ${r.w}″</tspan>`}</text>`;
+    y += r.h; });
+  // total height + base width
+  const tx = X - W/2 - fs*4.6;
+  s += `<line x1="${tx}" y1="${Y(0)}" x2="${tx}" y2="${Y(H)}" stroke="var(--ink)" stroke-width="${sw*1.2}"/><line x1="${tx - fs*.3}" y1="${Y(H)}" x2="${tx + fs*.3}" y2="${Y(H)}" stroke="var(--ink)" stroke-width="${sw}"/><line x1="${tx - fs*.3}" y1="${Y(0)}" x2="${tx + fs*.3}" y2="${Y(0)}" stroke="var(--ink)" stroke-width="${sw}"/>
+    <text x="${tx - fs*.45}" y="${Y(H/2)}" font-size="${fs}" fill="var(--ink)" font-weight="600" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 ${tx - fs*.45} ${Y(H/2)})">${H}″ · ${ftin(H)}</text>`;
+  if (o.base){ const by = Y(0) + fs*1.3; s += `<line x1="${X - o.base/2}" y1="${by}" x2="${X + o.base/2}" y2="${by}" stroke="var(--ink)" stroke-width="${sw}"/><text x="${X}" y="${by + fs*1.2}" font-size="${fs*.85}" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif">${o.baseLabel || ''}${o.base}″ · ${ftin(o.base)}</text>`; }
+  if (o.extra) s += o.extra(X, Y, fs, sw);
+  const vbW = X + W/2 + fs*14, vbH = H + fs*(o.base ? 5 : 2.6);
+  return `<svg class="dw pd2" viewBox="${tx - fs*1.6} 0 ${vbW - tx + fs*1.6} ${vbH}" role="img" aria-label="ચિત્ર">${s}</svg>`;
+}
+
+function dwarSVG(p, c){
+  const d = c.parts.find(x => x.key === 'dwar'), h = +d.kpis[0][1].replace('″',''), w = +d.kpis[1][1].replace('″',''), n = +d.kpis[2][1], sw0 = +d.meas[3][1], um = +d.meas[4][1];
+  const ot = Math.max(6, ceil(sw0*.8)), W = w + 2*sw0, H = um + h + ot, fs = Math.max(H, W) / 24, s1 = fs/10;
+  const X = fs*6 + W/2, Y = v => H + fs*1.5 - v;
+  let s = `<rect x="${X - W/2}" y="${Y(um)}" width="${W}" height="${um}" fill="var(--surface2)" stroke="var(--ink)" stroke-width="${s1}"/>`;
+  s += `<path d="M${X - w/2} ${Y(0)} A ${w/2} ${um*.9} 0 0 1 ${X + w/2} ${Y(0)}" fill="var(--surface)" stroke="var(--ink)" stroke-width="${s1}"/>`;
+  for (const side of [-1, 1]) for (let k = 0; k < n; k++){ const bw = sw0 / n, x = side < 0 ? X - w/2 - sw0 + k*bw : X + w/2 + k*bw;
+    s += `<rect x="${x}" y="${Y(um + h)}" width="${bw}" height="${h}" fill="${k % 2 ? 'var(--surface2)' : 'var(--surface)'}" stroke="var(--ink)" stroke-width="${s1*.7}"/>`; }
+  s += `<rect x="${X - w/2}" y="${Y(um + h)}" width="${w}" height="${h}" fill="var(--bg)" stroke="var(--ink)" stroke-width="${s1*1.4}"/>`;
+  s += `<rect x="${X - W/2}" y="${Y(um + h + ot)}" width="${W}" height="${ot}" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="${s1}"/>`;
+  s += `<text x="${X}" y="${Y(um + h + ot/2) + fs*.3}" font-size="${fs*.8}" text-anchor="middle" fill="var(--ink)">ઓતરંગ</text><text x="${X}" y="${Y(um/2) + fs*.3}" font-size="${fs*.8}" text-anchor="middle" fill="var(--ink)">ઉંબર</text><text x="${X}" y="${Y(um + h/2)}" font-size="${fs*.9}" text-anchor="middle" fill="var(--muted)">દ્વાર</text>`;
+  const dm = (x1, y1, x2, y2, t, vert) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--accent)" stroke-width="${s1}"/>` + (vert
+    ? `<text x="${x1 - fs*.4}" y="${(y1 + y2)/2}" font-size="${fs*.85}" fill="var(--accent)" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 ${x1 - fs*.4} ${(y1 + y2)/2})">${t}</text>`
+    : `<text x="${(x1 + x2)/2}" y="${y1 - fs*.35}" font-size="${fs*.85}" fill="var(--accent)" text-anchor="middle" font-family="Inter,sans-serif">${t}</text>`);
+  s += dm(X - W/2 - fs*1.5, Y(um), X - W/2 - fs*1.5, Y(um + h), h + '″ ઊંચાઈ', 1) + dm(X - W/2 - fs*1.5, Y(0), X - W/2 - fs*1.5, Y(um), um + '″', 1) + dm(X - W/2 - fs*1.5, Y(um + h), X - W/2 - fs*1.5, Y(um + h + ot), ot + '″', 1);
+  s += dm(X - w/2, Y(um + h*.55), X + w/2, Y(um + h*.55), w + '″ પહોળાઈ') + dm(X + w/2, Y(um + h + ot) - fs*.6, X + w/2 + sw0, Y(um + h + ot) - fs*.6, sw0 + '″ શાખા');
+  s += `<text x="${X}" y="${Y(0) + fs*1.6}" font-size="${fs*.85}" text-anchor="middle" fill="var(--muted)">${n} શાખા · શંખાવટ ${w}″ × ${ceil(w/2)}″</text>`;
+  return `<svg class="dw pd2" viewBox="0 0 ${W + fs*12} ${H + fs*4}" role="img" aria-label="દ્વાર">${s}</svg>`;
+}
+
+function dhwajSVG(p, c){
+  const d = c.parts.find(x => x.key === 'dhwaj'), L = +d.meas[0][1], th = +d.meas[1][1], mk = +d.meas[2][1], pw = +d.meas[6][1];
+  const fs = L / 22, s1 = fs/10, X = fs*7, Y = v => L + fs*2 - v;
+  let s = `<rect x="${X - th/2}" y="${Y(L)}" width="${th}" height="${L}" fill="var(--surface2)" stroke="var(--ink)" stroke-width="${s1}"/>`;
+  for (let k = 1; k < 9; k++) s += `<line x1="${X - th/2}" y1="${Y(L*k/9)}" x2="${X + th/2}" y2="${Y(L*k/9)}" stroke="var(--muted)" stroke-width="${s1*.7}"/>`;
+  s += `<rect x="${X - mk/2}" y="${Y(L*.92)}" width="${mk}" height="${ceil(mk/6)}" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="${s1}"/>`;
+  s += `<path d="M${X + th/2} ${Y(L*.9)} q ${L*.3} ${pw*.2} ${L*.55} ${pw*1.2} l -${L*.1} ${pw*.5} q -${L*.25} -${pw*.6} -${L*.45} -${pw*.5} Z" fill="var(--accent)" opacity=".85"/>`;
+  s += `<line x1="${X - th/2 - fs*1.6}" y1="${Y(0)}" x2="${X - th/2 - fs*1.6}" y2="${Y(L)}" stroke="var(--accent)" stroke-width="${s1}"/><text x="${X - th/2 - fs*2}" y="${Y(L/2)}" font-size="${fs*.9}" fill="var(--accent)" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 ${X - th/2 - fs*2} ${Y(L/2)})">${L}″ · ${ftin(L)}</text>`;
+  s += `<text x="${X + mk/2 + fs*.6}" y="${Y(L*.92) + fs*.3}" font-size="${fs*.8}" fill="var(--ink)">મર્કટી ${mk}″</text><text x="${X + th/2 + fs*.6}" y="${Y(L*.3)}" font-size="${fs*.8}" fill="var(--ink)">દંડ ${th}″ જાડો</text><text x="${X + L*.3}" y="${Y(L*.9) + pw*1.6}" font-size="${fs*.8}" fill="var(--ink)">પતાકા ${pw}″</text>`;
+  return `<svg class="dw pd2" viewBox="0 0 ${L*.75 + fs*8} ${L + fs*4}" role="img" aria-label="ધ્વજદંડ">${s}</svg>`;
+}
+
+function partDrawing(p, c, pt){
+  const P = c.P, k = pt.key;
+  if (k === 'deewal' || k === 'mandap') return planSVG(p, c, k);
+  if (k === 'shikhar') return elevSVG(p, c, 'shikhar');
+  if (k === 'dwar') return dwarSVG(p, c);
+  if (k === 'dhwaj') return dhwajSVG(p, c);
+  const T = pt.thar; if (!T) return elevSVG(p, c, k);
+  if (k === 'stambh'){ const sw = +pt.kpis[0][1].replace('″',''), ws = [1.25, 1, 1.15, 1.3, 0];
+    const rows = T.rows.map((r, i) => ({n: r.n, h: r.h, w: i === 4 ? ceil(sw*3.2) : ceil(sw*ws[i])}));
+    return profileSVG(rows, {base: sw, baseLabel: 'સ્તંભ '}); }
+  if (k === 'ghummat'){ const D = ceil(+pt.stone[0][1] / Math.PI);
+    return profileSVG(T.rows.map((r, i) => ({n: r.n, h: r.h, w: ceil(D*(1 - i/(T.rows.length + 1))), shape:'round'})), {base: D, baseLabel: 'વ્યાસ '}); }
+  if (k === 'amalsaro'){ const ws = pt.stone.map(r => r[1]); const kal = pt.stone[4];
+    return profileSVG([...T.rows.map((r, i) => ({n: r.n, h: r.h, w: ws[i], shape: i === 1 ? 'round' : ''})), {n:'કલશ', h: kal[3], w: kal[1], shape:'round'}], {base: ws[1], baseLabel: 'આમલસારો '}); }
+  const base = k === 'jagati' ? (p.jl > 0 ? p.jl : ceil(P*2.4)) : P;
+  const cum = []; if (k === 'pith' || k === 'jagati'){ let a = 0; for (let i = T.rows.length - 1; i >= 0; i--){ a += T.rows[i].nik; cum[i] = a; } }
+  const rows = T.rows.map((r, i) => ({n: r.n, h: r.h, w: ceil(base + 2*((k === 'pith' || k === 'jagati') ? cum[i] : r.nik)),
+    shape: k === 'mandovar' && i === T.rows.length - 1 ? 'slope' : '', deco: r.n.startsWith('કુંભો') ? 'tri' : r.n.startsWith('જંઘા') ? 'niche' : '', hl: r.n.startsWith('જંઘા')}));
+  return profileSVG(rows, {base, baseLabel: k === 'jagati' ? 'જગતી ' : 'પ્રાસાદ '});
 }
 
 const drawCard = (title, svg, src) => `<div class="card dcard"><div class="hd"><h2>${title}</h2><span class="sp"></span>${src ? `<span class="src">${src}</span>` : ''}</div><div class="dbody">${svg}</div></div>`;
@@ -807,7 +886,7 @@ const drawCard = (title, svg, src) => `<div class="card dcard"><div class="hd"><
 function vHome(p, c){
   const key = x => x.kpis[0];
   const fi = (id, v, u) => `<div class="box"><input id="${id}" class="num" inputmode="numeric" value="${v}" data-in="${id}"><em>${u}</em></div>`;
-  return `<div class="hero"><div class="hl"><small>${esc(p.name)}</small><h1 class="num">${rs(c.total * p.rate)}</h1><div class="hs num">${f1(c.total)} ઘન ફૂટ પથ્થર · ${rs(p.rate)} / CFT</div></div>
+  return `<div class="hero"><div class="hl"><small>${esc(p.name)}</small><button type="button" class="btn thm" data-theme-set="${S.theme === 'dark' ? 'light' : 'dark'}">${S.theme === 'dark' ? '☀ લાઇટ' : '☾ ડાર્ક'}</button><h1 class="num">${rs(c.total * p.rate)}</h1><div class="hs num">${f1(c.total)} ઘન ફૂટ પથ્થર · ${rs(p.rate)} / CFT</div></div>
       <div class="hr num"><div><small>પ્રાસાદ</small><b>${ftin(c.P)}</b></div><div><small>દીવાલ</small><b>${c.t}″</b></div><div><small>મંડોવર</small><b>${ftin(c.mando)}</b></div></div></div>
     <div class="card"><div class="bd row"><span class="ql">ગર્ભગૃહ</span>${fi('gwf', Math.floor(p.gw/12), 'ફૂટ')}${fi('gwi', ceil(p.gw%12), 'ઇંચ')}<span style="color:var(--muted)">×</span>${fi('gdf', Math.floor(p.gd/12), 'ફૂટ')}${fi('gdi', ceil(p.gd%12), 'ઇંચ')}<button class="btn" data-nav="input">બધી માહિતી →</button></div></div>
     <div class="tiles">${c.parts.map(x => `<button class="tile" data-part="${x.key}"><span class="tn">${x.name}</span><span class="tk num">${key(x)[1]}</span><span class="ts">${key(x)[0]}</span><span class="tc num">${x.cft ? f1(x.cft) + ' CFT · ' + rs(x.cft * p.rate) : '—'}</span></button>`).join('')}</div>
@@ -820,7 +899,7 @@ function vDraw(p, c){
 function render(){
   const p = cur(), c = compute(p);
   let v = S.view; if (!['home','input','draw','part','summary','projects'].includes(v)) v = S.view = 'home';
-  document.body.dataset.style = 'a';
+  document.body.dataset.style = 'a'; if (S.theme) document.documentElement.dataset.theme = S.theme; else delete document.documentElement.dataset.theme;
   const nav = (id, t) => `<a class="${v === id ? 'on' : ''}" data-nav="${id}" tabindex="0">${t}</a>`;
   let main;
   if (v === 'home') main = vHome(p, c);
@@ -829,20 +908,134 @@ function render(){
   else if (v === 'summary') main = vSummary(p, c);
   else if (v === 'projects') main = vProjects();
   else { main = vPart(p, c); const pt = c.parts.find(x => x.key === S.part) || c.parts[4];
-    const dr = ['deewal','mandap'].includes(pt.key) ? drawCard('પ્લાન', planSVG(p, c, pt.key)) : drawCard('એલિવેશન', elevSVG(p, c, pt.key));
+    const dr = drawCard(pt.name + ' — ચિત્ર', partDrawing(p, c, pt));
     main = main.replace(/<div class="card elev">[\s\S]*?<\/svg><\/div>/, '<div class="pdraw">' + dr + '</div>');
     if (!pt.thar && S.tab === 'maap') main += `<div class="pdraw solo">${dr}</div>`; }
   document.getElementById('root').innerHTML = `<div class="app">
-    <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small>${esc(p.name)}</small></div></div>
-      ${nav('home', 'ડેશબોર્ડ')}${nav('input', 'માહિતી')}${nav('draw', 'ચિત્ર (એલિવેશન / પ્લાન)')}${nav('summary', 'સારાંશ')}${nav('projects', 'બધા પ્રોજેક્ટ')}
-      <div class="lab">ભાગ — નીચે થી ઉપર</div>
-      ${c.parts.map(x => `<a class="${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}<span class="c num">${x.cft ? f1(x.cft) : '—'}</span></a>`).join('')}
+    <aside class="rail"><div class="brand"><div class="logo">${ic.temple}</div><div style="flex:1;min-width:0"><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><small class="ell">${esc(p.name)}</small></div><button class="ibtn" data-theme-set="${S.theme === 'dark' ? 'light' : 'dark'}" aria-label="થીમ બદલો">${S.theme === 'dark' ? '☀' : '☾'}</button></div>
+      ${nav('projects', '📁 પ્રોજેક્ટ')}${nav('home', '▦ ડેશબોર્ડ')}${nav('input', '✎ માહિતી')}${nav('draw', '⌂ ચિત્ર')}${nav('summary', '∑ સારાંશ')}
+      <div class="lab">ભાગ</div>
+      ${GROUPS.map(([g, ks]) => { const xs = ks.map(k => c.parts.find(x => x.key === k)).filter(Boolean), op = S.grp ? S.grp[g] !== true : true, has = xs.some(x => v === 'part' && S.part === x.key);
+        return `<div class="grp ${op || has ? 'op' : ''}"><button class="gh" data-grp="${g}"><span>${op || has ? '▾' : '▸'} ${g}</span><span class="c num">${f1(xs.reduce((a, x) => a + x.cft, 0))}</span></button>
+          ${op || has ? xs.map(x => `<a class="sub ${v === 'part' && S.part === x.key ? 'on' : ''}" data-part="${x.key}" tabindex="0">${x.name}</a>`).join('') : ''}</div>`; }).join('')}
       ${LATER.map(n => `<a class="off">${n}<span class="c">પછી</span></a>`).join('')}
-      <div class="railtot num"><small>કુલ</small><b>${f1(c.total)} CFT</b><span>${rs(c.total * p.rate)}</span></div></aside>
+      <button class="btn pdfb" data-act="pdfcur">⇩ PDF બનાવો</button><div class="railtot num"><small>${S.cloud ? '☁ સેવ · ' : ''}કુલ</small><b>${f1(c.total)} CFT</b><span>${rs(c.total * p.rate)}</span></div></aside>
     <main class="main"><div class="wrap">${main}</div></main></div>
     <nav class="bnav" aria-label="મુખ્ય">${[['home','ડેશબોર્ડ',ic.chart],['input','માહિતી',ic.edit],['draw','ચિત્ર',ic.temple.replace(/20/g,'22')],['projects','પ્રોજેક્ટ',ic.grid]].map(([id, t, i]) => `<button class="${v === id ? 'on' : ''}" data-nav="${id}">${i}${t}</button>`).join('')}</nav>`;
   save();
 }
+/* ===================== Projects, grouped sidebar, PDF, cloud save ===================== */
+const STATUS = [['bhav','ભાવ આપ્યો'],['chalu','કામ ચાલુ'],['puru','પૂરું']];
+const GROUPS = [['નીચે નો ભાગ',['bhit','pith','jagati']],['પ્રાસાદ',['mandovar','deewal','dwar']],['મંડપ',['mandap','stambh','ghummat']],['ઉપર નો ભાગ',['shikhar','amalsaro','dhwaj']]];
+const todayStr = () => new Date().toISOString().slice(0, 10);
+for (const pr of S.projects){ pr.client ??= ''; pr.place ??= ''; pr.status ??= 'bhav'; pr.date ??= todayStr(); }
+
+function vProjects(){
+  const q = (S.q || '').trim().toLowerCase(), f = S.fStatus || 'all';
+  const list = S.projects.map((p, i) => ({p, i})).filter(({p}) => (f === 'all' || p.status === f) && (!q || [p.name, p.client, p.place].join(' ').toLowerCase().includes(q)));
+  const tot = S.projects.reduce((a, p) => a + compute(p).total * p.rate, 0);
+  return `<div class="bar"><div><div class="crumb">${S.projects.length} પ્રોજેક્ટ · કુલ ${rs(tot)}</div><h1>પ્રોજેક્ટ</h1></div><span class="sp"></span><button class="btn pri" data-act="new">+ નવો પ્રોજેક્ટ</button></div>
+  <div class="row pfilter"><div class="box" style="flex:1 1 220px"><input id="q" placeholder="નામ, ગ્રાહક કે સ્થળ શોધો" value="${esc(S.q || '')}" data-q="1" style="font-family:var(--font)"></div>
+    <div class="chips">${[['all','બધા'], ...STATUS].map(([v, t]) => `<button class="chip ${f === v ? 'on' : ''}" data-fstatus="${v}">${t}</button>`).join('')}</div></div>
+  <div class="card"><div class="sx"><table class="ptable"><thead><tr><th>મંદિર</th><th>ગ્રાહક / સ્થળ</th><th>સ્થિતિ</th><th class="r">ગર્ભગૃહ</th><th class="r">પથ્થર</th><th class="r">અંદાજ</th><th></th></tr></thead><tbody>
+    ${list.map(({p, i}) => { const c = compute(p); return `<tr class="${i === S.cur ? 'cur' : ''}"><td><a class="plink" data-open="${i}" tabindex="0"><b>${esc(p.name)}</b></a><span class="fi num">${p.date}</span></td>
+      <td>${esc(p.client || '—')}<span class="fi">${esc(p.place || '')}</span></td>
+      <td><span class="st st-${p.status}">${(STATUS.find(s => s[0] === p.status) || STATUS[0])[1]}</span></td>
+      <td class="r num">${ftin(ceil(p.gw))} × ${ftin(ceil(p.gd))}</td><td class="r num">${f1(c.total)} CFT</td><td class="r num"><b>${rs(c.total * p.rate)}</b></td>
+      <td class="r acts"><button class="btn sm" data-open="${i}">ખોલો</button><button class="btn sm" data-copy="${i}">કોપી</button><button class="btn sm" data-pdf="${i}">PDF</button>
+        ${S.projects.length > 1 ? (S.confirmDel === i ? `<button class="btn sm dan" data-del="${i}">હા, કાઢો</button><button class="btn sm" data-nodel="1">ના</button>` : `<button class="btn sm dan" data-askdel="${i}">કાઢો</button>`) : ''}</td></tr>`; }).join('') || `<tr><td colspan="7" style="color:var(--muted)">કોઈ પ્રોજેક્ટ મળ્યો નથી.</td></tr>`}
+  </tbody></table></div></div>${S.msg ? `<div class="warn">${S.msg}</div>` : ''}`;
+}
+
+// tidy part pages: book source as small line, notes folded
+const _vPart = vPart;
+vPart = function(p, c){
+  let h = _vPart(p, c);
+  const notes = []; h = h.replace(/<div class="warn"><span>⚠<\/span><div>([\s\S]*?)<\/div><\/div>/g, (m, t) => { notes.push(t); return ''; });
+  h = h.replace(/<span class="sp"><\/span><span class="src">([^<]*)<\/span><\/div>\s*<div class="kpis">/, '<span class="sp"></span><span class="srcs">📖 $1</span></div><div class="kpis">');
+  if (notes.length) h += `<details class="notes"><summary>⚠ નોંધ (${notes.length})</summary><ul>${notes.map(n => `<li>${n}</li>`).join('')}</ul></details>`;
+  return h;
+};
+// extra project fields on the input screen
+const _vInput = vInput;
+vInput = function(p, c){
+  const extra = `<div class="field"><label for="client">ગ્રાહક</label><div class="box"><input id="client" value="${esc(p.client)}" data-in="client" style="font-family:var(--font)"></div></div>
+    <div class="field"><label for="place">સ્થળ</label><div class="box"><input id="place" value="${esc(p.place)}" data-in="place" style="font-family:var(--font)"></div></div>
+    <div class="field"><label for="date">તારીખ</label><div class="box"><input id="date" type="date" value="${p.date}" data-in="date"></div></div>
+    <div class="field"><div class="lb">સ્થિતિ</div>${seg('status', p.status, STATUS)}</div>`;
+  return _vInput(p, c).replace('<div class="field full"><div class="lb">ગર્ભગૃહ', extra + '<div class="field full"><div class="lb">ગર્ભગૃહ');
+};
+
+/* ---- PDF report ---- */
+async function makePdf(i){
+  const p = S.projects[i], c = compute(p);
+  S.msg = 'PDF બને છે…'; render();
+  const box = document.createElement('div'); box.className = 'pdfroot'; document.body.appendChild(box);
+  const pageHead = n => `<div class="ph"><b>બૃહદ્ ટેમ્પલ એસ્ટીમેટ</b><span>${esc(p.name)} · ${esc(p.client)} · ${esc(p.place)} · ${p.date}</span><span>પાનું ${n}</span></div>`;
+  const pages = [];
+  pages.push(`${pageHead(1)}<h1>${esc(p.name)}</h1>
+    <table class="kv"><tr><td>ગ્રાહક</td><td>${esc(p.client || '—')}</td><td>સ્થળ</td><td>${esc(p.place || '—')}</td></tr>
+      <tr><td>ગર્ભગૃહ</td><td class="num">${ftin(ceil(p.gw))} × ${ftin(ceil(p.gd))}</td><td>પ્રાસાદ</td><td class="num">${ftin(c.P)} (${c.P}″)</td></tr>
+      <tr><td>દીવાલ</td><td class="num">${c.t}″ · ${p.wall === 'brick' ? 'ઈંટ + પથ્થર ' + p.face + '″' : 'પૂરો પથ્થર'}</td><td>જાતિ</td><td>${JATI.find(j => j[0] === p.jati)[1]}</td></tr>
+      <tr><td>દર</td><td class="num">${rs(p.rate)} / CFT</td><td>તારીખ</td><td class="num">${p.date}</td></tr></table>
+    <h2>સારાંશ</h2><table><thead><tr><th>ભાગ</th><th class="r">ઘન ફૂટ</th><th class="r">ખર્ચ</th></tr></thead><tbody>${c.parts.map(x => `<tr><td>${x.name}</td><td class="r num">${f1(x.cft)}</td><td class="r num">${rs(x.cft * p.rate)}</td></tr>`).join('')}
+      <tr class="tot"><td>કુલ</td><td class="r num">${f1(c.total)}</td><td class="r num">${rs(c.total * p.rate)}</td></tr></tbody></table>`);
+  pages.push(`${pageHead(2)}<h2>એલિવેશન</h2><div class="pd">${elevSVG(p, c, null)}</div><h2>પ્લાન</h2><div class="pd">${planSVG(p, c, null)}</div>`);
+  let cur = '', rows = 0, n = 3;
+  for (const x of c.parts){
+    const meas = x.thar ? x.thar.rows.map(r => `<tr><td>${r.n}</td><td class="r num">${r.h}″</td><td class="r num">${ftin(r.h)}</td></tr>`).join('')
+      : (x.meas || []).map(([l, v]) => `<tr><td>${l}</td><td class="r num">${typeof v === 'number' ? v + '″' : v}</td><td class="r num">${typeof v === 'number' ? ftin(v) : ''}</td></tr>`).join('');
+    const stn = x.stone.map(r => `<tr><td>${r[0]}</td><td class="r num">${r[1]}</td><td class="r num">${r[2]}</td><td class="r num">${r[3]}</td><td class="r num">${r[4]}</td><td class="r num">${f1(r[1]*r[2]*r[3]*r[4]/1728)}</td></tr>`).join('');
+    const block = `<h2>${x.name} <small>${x.src}</small></h2><div class="two"><table><thead><tr><th>માપ</th><th class="r">ઇંચ</th><th class="r">ફૂટ-ઇંચ</th></tr></thead><tbody>${meas}</tbody></table>
+      ${stn ? `<table><thead><tr><th>પથ્થર</th><th class="r">L</th><th class="r">W</th><th class="r">H</th><th class="r">નંગ</th><th class="r">CFT</th></tr></thead><tbody>${stn}<tr class="tot"><td>કુલ</td><td></td><td></td><td></td><td></td><td class="r num">${f1(x.cft)}</td></tr></tbody></table>` : '<div></div>'}</div>`;
+    const sz = Math.max(x.thar ? x.thar.rows.length : (x.meas || []).length, x.stone.length) + 4;
+    if (rows + sz > 46 && cur){ pages.push(pageHead(n++) + cur); cur = ''; rows = 0; }
+    cur += block; rows += sz;
+  }
+  if (cur) pages.push(pageHead(n++) + cur);
+  try {
+    const { jsPDF } = window.jspdf; const pdf = new jsPDF({unit:'pt', format:'a4'});
+    for (let k = 0; k < pages.length; k++){
+      box.innerHTML = `<div class="pg">${pages[k]}</div>`;
+      const cv = await html2canvas(box.firstChild, {scale: 2, backgroundColor: '#ffffff'});
+      if (k) pdf.addPage(); pdf.addImage(cv.toDataURL('image/jpeg', .92), 'JPEG', 0, 0, 595.28, 841.89);
+    }
+    const blob = pdf.output('blob'), name = (p.name || 'mandir').replace(/[\\/:*?"<>|]+/g, ' ').trim() + ' - estimate.pdf';
+    const dl = window.claude ? await window.claude.use('downloads') : null;
+    if (dl){ try { await dl.save({filename: name, data: blob}); S.msg = '✓ PDF તૈયાર: ' + esc(name); } catch (e){ S.msg = e && e.code === 'declined' ? 'PDF સેવ ના કરી.' : 'આ જગ્યાએ PDF સેવ થઈ શકતી નથી.'; } }
+    else { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); S.msg = '✓ PDF તૈયાર: ' + esc(name); }
+  } catch (e){ S.msg = 'PDF બનાવવા માં તકલીફ: ' + esc(e.message || e); }
+  box.remove(); render();
+}
+
+/* ---- cloud save (same projects on phone and computer) ---- */
+let cloud = null, cloudT = 0;
+const _save = save;
+save = function(){ _save(); if (cloud){ clearTimeout(cloudT); cloudT = setTimeout(() => cloud.set({projects: JSON.stringify(S.projects), cur: S.cur, at: Date.now()}).catch(() => {}), 1200); } };
+(async () => { try {
+  if (!window.claude) return; const db = await claude.use('db'), user = await claude.use('user'); if (!db || !user) return;
+  const uid = await user.id(); if (!uid) return;
+  const ref = db.doc('data/users/' + uid + '/app'); const snap = await ref.get();
+  if (snap.exists){ const d = snap.data(); const pr = JSON.parse(d.projects || '[]'); if (pr.length){ S.projects = pr; S.cur = Math.min(d.cur || 0, pr.length - 1); } }
+  cloud = ref; S.cloud = true; render();
+} catch (e) {} })();
+
+/* ---- events for the new controls ---- */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-copy],[data-pdf],[data-askdel],[data-nodel],[data-fstatus],[data-grp],[data-act="pdfcur"]'); if (!t) return;
+  e.stopImmediatePropagation(); const d = t.dataset;
+  if (d.copy !== undefined){ const cp = JSON.parse(JSON.stringify(S.projects[+d.copy])); cp.name += ' (કોપી)'; cp.date = todayStr(); S.projects.push(cp); }
+  else if (d.pdf !== undefined) return makePdf(+d.pdf);
+  else if (d.act === 'pdfcur') return makePdf(S.cur);
+  else if (d.askdel !== undefined) S.confirmDel = +d.askdel;
+  else if (d.nodel) S.confirmDel = null;
+  else if (d.fstatus) S.fStatus = d.fstatus;
+  else if (d.grp){ S.grp = S.grp || {}; S.grp[d.grp] = !S.grp[d.grp]; }
+  S.msg = ''; render();
+}, true);
+document.addEventListener('input', e => { if (e.target.dataset.q){ S.q = e.target.value; render(); const el = document.getElementById('q'); el.focus(); el.setSelectionRange(el.value.length, el.value.length); } });
+document.addEventListener('click', e => { if (e.target.closest('[data-del]')) S.confirmDel = null; }, true);
+
 S.view = 'home';
 render();
 </script>
