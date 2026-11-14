@@ -1581,16 +1581,18 @@ function wzBody(){const k=WZS[W.step][0];
     row('ગર્ભગૃહ',W.gw?fiI(W.gw)+' × '+fiI(W.gd):'—')+row('પ્રાસાદ',W.gw?fiI(wzP())+' × '+fiI(wzPd()):'—')+row('દીવાલ',W.gw?fiI(wzWall())+' · '+WALLS.find(x=>x[0]===W.wallK)[1]:'—')+
     row('પ્રાસાદ નો પ્રકાર',PTYPES[W.ptype].n)+row('શિખર',({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade])+row('શાખા',SHAKHA[W.shakha][0])+
     row('મંડપ',W.mf?MF.find(x=>x[0]===+W.mf)[1]:'ગ્રંથ પ્રમાણે')+row('પીઠ',PITH_T[W.pithT][0]+' · '+W.bhitN+' ભીત')+row('સામરણ',W.srN+' થર')+row('ભાવ',W.rate?'₹ '+W.rate+' / CFT':'—')+'</div>';}
-function wzRender(){const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
+function wzRender(){if(W)wzSave();const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
   wz.innerHTML='<div class="wzbox"><div class="wzh"><b>'+(W.edit&&!W.first?'પ્રોજેક્ટ ની વિગત બદલો':'નવો પ્રોજેક્ટ')+'</b><button class="pmx" data-wx aria-label="બંધ કરો">×</button></div>'+
     '<ol class="wzsteps">'+WZS.map((s,i)=>'<li class="'+(i<W.step?'dn':i===W.step?'on':'')+'"><span>'+(i+1)+'</span>'+s[1]+'</li>').join('')+'</ol>'+
     '<div class="wzb">'+wzBody()+'</div>'+
     '<div class="wznav">'+(W.step?'<button class="wzbk" data-wb>← પાછળ</button>':'<span></span>')+
       (last?'<button class="wzgo" data-wgo>'+(W.edit&&!W.first?'સાચવો':'મંદિર બનાવો')+' ✓</button>':'<button class="wzgo" data-wn'+(need?' disabled':'')+'>આગળ →</button>')+'</div>'+
     (need?'<p class="wzs" style="text-align:right;margin:0">આગળ જવા ગર્ભગૃહ નું માપ નાખો.</p>':'')+'</div>';}
-function wzOpen(edit){W=wzFresh(edit);wzRender();wz.hidden=false;document.body.classList.add('pmopen');pm.hidden=true;}
+const WZK='aayam-draft';const wzSave=()=>{try{localStorage.setItem(WZK,JSON.stringify(W));}catch(x){}};
+function wzOpen(edit){let d=null;try{d=JSON.parse(localStorage.getItem(WZK)||'null');}catch(x){}
+  const use=d&&((!!d.edit===!!edit&&(!edit||d.pid===PCUR.id))||(d.first&&d.pid===PCUR.id));W=use?d:wzFresh(edit);W.resumed=!!use;W.pid=PCUR.id;wzRender();wz.hidden=false;document.body.classList.add('pmopen');pm.hidden=true;}
 function wzClose(){PCUR.asked=1;persist();wz.hidden=true;document.body.classList.remove('pmopen');}
-function wzApply(){const opt2={mf:+W.mf||undefined,pad:+W.pad,shakha:+W.shakha,grade:W.grade,pithT:W.pithT,pithM:+W.pithM,pgrade:W.pgrade,bhitN:+W.bhitN,jagM:W.jagM,srN:+W.srN};
+function wzApply(){try{localStorage.removeItem(WZK);}catch(x){}const opt2={mf:+W.mf||undefined,pad:+W.pad,shakha:+W.shakha,grade:W.grade,pithT:W.pithT,pithM:+W.pithM,pgrade:W.pgrade,bhitN:+W.bhitN,jagM:W.jagM,srN:+W.srN};
   if(!opt2.mf)delete opt2.mf;
   const setEst=e=>Object.assign(e,{p8:!!W.p8,rcc:!!W.rcc,marble:!!W.marble,rate:W.rate});
   if(W.edit){Object.assign(PCUR,{temple:W.temple,client:W.client,place:W.place,status:W.status,asked:1});
@@ -1600,7 +1602,7 @@ function wzApply(){const opt2={mf:+W.mf||undefined,pad:+W.pad,shakha:+W.shakha,g
   PR.list.unshift({id,asked:1,temple:W.temple,client:W.client,place:W.place,status:W.status,created:Date.now(),
     data:{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK,opt:opt2,est,theme:S.theme,tab:'home',tabWas:'home',tabSeen:1,man:{wall:false,pw:false,pd:false},val:{wall:0,pw:0,pd:0},mo:{}}});
   PR.cur=id;persist();location.reload();}
-wz.addEventListener('click',e=>{if(e.target===wz)return wzClose();const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+wz.addEventListener('click',e=>{if(e.target===wz)return;const b=e.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.wx!==undefined)return wzClose();
   if(d.wb!==undefined){W.step--;return wzRender();}
   if(d.wn!==undefined){if(!b.disabled){W.step++;wzRender();}return;}
@@ -1621,7 +1623,7 @@ pm.addEventListener('click',e=>{const b=e.target.closest('[data-pa="new"],[data-
     '<button data-wz="new">+ નવો પ્રોજેક્ટ</button>'+(PW()?'':'<button data-wz="edit" class="alt">આ પ્રોજેક્ટ માટે સવાલો</button>')+'</div>');};}
 $('tab-home').addEventListener('click',e=>{const b=e.target.closest('[data-wz]');if(b)wzOpen(b.dataset.wz==='edit');});
 /* first run: an empty project starts with the questions */
-if(PR.list.length===1&&!PCUR.temple&&!PCUR.asked){setTimeout(()=>{wzOpen(true);W.first=1;W.gw=0;W.gd=0;wzRender();},300);}
+if(PR.list.length===1&&!PCUR.temple&&!PCUR.asked){setTimeout(()=>{wzOpen(true);if(!W.resumed){W.first=1;W.gw=0;W.gd=0;}wzRender();},300);}
 applyTab();
 
 })();
