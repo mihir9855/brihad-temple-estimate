@@ -1552,9 +1552,10 @@ function wzFresh(edit){const o=edit?S.opt||{}:{},e=edit?E:{};
   return {edit,step:0,temple:edit?PCUR.temple||'':'',client:edit?PCUR.client||'':'',place:edit?PCUR.place||'':'',status:edit?PCUR.status||'bhav':'bhav',
     gw:edit?S.gw||S.w||0:0,gd:edit?S.gd||S.d||0:0,face:edit?S.face||'E':'E',ptype:edit?S.ptype:2,wallK:edit?S.wallK:'s6',grade:o.grade||'j',shakha:o.shakha||5,
     mf:o.mf||0,pad:o.pad||1,p8:!!e.p8,pithT:o.pithT||'maha',pithM:o.pithM||1,pgrade:o.pgrade||'m',bhitN:o.bhitN||3,jagM:o.jagM||'apa',rcc:e.rcc!==false,marble:e.marble!==false,
-    srN:o.srN||6,rate:e.rate||''};}
-const wzWall=()=>{const k=WALLS.find(x=>x[0]===W.wallK)[2];return W.gw/(k-2);};
-const wzP=()=>W.gw+2*wzWall(), wzPd=()=>W.gd+2*W.gd/(WALLS.find(x=>x[0]===W.wallK)[2]-2);
+    srN:o.srN||6,rate:e.rate||'',pw:edit&&S.man&&S.man.wall&&S.gw?rI(S.gw+2*S.val.wall):0};}
+const wzWallB=()=>{const k=WALLS.find(x=>x[0]===W.wallK)[2];return W.gw/(k-2);};
+const wzWall=()=>W.pw>0?(W.pw-W.gw)/2:wzWallB();
+const wzP=()=>W.gw+2*wzWall(), wzPd=()=>W.gd+2*wzWall();
 const opt=(key,list,cur)=>'<div class="wzopts">'+list.map(([v,l,s])=>'<button class="wzo" data-wk2="'+key+'" data-wv="'+v+'" aria-pressed="'+(String(cur)===String(v))+'"><b>'+l+'</b>'+(s?'<small>'+s+'</small>':'')+'</button>').join('')+'</div>';
 const fbox=(key,label,v)=>'<div class="wzf"><span>'+label+'</span><div class="wzfi"><input data-wd="'+key+'" data-wu="f" inputmode="numeric" value="'+(v?Math.floor(v/12):'')+'" aria-label="'+label+' ફૂટ"><em>ફૂટ</em>'+
   '<input data-wd="'+key+'" data-wu="i" inputmode="numeric" value="'+(v?v%12:'')+'" aria-label="'+label+' ઇંચ"><em>ઇંચ</em></div><small>'+(v?v+'″ · '+fiI(v):'')+'</small></div>';
@@ -1577,7 +1578,7 @@ function wzBody(){const k=WZS[W.step][0];
       '<div class="wzl">મંદિર નું મુખ</div>'+opt('face',[['E','પૂર્વ'],['W','પશ્ચિમ'],['N','ઉત્તર'],['S','દક્ષિણ']],W.face)+
       (ok?'<div class="wzinfo"><div><small>નક્ષત્ર</small><b>'+NAK[q.nk]+'</b><span>'+DIRS[q.dir]+' · '+ganOf(q.nk)+(q.ok?' · ✓ લેવાય':' · આ 9 માં નથી')+'</span></div><div><small>આય</small><b>'+AAY[a.n]+'</b><span>'+(a.ok?'✓ ધ્વજ આય':'ધ્વજ આય નથી')+'</span></div></div>':'');}
   if(k==='mandir') return '<h3>કેવું મંદિર?</h3><div class="wzl">પ્રાસાદ નો પ્રકાર <small>· પ્લાન ગ્રંથ ના તલ ભાગ પ્રમાણે</small></div><div class="ptgrid">'+PTYPES.map((t,i)=>'<button class="ptc" data-wk2="ptype" data-wv="'+i+'" aria-pressed="'+(+W.ptype===i)+'">'+ptThumb(t)+'<b>'+t.n+'</b><small>'+t.a+' અંડક'+(t.t?' · '+t.t+' તિલક':'')+' · તલ '+tal(t)+'</small></button>').join('')+'</div>'+'<div class="ptleg"><span><i></i>રેખા ખૂણે</span><span>દરેક અંગ થોડું બહાર, ભદ્ર સૌથી બહાર</span><span><i class="g"></i>ગર્ભગૃહ</span></div>'+
-    '<div class="wzl">દીવાલ</div>'+opt('wallK',WALLS.map(x=>[x[0],x[1],'પ્રાસાદ ના 1⁄'+x[2]]),W.wallK)+
+    '<div class="wzl">દીવાલ (ગ્રંથ પ્રમાણે)</div>'+opt('wallK',WALLS.map(x=>[x[0],x[1],'પ્રાસાદ ના 1⁄'+x[2]]),W.wallK)+(W.gw?'<div class="wzl">પ્રાસાદ · રેખા ના છેડા થી છેડા સુધી</div><p class="wzs">તમારા ડ્રોઇંગ પ્રમાણે માપ હોય તો અહીં લખો. ખાલી રાખો તો ગ્રંથ પ્રમાણે ('+fiI(rI(W.gw+2*wzWallB()))+') લેવાશે.</p>'+'<div class="wzrow">'+fbox('pw','પ્રાસાદ (રેખા થી રેખા)',W.pw)+'<div class="wzf"><span>રેખા પર દીવાલ</span><div class="wzinfo" style="padding:10px"><div><b>'+fiI(rI(wzWall()))+'</b><span>'+(W.pw>0?'તમારા માપ પ્રમાણે':'ગ્રંથ પ્રમાણે')+'</span></div></div>'+(W.pw>0?'<button class="wzo" data-wk2="pw" data-wv="0" style="justify-self:start;margin-top:6px">↺ ગ્રંથ પ્રમાણે</button>':'')+'</div></div>':'')+
     '<div class="wzl">શિખર નો ભેદ</div>'+opt('grade',[['j','જ્યેષ્ઠ','ઊંચાઈ પાયા × 1¼'],['m','મધ્યમ','× 1⅓'],['k','કનિષ્ઠ','× 1½']],W.grade)+
     '<div class="wzl">દ્વાર ની શાખા</div>'+opt('shakha',[[3,'ત્રિશાખા'],[5,'પંચશાખા'],[7,'સપ્તશાખા'],[9,'નવશાખા','મહેશ્વર']],W.shakha)+
     (W.gw?'<div class="wzinfo"><div><small>પ્રાસાદ (બહાર)</small><b>'+fiI(wzP())+' × '+fiI(wzPd())+'</b></div><div><small>દીવાલ</small><b>'+fiI(wzWall())+'</b></div></div>':'');
@@ -1595,7 +1596,7 @@ function wzBody(){const k=WZS[W.step][0];
   if(k==='bhav') return '<h3>પથ્થર નો ભાવ</h3>'+txt('rate','₹ / ઘન ફૂટ','દા.ત. 1500')+'<p class="wzs">પછી ગણતરી ટેબ માં બદલી શકાય.</p>';
   const row=(l,v)=>'<div class="wzr"><span>'+l+'</span><b>'+v+'</b></div>';
   return '<h3>બધું બરાબર છે?</h3><div class="wzsum">'+row('મંદિર',e2(W.temple||'—'))+row('ગ્રાહક · સ્થળ',e2([W.client,W.place].filter(Boolean).join(' · ')||'—'))+
-    row('ગર્ભગૃહ',W.gw?fiI(W.gw)+' × '+fiI(W.gd):'—')+row('પ્રાસાદ',W.gw?fiI(wzP())+' × '+fiI(wzPd()):'—')+row('દીવાલ',W.gw?fiI(wzWall())+' · '+WALLS.find(x=>x[0]===W.wallK)[1]:'—')+
+    row('ગર્ભગૃહ',W.gw?fiI(W.gw)+' × '+fiI(W.gd):'—')+row('પ્રાસાદ (રેખા થી રેખા)',W.gw?fiI(rI(wzP()))+' × '+fiI(rI(wzPd()))+(W.pw>0?' · તમારું માપ':' · ગ્રંથ'):'—')+row('દીવાલ',W.gw?fiI(wzWall())+' · '+WALLS.find(x=>x[0]===W.wallK)[1]:'—')+
     row('પ્રાસાદ નો પ્રકાર',PTYPES[W.ptype].n)+row('શિખર',({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade])+row('શાખા',SHAKHA[W.shakha][0])+
     row('મંડપ',W.mf?MF.find(x=>x[0]===+W.mf)[1]:'ગ્રંથ પ્રમાણે')+row('પીઠ',PITH_T[W.pithT][0]+' · '+W.bhitN+' ભીત')+row('સામરણ',W.srN+' થર')+row('ભાવ',W.rate?'₹ '+W.rate+' / CFT':'—')+'</div>';}
 function wzRender(){if(W)wzSave();const _g=wz.querySelector('.ptgrid'),_gs=_g?_g.scrollTop:0;setTimeout(()=>{const g=wz.querySelector('.ptgrid');if(g)g.scrollTop=_gs;},0);const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
@@ -1614,10 +1615,10 @@ function wzApply(){try{localStorage.removeItem(WZK);}catch(x){}const opt2={mf:+W
   const setEst=e=>Object.assign(e,{p8:!!W.p8,rcc:!!W.rcc,marble:!!W.marble,rate:W.rate});
   if(W.edit){Object.assign(PCUR,{temple:W.temple,client:W.client,place:W.place,status:W.status,asked:1});
     Object.assign(S,{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK});S.opt=Object.assign(S.opt||{},opt2);if(!W.mf)delete S.opt.mf;
-    S.man=Object.assign(S.man||{},{wall:false,pw:false,pd:false});setEst(E);S.tab='home';S.tabWas='home';save();location.reload();return;}
+    S.man=Object.assign(S.man||{},{wall:W.pw>0,pw:false,pd:false});S.val=Object.assign(S.val||{},{wall:W.pw>0?(W.pw-W.gw)/2:0});setEst(E);S.tab='home';S.tabWas='home';save();location.reload();return;}
   const id='p'+Date.now(),est=setEst({plinth:{l:0,w:0,h:0},ov:{},xrows:{},xthars:[],v:2});
   PR.list.unshift({id,asked:1,temple:W.temple,client:W.client,place:W.place,status:W.status,created:Date.now(),
-    data:{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK,opt:opt2,est,theme:S.theme,tab:'home',tabWas:'home',tabSeen:1,man:{wall:false,pw:false,pd:false},val:{wall:0,pw:0,pd:0},mo:{}}});
+    data:{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK,opt:opt2,est,theme:S.theme,tab:'home',tabWas:'home',tabSeen:1,man:{wall:W.pw>0,pw:false,pd:false},val:{wall:W.pw>0?(W.pw-W.gw)/2:0,pw:0,pd:0},mo:{}}});
   PR.cur=id;persist();location.reload();}
 wz.addEventListener('click',e=>{if(e.target===wz)return;const b=e.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.wx!==undefined)return wzClose();
