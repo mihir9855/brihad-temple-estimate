@@ -339,6 +339,59 @@ body.pmopen{overflow:hidden}
 .pmon{font-size:12.5px;color:var(--acc);font-weight:700;padding:6px 4px}
 .pmsync{margin:0}
 @media (max-width:600px){.pmcur{grid-template-columns:1fr}.pmi{grid-template-columns:minmax(0,1fr) auto}.pma{grid-column:1/-1;justify-content:flex-start}}
+
+/* ===== Brihad design: indigo tokens, Inter + Noto Sans Gujarati, sidebar + dashboard ===== */
+:root{--bg:#f5f6fa;--card:#ffffff;--ink:#161a26;--muted:#667085;--line:#dfe3ec;
+  --serif:"Noto Sans Gujarati","Inter",system-ui,sans-serif;--sans:"Inter","Noto Sans Gujarati",system-ui,sans-serif;
+  --shadow:0 1px 2px rgba(22,26,38,.05),0 6px 20px rgba(22,26,38,.06)}
+:root[data-theme="dark"]{--bg:#0f1117;--card:#181b24;--ink:#eef0f6;--muted:#98a1b3;--line:#2c3140;--shadow:0 1px 2px rgba(0,0,0,.4)}
+body.brihad{font-family:var(--sans)}
+body.brihad h1,body.brihad h2{font-family:var(--serif);font-weight:700}
+body.brihad .card{border-radius:14px;border:1px solid var(--line)}
+body.brihad h2 .n{border-radius:8px}
+.rail{display:none}
+@media (min-width:901px){
+  body.brihad{padding-left:268px}
+  body.brihad .rail{display:flex;flex-direction:column;gap:10px;position:fixed;left:0;top:0;bottom:0;width:268px;background:var(--card);border-right:1px solid var(--line);
+    padding:16px 12px calc(16px + env(safe-area-inset-bottom,0px));overflow:auto;z-index:20}
+  body.brihad main.wrap>.hero .topbar{display:none}
+  body.brihad .tabs{display:none}
+  body.brihad main.wrap{padding-bottom:40px}
+  body.brihad main.wrap>section{max-width:980px}
+}
+.rbrand{display:flex;align-items:center;gap:10px;padding:2px 4px}
+.rbrand img{width:38px;height:38px;border-radius:10px;box-shadow:var(--shadow)}
+.rbrand div{flex:1;min-width:0;display:grid}.rbrand b{font-size:17px;color:var(--acc)}
+.rbrand small{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rth{font-size:15px;line-height:1;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;flex:none}
+.rproj{display:grid;text-align:left;gap:1px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:9px 12px;font:inherit;font-weight:600;cursor:pointer}
+.rproj small{font-weight:400;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rproj:hover{border-color:var(--acc)}
+.rnav{display:grid;gap:2px}
+.rnav a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--ink);text-decoration:none;min-height:44px}
+.rnav a:hover{background:var(--bg)}
+.rnav a.on{background:var(--acc-soft);color:var(--acc)}
+.rnav .ri{width:24px;text-align:center;font-size:15px;opacity:.8}
+.rnav a span:last-child{display:grid;min-width:0}.rnav b{font-size:14.5px}.rnav small{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rnav a.on small{color:inherit;opacity:.75}
+.rpdf{margin-top:auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;min-height:42px;font:inherit;font-weight:600;cursor:pointer}
+.rpdf:hover{border-color:var(--acc)}
+.rtotal{background:var(--acc);color:var(--acc-ink);border-radius:10px;padding:10px 12px;display:grid}
+.rtotal small{opacity:.8;font-size:12px}.rtotal b{font-size:18px}.rtotal span{font-size:13px;opacity:.9}
+/* dashboard */
+#tab-home{max-width:1100px!important;padding-top:8px}
+.dhero{background:#161a26;color:#f5f6fa;border-radius:14px;padding:20px 22px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-top:8px}
+:root[data-theme="dark"] .dhero{background:#232838}
+.dhero small{opacity:.75}.dhero h1{font-family:var(--sans)!important;font-size:34px;margin:2px 0;color:inherit}.dhero .hs{opacity:.8;font-size:14px}
+.dhero .hr{display:flex;gap:22px;flex-wrap:wrap}.dhero .hr small{display:block;font-size:12px}.dhero .hr b{font-size:18px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:16px}
+.tile{display:grid;gap:2px;text-align:left;align-content:start;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);min-height:116px;font:inherit;cursor:pointer}
+.tile:hover{border-color:var(--acc)}
+.tile .tn{font-family:var(--serif);font-weight:700;font-size:16px}.tile .tk{font-size:22px;font-weight:700}
+.tile .ts{font-size:12.5px;color:var(--muted)}.tile .tc{font-size:13px;color:var(--acc);font-weight:600;margin-top:4px}
+@media (max-width:600px){.tiles{grid-template-columns:1fr 1fr}.dhero h1{font-size:28px}}
+@media (max-width:440px){body.brihad .brand .logo{display:none}}
+.rnav a{border:0!important;text-decoration:none!important}
 </style>
 
 <main class="wrap">
@@ -1392,6 +1445,59 @@ let cloud=null,cloudT=0;
       if(!once){try{localStorage.setItem(PK,JSON.stringify(remote));}catch(e){}location.reload();return;}}}
   cloud=ref;if(!snap.exists||((snap.data()||{}).at||0)<(PR.saved||0))persist();if(!pm.hidden)pmRender();}catch(e){}})();
 buildEst();applyTab();
+/* ===================== Brihad layout: sidebar + dashboard (owner chose the old Brihad design) ===================== */
+const NAVS=[['home','ડેશબોર્ડ','▦'],['nak','નક્ષત્ર','✦'],['plan','પ્લાનિંગ','⌂'],['mand','મંડોવર','☰'],['samran','સામરણ · ઘુમ્મટ','◠'],['shikhar','શિખર','▲'],['est','ગણતરી','∑']];
+const NAV_SUB={home:'કુલ ખર્ચ અને બધા ભાગ',nak:'નક્ષત્ર, આય, મળતા માપ',plan:'પ્રાસાદ, ભીત, પીઠ, જગતી, મંડપ',mand:'મંડોવર, દ્વાર, સ્તંભ',samran:'ઘુમ્મટ અને સામરણ',shikhar:'શિખર, આમલસારો, કળશ, ધ્વજ',est:'પથ્થર ના ઘન ફૂટ અને ભાવ'};
+TAB_SECS.home=['home'];TABS.unshift('home');ALL_SECS.push('home');
+{const s=document.createElement('section');s.id='tab-home';s.hidden=true;document.querySelector('main > .hero').after(s);}
+{const b=document.createElement('button');b.dataset.t='home';b.textContent='ડેશબોર્ડ';$('tabs').querySelector('.ind').after(b);}
+const rail=document.createElement('aside');rail.className='rail';rail.setAttribute('aria-label','વિભાગ');document.body.prepend(rail);
+document.body.classList.add('brihad');
+const rs3=n=>n?'₹ '+Math.round(n).toLocaleString('en-IN'):'—';
+function railRender(){const s=PCUR.sum||{};
+  rail.innerHTML='<div class="rbrand"><img src="'+$('brandLogo').src+'" alt=""><div><b>આયામ</b><small>'+e2(PCUR.temple||'બૃહદ ટેમ્પલ')+'</small></div>'+
+    '<button class="rth" data-rth aria-label="થીમ બદલો">'+(curTheme()==='dark'?'☀':'☾')+'</button></div>'+
+    '<button class="rproj" data-rproj>📁 '+e2(PCUR.temple||'પ્રોજેક્ટ')+'<small>'+e2([PCUR.client,PCUR.place].filter(Boolean).join(' · ')||'પ્રોજેક્ટ બદલો / નવો')+'</small></button>'+
+    '<nav class="rnav">'+NAVS.map(([t,l,i])=>'<a data-rt="'+t+'" class="'+(S.tab===t?'on':'')+'" tabindex="0"><span class="ri">'+i+'</span><span><b>'+l+'</b><small>'+NAV_SUB[t]+'</small></span></a>').join('')+'</nav>'+
+    '<button class="rpdf" data-rpdf>⇩ PDF બનાવો</button>'+
+    '<div class="rtotal"><small>કુલ પથ્થર</small><b>'+(s.cft?f2(s.cft)+' CFT':'—')+'</b><span>'+rs3(s.price)+'</span></div>';}
+rail.addEventListener('click',e=>{const a=e.target.closest('[data-rt]');
+  if(a){const b=document.querySelector('#tabs [data-t="'+a.dataset.rt+'"]');if(b)b.click();return;}
+  if(e.target.closest('[data-rproj]'))return $('projBtn').click();
+  if(e.target.closest('[data-rpdf]'))return $('pdfBtn').click();
+  if(e.target.closest('[data-rth]')){S.theme=curTheme()==='dark'?'light':'dark';save();applyTheme();railRender();}});
+rail.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-rt]')){e.preventDefault();e.target.click();}});
+/* dashboard */
+function homeRender(){const el=$('tab-home'),pw=PW(),s=PCUR.sum||{};
+  const sw=S.w&&S.d,q=sw?info(S.w,S.d):null,a=sw?aayInfo(S.w,S.d):null;
+  const tile=(t,l,v,sub,x)=>'<button class="tile" data-go="'+t+'"><span class="tn">'+l+'</span><span class="tk">'+v+'</span><span class="ts">'+sub+'</span>'+(x?'<span class="tc">'+x+'</span>':'')+'</button>';
+  const sub=sec=>{const r=stoneSecs().filter(x=>sec(x[0])).reduce((t,x)=>t+sumC(secRows(x[0])),0);return r?f2(r)+' CFT':'';};
+  el.innerHTML='<div class="dhero"><div><small>'+e2(PCUR.temple||'નામ વગર નું મંદિર')+(PCUR.client?' · '+e2(PCUR.client):'')+'</small><h1>'+rs3(s.price)+'</h1>'+
+      '<div class="hs">'+(s.cft?f2(s.cft)+' ઘન ફૂટ પથ્થર':'ગણતરી ટેબ માં રેટ નાખો')+(s.rate?' · ₹ '+s.rate+' / CFT':'')+'</div></div>'+
+      '<div class="hr">'+(pw?'<div><small>ગર્ભગૃહ</small><b>'+fiI(S.gw)+' × '+fiI(S.gd)+'</b></div><div><small>પ્રાસાદ</small><b>'+fiI(pw)+'</b></div><div><small>દીવાલ</small><b>'+fiI(wallV())+'</b></div>':'<div><small>શરૂ કરો</small><b>પ્લાનિંગ ટેબ માં ગર્ભગૃહ નાખો</b></div>')+'</div></div>'+
+    '<div class="tiles">'+
+      tile('nak','નક્ષત્ર',sw?NAK[q.nk]:'—',sw?DIRS[q.dir]+' · આય '+AAY[a.n]:'માપ નાખો',sw&&q.ok?'✓ લેવાય':'')+
+      tile('plan','પ્રાસાદ',pw?fiI(pw):'—',pw?PTYPES[S.ptype].n:'ગર્ભગૃહ નાખો')+
+      (pw?tile('plan','પીઠ · જગતી',fiI(Mv('pithH')),'જગતી '+fiI(Mv('jagH')))+
+      tile('plan','મંડપ',fiI(Mv('mw')),'ઘુમ્મટ '+fiI(Mv('dome')),sub(k=>/^chod/.test(k)))+
+      tile('mand','મંડોવર',fiI(siteH().reduce((t,x)=>t+x,0)),'11 થર',sub(k=>/^m\d/.test(k)))+
+      tile('mand','દ્વાર',fiI(Mv('dh'))+' × '+fiI(Mv('dw')),SHAKHA[OPT('shakha',5)][0])+
+      tile('mand','સ્તંભ',fiI(Mv('ub')),'પહોળાઈ '+fiI(Mv('stw')))+
+      tile('samran','ઘુમ્મટ · સામરણ',fiI(Mv('srH')),srN()+' થર',sub(k=>/^[gq]\d/.test(k)))+
+      tile('shikhar','શિખર',fiI(Mv('shH')),'પાયો '+fiI(Mv('pay')),sub(k=>/^s\d/.test(k)||k==='am'||k==='ka'))+
+      tile('shikhar','ધ્વજદંડ',fiI(Mv('dgL')),'જાડાઈ '+fiI(Mv('dgT'))):'')+
+      tile('est','ગણતરી',s.cft?f2(s.cft):'—','ઘન ફૂટ',rs3(s.price))+
+    '</div>';}
+$('tab-home').addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(!t)return;const b=document.querySelector('#tabs [data-t="'+t.dataset.go+'"]');if(b)b.click();});
+{const _at=applyTab;applyTab=function(anim){if(S.tab==='home')homeRender();_at.apply(this,arguments);railRender();};}
+{const _sv=save;save=function(){_sv.apply(this,arguments);clearTimeout(save.t);save.t=setTimeout(railRender,250);};}
+/* Brihad colours: indigo accent */
+applyTheme=function(){const th=curTheme(),r=document.documentElement;r.setAttribute('data-theme',th);
+  r.style.setProperty('--acc',th==='dark'?'#8b8cf8':'#4f46e5');r.style.setProperty('--acc-soft',th==='dark'?'#25264a':'#e8e9fd');r.style.setProperty('--acc-ink',th==='dark'?'#0f1117':'#ffffff');
+  document.querySelectorAll('.theme button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.th===th));};
+document.querySelectorAll('.theme button').forEach(b=>b.onclick=()=>{S.theme=b.dataset.th;save();applyTheme();railRender();});
+if(!S.tabSeen){S.tab='home';S.tabSeen=1;}
+applyTheme();applyTab();
 
 })();
 </script>
