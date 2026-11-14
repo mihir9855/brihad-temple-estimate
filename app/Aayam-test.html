@@ -459,6 +459,7 @@ body.brihad h2 .n{border-radius:8px}
 .pmcur .pst,.pmtools .chips,.pmv>span:first-child{display:none!important}
 .rtot{flex-wrap:wrap;row-gap:12px}.rtot .rprice b{color:#2f55d4}
 .rnav a.rsub{min-height:32px;padding:5px 10px 5px 44px;font-size:13.5px;color:var(--muted)}.rnav a.rsub:hover{color:var(--ink)}
+.rtab{table-layout:fixed;width:100%}
 </style>
 
 <main class="wrap">
@@ -1230,11 +1231,11 @@ function repUnits(){
   const stones=stoneSecs().map(([sec,n])=>[n,secRows(sec)]).filter(x=>sumC(x[1])>0),md=stones.reduce((s,x)=>s+sumC(x[1]),0);
   const its=[];if(ll&&lw)its.push({l:'પ્લિન્થ',v:fiI(ll)+' × '+fiI(lw)+(lh?' × '+fiI(lh):'')});
   if(E.rcc&&rc)its.push({l:'RCC',v:f2(rc)+' ઘન ફૂટ'});if(E.marble&&la)its.push({l:'માર્બલ ફ્લોરિંગ',v:f2(la)+' ચો. ફૂટ'});
-  if(its.length||stones.length){section('ગણતરી');if(its.length)group({title:'',sub:'',notes:[],items:its});
+  if(its.length||stones.length){section('સાઇઝ લિસ્ટ');if(its.length)group({title:'',sub:'',notes:[],items:its});
     stones.forEach(([name,rows])=>{const r=rows.filter(x=>cft(x)>0);
       U.push({k:'g',h:'<div class="rg"><h3>'+e2(name)+'</h3><small>'+f2(sumC(rows))+' ઘન ફૂટ</small></div>'});
-      U.push({k:'t',h:'<table class="rtab"><thead><tr><th></th><th>L</th><th>W</th><th>H</th><th>નંગ</th><th>ઘન ફૂટ</th></tr></thead><tbody>'+
-        r.map(x=>'<tr><td>'+e2(x.n)+'</td><td>'+fiI(pin(x.l))+'</td><td>'+fiI(pin(x.w))+'</td><td>'+fiI(pin(x.h))+'</td><td>'+pcs(x.p)+'</td><td>'+f2(cft(x))+'</td></tr>').join('')+'</tbody></table>'});});
+      U.push({k:'t',h:'<table class="rtab"><colgroup><col style="width:34%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:11%"><col style="width:16%"></colgroup><thead><tr><th></th><th>L (ઇંચ)</th><th>W (ઇંચ)</th><th>H (ઇંચ)</th><th>નંગ</th><th>ઘન ફૂટ</th></tr></thead><tbody>'+
+        r.map(x=>'<tr><td>'+e2(x.n)+'</td><td>'+rI(pin(x.l))+'″</td><td>'+rI(pin(x.w))+'″</td><td>'+rI(pin(x.h))+'″</td><td>'+pcs(x.p)+'</td><td>'+f2(cft(x))+'</td></tr>').join('')+'</tbody></table>'});});
     {const tc=(E.rcc?rc:0)+md,rt=parseFloat(String(E.rate||'').replace(/,/g,''))||0;U.push({k:'tot',h:'<div class="rtot"><div><small>કુલ ઘન ફૂટ</small><b>'+f2(tc)+'</b></div>'+(E.marble&&la>0?'<div><small>કુલ ચો. ફૂટ</small><b>'+f2(la)+'</b></div>':'')+(rt?'<div><small>રેટ / ઘન ફૂટ</small><b>₹ '+rt.toLocaleString('en-IN')+'</b></div><div class="rprice"><small>કુલ કિંમત</small><b>₹ '+Math.round(tc*rt).toLocaleString('en-IN')+'</b></div>':'<div><small>કુલ કિંમત</small><b>—</b><span style="font-size:11px;color:#6b7488">ગણતરી માં રેટ નાખો</span></div>')+'</div>'});}}
   return U;
 }
