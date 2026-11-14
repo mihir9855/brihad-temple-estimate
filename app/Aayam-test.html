@@ -1667,21 +1667,34 @@ function mdPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g=W.gw
   return '<div class="ptbox"><div class="pthd"><b>મંડપ '+fiI(M)+'</b><small>પ્રાસાદ '+fiI(P)+' × '+f+' · '+pd[0]+' ભાગ · '+(W.p8?'8 હાંસ':'ગોળ ઘુમ્મટ')+' · 12 સ્તંભ</small></div>'+
     '<svg viewBox="'+X0.toFixed(1)+' '+Y0.toFixed(1)+' '+(X1-X0).toFixed(1)+' '+(Y1-Y0).toFixed(1)+'" role="img" aria-label="મંડપ નો પ્લાન">'+o+'</svg></div>';}
 
-/* samran (sambharan) seen from the front: stepped tiers with their ghanta (bells), chandras, amalsaro and kalash */
+/* samran seen from the front, the owner's way: wide flat tiers, each a slab whose ends curl up, standing on thin steps;
+   a flat amalsaro and the kalash on top */
 function srPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g8=P/18,au=g8>=10?1:g8>=5?1.5:g8>=4?1.75:2,M=rI(P*(+W.mf||au));
-  const n=+W.srN||6,G=+W.srG||25,H=M/2,th=H/n,fs=M/16,sw=fs*.07;let o='',y=0;
-  const per=Array.from({length:n},(_,i)=>Math.max(1,Math.round((G-1)/n*(1-i/(n+1))*1.2)));
-  for(let i=0;i<n;i++){const w=M*(1-.62*i/n),x=-w/2;
-    o+='<rect x="'+x+'" y="'+(-(y+th))+'" width="'+w+'" height="'+th+'" fill="'+(i%2?'var(--acc-soft)':'var(--card)')+'" stroke="var(--ink)" stroke-width="'+sw+'"/>';
-    y+=th;}
-  const tw=M*(1-.62*(n-1)/n),aw=tw*.5,kw=aw/3;
-  o+='<rect x="'+(-aw*.65)+'" y="'+(-(y+aw/7))+'" width="'+aw*1.3+'" height="'+(aw/7)+'" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=aw/7;
-  o+='<ellipse cx="0" cy="'+(-(y+aw/4))+'" rx="'+(aw/2)+'" ry="'+(aw/4)+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=aw/2;
-  o+='<path d="M'+(-kw*.3)+' '+(-y)+' C'+(-kw*.7)+' '+(-y-kw*.5)+' '+(-kw*.6)+' '+(-y-kw)+' 0 '+(-y-kw*1.5)+' C'+(kw*.6)+' '+(-y-kw)+' '+(kw*.7)+' '+(-y-kw*.5)+' '+(kw*.3)+' '+(-y)+' Z" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=kw*1.5;
-  o+='<line x1="'+(-M/2)+'" y1="'+fs*.9+'" x2="'+(M/2)+'" y2="'+fs*.9+'" stroke="var(--acc)" stroke-width="'+sw+'"/><text x="0" y="'+(fs*2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif">'+fiI(M)+'</text>';
-  o+='<line x1="'+(-M/2-fs)+'" y1="0" x2="'+(-M/2-fs)+'" y2="'+(-H)+'" stroke="var(--acc)" stroke-width="'+sw+'"/><text x="'+(-M/2-fs*1.4)+'" y="'+(-H/2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif" transform="rotate(-90 '+(-M/2-fs*1.4)+' '+(-H/2)+')">'+fiI(rI(H))+'</text>';
-  return '<div class="ptbox"><div class="pthd"><b>સામરણ</b><small>'+n+' થર · પહોળાઈ '+fiI(M)+' (મંડપ જેટલી) · ઊંચાઈ '+fiI(rI(H))+'</small></div>'+
-    '<svg viewBox="'+(-M/2-fs*2.4)+' '+(-y-fs)+' '+(M+fs*3.6)+' '+(y+fs*3)+'" role="img" aria-label="સામરણ">'+o+'</svg></div>';}
+  const n=+W.srN||6,th=M*.36/n,fs=M/16,sw=fs*.06;let o='',y=0;
+  const Y=v=>-v,ln=(x1,y1,x2,y2,c)=>'<line x1="'+x1.toFixed(1)+'" y1="'+Y(y1).toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+Y(y2).toFixed(1)+'" stroke="'+(c||'var(--ink)')+'" stroke-width="'+sw+'"/>';
+  const band=(w,yb,h)=>'<rect x="'+(-w/2).toFixed(1)+'" y="'+Y(yb+h).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';
+  const slab=(w,yb,h)=>{const a=w/2,r=h*.45,p=[
+      'M',-a+r,Y(yb),'L',a-r,Y(yb),'Q',a,Y(yb),a,Y(yb+h*.6),'L',a+h*.18,Y(yb+h*1.7),'Q',a-h*.25,Y(yb+h*1.1),a-h*.75,Y(yb+h),
+      'L',-a+h*.75,Y(yb+h),'Q',-a+h*.25,Y(yb+h*1.1),-a-h*.18,Y(yb+h*1.7),'L',-a,Y(yb+h*.6),'Q',-a,Y(yb),-a+r,Y(yb),'Z'].map(v=>typeof v==='number'?v.toFixed(1):v).join(' ');
+    return '<path d="'+p+'" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>'+ln(-a+h*.5,yb+h*.4,a-h*.5,yb+h*.4,'var(--muted)');};
+  for(let i=0;i<n;i++){const w=M*(1-.66*i/n);
+    o+=band(w*.93,y,th*.14);y+=th*.14;
+    o+=slab(w,y,th*.42);y+=th*.42;
+    o+=band(w*.8,y,th*.22);y+=th*.22;
+    o+=band(w*.76,y,th*.22);y+=th*.22;}
+  /* top: two small steps, the flat amalsaro, then the kalash */
+  const tw=M*(1-.66*(n-1)/n)*.62;
+  o+=band(tw,y,th*.18);y+=th*.18;o+=band(tw*.8,y,th*.14);y+=th*.14;
+  const aw=tw*.95,ah=th*.7;o+='<rect x="'+(-aw/2)+'" y="'+Y(y+ah)+'" width="'+aw+'" height="'+ah+'" rx="'+(ah/2)+'" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>'+ln(-aw*.45,y+ah*.5,aw*.45,y+ah*.5,'var(--muted)');y+=ah;
+  o+=band(aw*.55,y,th*.14);y+=th*.14;
+  const kw=tw*.42,kh=th*.9;o+='<path d="M'+(-kw*.25)+' '+Y(y)+' C'+(-kw*.6)+' '+Y(y+kh*.15)+' '+(-kw*.6)+' '+Y(y+kh*.55)+' 0 '+Y(y+kh*.6)+' C'+(kw*.6)+' '+Y(y+kh*.55)+' '+(kw*.6)+' '+Y(y+kh*.15)+' '+(kw*.25)+' '+Y(y)+' Z" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=kh*.6;
+  o+=band(kw*.5,y,kh*.12);y+=kh*.12;
+  o+='<path d="M'+(-kw*.18)+' '+Y(y)+' Q'+(-kw*.22)+' '+Y(y+kh*.35)+' 0 '+Y(y+kh*.6)+' Q'+(kw*.22)+' '+Y(y+kh*.35)+' '+(kw*.18)+' '+Y(y)+' Z" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=kh*.6;
+  /* sizes */
+  o+=ln(-M/2,-fs*.9,M/2,-fs*.9,'var(--acc)')+'<text x="0" y="'+(fs*2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif">'+fiI(M)+'</text>';
+  o+=ln(-M/2-fs,0,-M/2-fs,y,'var(--acc)')+'<text x="'+(-M/2-fs*1.4)+'" y="'+Y(y/2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif" transform="rotate(-90 '+(-M/2-fs*1.4)+' '+Y(y/2)+')">'+fiI(rI(y))+'</text>';
+  return '<div class="ptbox"><div class="pthd"><b>સામરણ</b><small>'+n+' થર · પહોળાઈ '+fiI(M)+' (મંડપ જેટલી) · ઊંચાઈ '+fiI(rI(y))+'</small></div>'+
+    '<svg viewBox="'+(-M/2-fs*2.4)+' '+(-y-fs)+' '+(M+fs*3.6)+' '+(y+fs*3.2)+'" role="img" aria-label="સામરણ">'+o+'</svg></div>';}
 
 function wzBody(){const k=WZS[W.step][0];
   if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર');
