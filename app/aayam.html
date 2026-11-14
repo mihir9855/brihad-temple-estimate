@@ -431,6 +431,13 @@ body.brihad h2 .n{border-radius:8px}
 .wzcta button{border:0;background:var(--acc);color:var(--acc-ink);border-radius:999px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;min-height:42px}
 .wzcta button.alt{background:var(--card);color:var(--acc);border:1.5px solid var(--acc)}
 @media (max-width:520px){.wzrow{grid-template-columns:1fr}}
+
+.ptgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;max-height:340px;overflow:auto;padding:2px}
+.ptc{display:grid;justify-items:center;gap:2px;text-align:center;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 6px;font:inherit;cursor:pointer}
+.ptc svg{width:76px;height:76px}.ptc b{font-size:14px}.ptc small{font-size:11px;color:var(--muted)}
+.ptc:hover{border-color:var(--acc)}.ptc[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-soft);color:var(--acc)}
+.ptleg{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}.ptleg i{display:inline-block;width:12px;height:12px;border:1.5px solid var(--acc);background:var(--acc-soft);vertical-align:-2px;margin-right:4px}
+.ptleg i.g{border:1px dashed var(--muted);background:var(--card)}
 </style>
 
 <main class="wrap">
@@ -1552,6 +1559,16 @@ const opt=(key,list,cur)=>'<div class="wzopts">'+list.map(([v,l,s])=>'<button cl
 const fbox=(key,label,v)=>'<div class="wzf"><span>'+label+'</span><div class="wzfi"><input data-wd="'+key+'" data-wu="f" inputmode="numeric" value="'+(v?Math.floor(v/12):'')+'" aria-label="'+label+' ફૂટ"><em>ફૂટ</em>'+
   '<input data-wd="'+key+'" data-wu="i" inputmode="numeric" value="'+(v?v%12:'')+'" aria-label="'+label+' ઇંચ"><em>ઇંચ</em></div><small>'+(v?v+'″ · '+fiI(v):'')+'</small></div>';
 const txt=(key,label,ph)=>'<label class="wzt"><span>'+label+'</span><input data-wt="'+key+'" value="'+esc(W[key]||'')+'" placeholder="'+(ph||'')+'"></label>';
+/* plan of each prasad type drawn from its tal bhag: rekha at the corner, each next anga steps out, the bhadra most */
+function ptThumb(t){const side=fullSide(t),T=tal(t),S0=100,u=S0/T,st=u*.55,half=t.angas.length-1;
+  const lev=i=>{const k=i<=half?i:side.length-1-i;return Math.min(k,half);};
+  const segs=side.map((x,i)=>[x[1]*u,lev(i)*st]);
+  const pts=[];let x=-S0/2;segs.forEach(([w,o])=>{pts.push([x,-S0/2-o]);x+=w;pts.push([x,-S0/2-o]);});
+  const rot=([a,b],k)=>k===1?[-b,a]:k===2?[-a,-b]:k===3?[b,-a]:[a,b];
+  const all=[];for(let k=0;k<4;k++)pts.forEach(q=>all.push(rot(q,k)));
+  const g=S0*.55,m=S0/2+half*st+6;
+  return '<svg viewBox="'+(-m)+' '+(-m)+' '+2*m+' '+2*m+'" aria-hidden="true"><path d="M'+all.map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' L')+' Z" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.6" stroke-linejoin="miter"/>'+
+    '<rect x="'+(-g/2)+'" y="'+(-g/2)+'" width="'+g+'" height="'+g+'" fill="var(--card)" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 2"/></svg>';}
 function wzBody(){const k=WZS[W.step][0];
   if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર')+
     '<div class="wzl">સ્થિતિ</div>'+opt('status',PST.map(x=>[x[0],x[1]]),W.status);
@@ -1559,7 +1576,7 @@ function wzBody(){const k=WZS[W.step][0];
     return '<h3>ગર્ભગૃહ નું માપ</h3><p class="wzs">અંદર નું માપ. આ પ્રમાણે પ્રાસાદ અને બાકી બધું ગણાશે.</p><div class="wzrow">'+fbox('gw','પહોળાઈ',W.gw)+fbox('gd','ઊંડાઈ',W.gd)+'</div>'+
       '<div class="wzl">મંદિર નું મુખ</div>'+opt('face',[['E','પૂર્વ'],['W','પશ્ચિમ'],['N','ઉત્તર'],['S','દક્ષિણ']],W.face)+
       (ok?'<div class="wzinfo"><div><small>નક્ષત્ર</small><b>'+NAK[q.nk]+'</b><span>'+DIRS[q.dir]+' · '+ganOf(q.nk)+(q.ok?' · ✓ લેવાય':' · આ 9 માં નથી')+'</span></div><div><small>આય</small><b>'+AAY[a.n]+'</b><span>'+(a.ok?'✓ ધ્વજ આય':'ધ્વજ આય નથી')+'</span></div></div>':'');}
-  if(k==='mandir') return '<h3>કેવું મંદિર?</h3><div class="wzl">પ્રાસાદ નો પ્રકાર</div><select class="wzsel" data-wsel="ptype">'+PTYPES.map((t,i)=>'<option value="'+i+'"'+(+W.ptype===i?' selected':'')+'>'+t.n+'</option>').join('')+'</select>'+
+  if(k==='mandir') return '<h3>કેવું મંદિર?</h3><div class="wzl">પ્રાસાદ નો પ્રકાર <small>· પ્લાન ગ્રંથ ના તલ ભાગ પ્રમાણે</small></div><div class="ptgrid">'+PTYPES.map((t,i)=>'<button class="ptc" data-wk2="ptype" data-wv="'+i+'" aria-pressed="'+(+W.ptype===i)+'">'+ptThumb(t)+'<b>'+t.n+'</b><small>'+t.a+' અંડક'+(t.t?' · '+t.t+' તિલક':'')+' · તલ '+tal(t)+'</small></button>').join('')+'</div>'+'<div class="ptleg"><span><i></i>રેખા ખૂણે</span><span>દરેક અંગ થોડું બહાર, ભદ્ર સૌથી બહાર</span><span><i class="g"></i>ગર્ભગૃહ</span></div>'+
     '<div class="wzl">દીવાલ</div>'+opt('wallK',WALLS.map(x=>[x[0],x[1],'પ્રાસાદ ના 1⁄'+x[2]]),W.wallK)+
     '<div class="wzl">શિખર નો ભેદ</div>'+opt('grade',[['j','જ્યેષ્ઠ','ઊંચાઈ પાયા × 1¼'],['m','મધ્યમ','× 1⅓'],['k','કનિષ્ઠ','× 1½']],W.grade)+
     '<div class="wzl">દ્વાર ની શાખા</div>'+opt('shakha',[[3,'ત્રિશાખા'],[5,'પંચશાખા'],[7,'સપ્તશાખા'],[9,'નવશાખા','મહેશ્વર']],W.shakha)+
@@ -1581,7 +1598,7 @@ function wzBody(){const k=WZS[W.step][0];
     row('ગર્ભગૃહ',W.gw?fiI(W.gw)+' × '+fiI(W.gd):'—')+row('પ્રાસાદ',W.gw?fiI(wzP())+' × '+fiI(wzPd()):'—')+row('દીવાલ',W.gw?fiI(wzWall())+' · '+WALLS.find(x=>x[0]===W.wallK)[1]:'—')+
     row('પ્રાસાદ નો પ્રકાર',PTYPES[W.ptype].n)+row('શિખર',({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade])+row('શાખા',SHAKHA[W.shakha][0])+
     row('મંડપ',W.mf?MF.find(x=>x[0]===+W.mf)[1]:'ગ્રંથ પ્રમાણે')+row('પીઠ',PITH_T[W.pithT][0]+' · '+W.bhitN+' ભીત')+row('સામરણ',W.srN+' થર')+row('ભાવ',W.rate?'₹ '+W.rate+' / CFT':'—')+'</div>';}
-function wzRender(){if(W)wzSave();const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
+function wzRender(){if(W)wzSave();const _g=wz.querySelector('.ptgrid'),_gs=_g?_g.scrollTop:0;setTimeout(()=>{const g=wz.querySelector('.ptgrid');if(g)g.scrollTop=_gs;},0);const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
   wz.innerHTML='<div class="wzbox"><div class="wzh"><b>'+(W.edit&&!W.first?'પ્રોજેક્ટ ની વિગત બદલો':'નવો પ્રોજેક્ટ')+'</b><button class="pmx" data-wx aria-label="બંધ કરો">×</button></div>'+
     '<ol class="wzsteps">'+WZS.map((s,i)=>'<li class="'+(i<W.step?'dn':i===W.step?'on':'')+'"><span>'+(i+1)+'</span>'+s[1]+'</li>').join('')+'</ol>'+
     '<div class="wzb">'+wzBody()+'</div>'+
