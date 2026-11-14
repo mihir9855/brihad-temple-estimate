@@ -1456,7 +1456,7 @@ const openPm=()=>{pmRender();pm.hidden=false;document.body.classList.add('pmopen
 const closePm=()=>{pm.hidden=true;document.body.classList.remove('pmopen');pbtn.lastChild.textContent=PCUR.temple||'પ્રોજેક્ટ';};
 pbtn.addEventListener('click',openPm);
 const switchTo=id=>{PR.cur=id;persist();location.reload();};
-pm.addEventListener('click',e=>{if(e.target===pm)return closePm();const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+pm.addEventListener('click',e=>{if(e.target===pm)return;const b=e.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.pa==='close')return closePm();
   if(d.pa==='new'){const id='p'+Date.now();PR.list.unshift({id,client:'',place:'',temple:'',status:'bhav',created:Date.now(),data:{theme:S.theme}});return switchTo(id);}
   if(d.po)return switchTo(d.po);
