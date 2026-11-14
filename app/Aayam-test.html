@@ -454,6 +454,9 @@ body.brihad h2 .n{border-radius:8px}
 #undoBar button{border:0;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer;background:#8b8cf8;color:#0f1117;min-height:38px}
 #undoBar .ux{background:transparent;color:#f5f6fa;font-size:18px;padding:6px 10px}
 @media (min-width:901px){#undoBar{bottom:24px;margin-left:134px}}
+
+/* status is not used: this app is for rates and stone lists */
+.pmcur .pst,.pmtools .chips,.pmv>span:first-child{display:none!important}
 </style>
 
 <main class="wrap">
@@ -1634,8 +1637,7 @@ function ptPlanX(t,g,P){const s=7,R=P/2-s,T=tal(t),side=fullSide(t),half=t.angas
 function ptSizes(t){const P=W.gw?rI(wzP()):0;if(!P)return '';const u=P/tal(t),side=fullSide(t),half=t.angas.length;
   return '<div class="ptsz">'+t.angas.map((x,i)=>'<span><i style="background:'+ANG_COL[x[0]]+'"></i>'+ANG[x[0]]+' <b>'+fiI(rI(x[1]*u*(i===half-1?2:1)))+'</b></span>').join('')+'<span>ભદ્ર નો નીકાળો <b>'+fiI(rI(u))+'</b></span></div>';}
 function wzBody(){const k=WZS[W.step][0];
-  if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર')+
-    '<div class="wzl">સ્થિતિ</div>'+opt('status',PST.map(x=>[x[0],x[1]]),W.status);
+  if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર');
   if(k==='garbha'){const ok=W.gw>0&&W.gd>0,q=ok?info(W.gw,W.gd):null,a=ok?aayInfo(W.gw,W.gd):null;
     return '<h3>ગર્ભગૃહ નું માપ</h3><p class="wzs">અંદર નું માપ. આ પ્રમાણે પ્રાસાદ અને બાકી બધું ગણાશે.</p><div class="wzrow">'+fbox('gw','પહોળાઈ',W.gw)+fbox('gd','ઊંડાઈ',W.gd)+'</div>'+
       '<div class="wzl">મંદિર નું મુખ</div>'+opt('face',[['E','પૂર્વ'],['W','પશ્ચિમ'],['N','ઉત્તર'],['S','દક્ષિણ']],W.face)+
