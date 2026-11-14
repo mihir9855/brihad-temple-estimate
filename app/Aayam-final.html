@@ -392,6 +392,45 @@ body.brihad h2 .n{border-radius:8px}
 @media (max-width:600px){.tiles{grid-template-columns:1fr 1fr}.dhero h1{font-size:28px}}
 @media (max-width:440px){body.brihad .brand .logo{display:none}}
 .rnav a{border:0!important;text-decoration:none!important}
+
+/* ---- new-project questionnaire ---- */
+#wz{position:fixed;inset:0;z-index:45;background:rgba(15,18,22,.5);display:flex;justify-content:center;align-items:flex-start;overflow:auto;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 16px max(12px,env(safe-area-inset-left,0px))}
+#wz[hidden]{display:none}
+.wzbox{background:var(--bg);border-radius:18px;box-shadow:var(--shadow);width:100%;max-width:720px;padding:16px 18px;display:grid;gap:14px}
+.wzh{display:flex;justify-content:space-between;align-items:center}.wzh b{font-size:18px}
+.wzsteps{list-style:none;margin:0;padding:0;display:flex;gap:6px;overflow-x:auto}
+.wzsteps li{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);white-space:nowrap;padding:4px 10px 4px 4px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.wzsteps li span{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:var(--bg);font-weight:700;font-size:12px}
+.wzsteps li.on{border-color:var(--acc);color:var(--acc);font-weight:600}.wzsteps li.on span{background:var(--acc);color:var(--acc-ink)}
+.wzsteps li.dn span{background:var(--acc-soft);color:var(--acc)}
+.wzb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px}
+.wzb h3{margin:0;font-size:20px;font-family:var(--serif)}
+.wzs{color:var(--muted);font-size:13px;margin:0}
+.wzl{font-size:13px;color:var(--muted);font-weight:600;margin-top:4px}
+.wzt{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.wzt input,.wzfi input,.wzsel{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);color:var(--ink);font:inherit;font-size:16px;min-width:0}
+.wzt input:focus,.wzfi input:focus,.wzsel:focus{border-color:var(--acc);outline:none}
+.wzrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wzf{display:grid;gap:4px;font-size:13px;color:var(--muted)}.wzf small{color:var(--acc);font-weight:600}
+.wzfi{display:flex;align-items:center;gap:6px}.wzfi input{width:100%;font-size:22px;font-weight:700}.wzfi em{font-style:normal;font-size:13px}
+.wzopts{display:flex;flex-wrap:wrap;gap:8px}
+.wzo{display:grid;text-align:left;gap:1px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 14px;font:inherit;cursor:pointer;min-height:44px}
+.wzo small{color:var(--muted);font-size:12px}.wzo:hover{border-color:var(--acc)}
+.wzo[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-soft);color:var(--acc)}.wzo[aria-pressed="true"] small{color:inherit}
+.wzinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;background:var(--bg);border-radius:12px;padding:12px}
+.wzinfo small{display:block;color:var(--muted);font-size:12px}.wzinfo b{font-size:18px}.wzinfo span{display:block;font-size:12.5px;color:var(--muted)}
+.wzsum{display:grid}.wzr{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}.wzr span{color:var(--muted)}.wzr:last-child{border:0}
+.wznav{display:flex;justify-content:space-between;gap:10px}
+.wzbk,.wzgo{border-radius:999px;padding:10px 20px;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+.wzbk{border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.wzgo{border:0;background:var(--acc);color:var(--acc-ink)}.wzgo:disabled{opacity:.45;cursor:not-allowed}
+.wzedit{grid-column:1/-1;justify-self:start;background:var(--card)!important;color:var(--acc)!important;border:1.5px solid var(--acc)!important}
+.wzcta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--acc-soft);border:1px solid var(--acc);border-radius:14px;padding:14px 16px;margin-top:8px}
+.wzcta div{flex:1 1 260px;display:grid}.wzcta b{color:var(--acc);font-size:16px}.wzcta span{font-size:13px;color:var(--ink)}
+.wzcta button{border:0;background:var(--acc);color:var(--acc-ink);border-radius:999px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer;min-height:42px}
+.wzcta button.alt{background:var(--card);color:var(--acc);border:1.5px solid var(--acc)}
+@media (max-width:520px){.wzrow{grid-template-columns:1fr}}
 </style>
 
 <main class="wrap">
@@ -880,7 +919,7 @@ const PTYPES=[
 ];
 const ANG={r:'રેખા',p:'પઢરો',n:'નંદિકા',b:'ભદ્ર'};
 const ANG_COL={r:'var(--acc)',p:'#c9a86b',n:'#8f8f8f',b:'var(--ok)'};
-S.ptype=2;   /* નંદન (rekha 2, padhro 1½, bhadra 3): the user's prasad; the type picker is hidden until the drawings bring it back */
+if(S.ptype===undefined)S.ptype=2;   /* નંદન (rekha 2, padhro 1½, bhadra 3): the user's prasad; the type picker is hidden until the drawings bring it back */
 const tal=t=>2*t.angas.reduce((a,x)=>a+x[1],0);
 /* full side from one rekha to the other; the two bhadra halves join into one bhadra */
 function fullSide(t){const h=t.angas.map(x=>[x[0],x[1]]),b=h.pop();return h.concat([[b[0],2*b[1]]],h.slice().reverse());}
@@ -1489,15 +1528,101 @@ function homeRender(){const el=$('tab-home'),pw=PW(),s=PCUR.sum||{};
       tile('est','ગણતરી',s.cft?f2(s.cft):'—','ઘન ફૂટ',rs3(s.price))+
     '</div>';}
 $('tab-home').addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(!t)return;const b=document.querySelector('#tabs [data-t="'+t.dataset.go+'"]');if(b)b.click();});
-{const _at=applyTab;applyTab=function(anim){if(S.tab==='home')homeRender();_at.apply(this,arguments);railRender();};}
+{const _at=applyTab;applyTab=function(anim){S.tabWas=S.tab;if(S.tab==='home')homeRender();_at.apply(this,arguments);railRender();};}
 {const _sv=save;save=function(){_sv.apply(this,arguments);clearTimeout(save.t);save.t=setTimeout(railRender,250);};}
 /* Brihad colours: indigo accent */
 applyTheme=function(){const th=curTheme(),r=document.documentElement;r.setAttribute('data-theme',th);
   r.style.setProperty('--acc',th==='dark'?'#8b8cf8':'#4f46e5');r.style.setProperty('--acc-soft',th==='dark'?'#25264a':'#e8e9fd');r.style.setProperty('--acc-ink',th==='dark'?'#0f1117':'#ffffff');
   document.querySelectorAll('.theme button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.th===th));};
 document.querySelectorAll('.theme button').forEach(b=>b.onclick=()=>{S.theme=b.dataset.th;save();applyTheme();railRender();});
-if(!S.tabSeen){S.tab='home';S.tabSeen=1;}
+if(!S.tabSeen||S.tabWas==='home'){S.tab='home';S.tabSeen=1;}
 applyTheme();applyTab();
+/* ===================== New-project questionnaire: every question first, then the whole temple is built ===================== */
+const WZS=[['proj','પ્રોજેક્ટ'],['garbha','ગર્ભગૃહ'],['mandir','મંદિર'],['mandap','મંડપ'],['niche','નીચે નો ભાગ'],['upar','ઉપર નો ભાગ'],['bhav','ભાવ'],['done','સારાંશ']];
+const wz=document.createElement('div');wz.id='wz';wz.hidden=true;wz.setAttribute('role','dialog');wz.setAttribute('aria-label','નવો પ્રોજેક્ટ');document.body.appendChild(wz);
+let W=null;
+function wzFresh(edit){const o=edit?S.opt||{}:{},e=edit?E:{};
+  return {edit,step:0,temple:edit?PCUR.temple||'':'',client:edit?PCUR.client||'':'',place:edit?PCUR.place||'':'',status:edit?PCUR.status||'bhav':'bhav',
+    gw:edit?S.gw||S.w||0:0,gd:edit?S.gd||S.d||0:0,face:edit?S.face||'E':'E',ptype:edit?S.ptype:2,wallK:edit?S.wallK:'s6',grade:o.grade||'j',shakha:o.shakha||5,
+    mf:o.mf||0,pad:o.pad||1,p8:!!e.p8,pithT:o.pithT||'maha',pithM:o.pithM||1,pgrade:o.pgrade||'m',bhitN:o.bhitN||3,jagM:o.jagM||'apa',rcc:e.rcc!==false,marble:e.marble!==false,
+    srN:o.srN||6,rate:e.rate||''};}
+const wzWall=()=>{const k=WALLS.find(x=>x[0]===W.wallK)[2];return W.gw/(k-2);};
+const wzP=()=>W.gw+2*wzWall(), wzPd=()=>W.gd+2*W.gd/(WALLS.find(x=>x[0]===W.wallK)[2]-2);
+const opt=(key,list,cur)=>'<div class="wzopts">'+list.map(([v,l,s])=>'<button class="wzo" data-wk2="'+key+'" data-wv="'+v+'" aria-pressed="'+(String(cur)===String(v))+'"><b>'+l+'</b>'+(s?'<small>'+s+'</small>':'')+'</button>').join('')+'</div>';
+const fbox=(key,label,v)=>'<div class="wzf"><span>'+label+'</span><div class="wzfi"><input data-wd="'+key+'" data-wu="f" inputmode="numeric" value="'+(v?Math.floor(v/12):'')+'" aria-label="'+label+' ફૂટ"><em>ફૂટ</em>'+
+  '<input data-wd="'+key+'" data-wu="i" inputmode="numeric" value="'+(v?v%12:'')+'" aria-label="'+label+' ઇંચ"><em>ઇંચ</em></div><small>'+(v?v+'″ · '+fiI(v):'')+'</small></div>';
+const txt=(key,label,ph)=>'<label class="wzt"><span>'+label+'</span><input data-wt="'+key+'" value="'+esc(W[key]||'')+'" placeholder="'+(ph||'')+'"></label>';
+function wzBody(){const k=WZS[W.step][0];
+  if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર')+
+    '<div class="wzl">સ્થિતિ</div>'+opt('status',PST.map(x=>[x[0],x[1]]),W.status);
+  if(k==='garbha'){const ok=W.gw>0&&W.gd>0,q=ok?info(W.gw,W.gd):null,a=ok?aayInfo(W.gw,W.gd):null;
+    return '<h3>ગર્ભગૃહ નું માપ</h3><p class="wzs">અંદર નું માપ. આ પ્રમાણે પ્રાસાદ અને બાકી બધું ગણાશે.</p><div class="wzrow">'+fbox('gw','પહોળાઈ',W.gw)+fbox('gd','ઊંડાઈ',W.gd)+'</div>'+
+      '<div class="wzl">મંદિર નું મુખ</div>'+opt('face',[['E','પૂર્વ'],['W','પશ્ચિમ'],['N','ઉત્તર'],['S','દક્ષિણ']],W.face)+
+      (ok?'<div class="wzinfo"><div><small>નક્ષત્ર</small><b>'+NAK[q.nk]+'</b><span>'+DIRS[q.dir]+' · '+ganOf(q.nk)+(q.ok?' · ✓ લેવાય':' · આ 9 માં નથી')+'</span></div><div><small>આય</small><b>'+AAY[a.n]+'</b><span>'+(a.ok?'✓ ધ્વજ આય':'ધ્વજ આય નથી')+'</span></div></div>':'');}
+  if(k==='mandir') return '<h3>કેવું મંદિર?</h3><div class="wzl">પ્રાસાદ નો પ્રકાર</div><select class="wzsel" data-wsel="ptype">'+PTYPES.map((t,i)=>'<option value="'+i+'"'+(+W.ptype===i?' selected':'')+'>'+t.n+'</option>').join('')+'</select>'+
+    '<div class="wzl">દીવાલ</div>'+opt('wallK',WALLS.map(x=>[x[0],x[1],'પ્રાસાદ ના 1⁄'+x[2]]),W.wallK)+
+    '<div class="wzl">શિખર નો ભેદ</div>'+opt('grade',[['j','જ્યેષ્ઠ','ઊંચાઈ પાયા × 1¼'],['m','મધ્યમ','× 1⅓'],['k','કનિષ્ઠ','× 1½']],W.grade)+
+    '<div class="wzl">દ્વાર ની શાખા</div>'+opt('shakha',[[3,'ત્રિશાખા'],[5,'પંચશાખા'],[7,'સપ્તશાખા'],[9,'નવશાખા','મહેશ્વર']],W.shakha)+
+    (W.gw?'<div class="wzinfo"><div><small>પ્રાસાદ (બહાર)</small><b>'+fiI(wzP())+' × '+fiI(wzPd())+'</b></div><div><small>દીવાલ</small><b>'+fiI(wzWall())+'</b></div></div>':'');
+  if(k==='mandap'){const P=wzP(),g=P/18,au=g>=10?1:g>=5?1.5:g>=4?1.75:2;
+    return '<h3>કેવો મંડપ?</h3><div class="wzl">મંડપ નું માપ (પ્રાસાદ ની પહોળાઈ પ્રમાણે)</div>'+opt('mf',[[0,'ગ્રંથ પ્રમાણે','× '+au+' = '+fiI(P*au)]].concat(MF.map(([v,l])=>[v,l,'× '+v+' = '+fiI(P*v)])),W.mf)+
+      '<div class="wzl">પદ વિભાગ</div>'+opt('pad',[[1,'5 ભાગ','વચ્ચે 2'],[2,'7 ભાગ','વચ્ચે 3'],[3,'9 ભાગ','વચ્ચે 4']],W.pad)+
+      '<div class="wzl">8 હાંસ મંડપ (પંચ ભેટા)</div>'+opt('p8',[[1,'હા'],[0,'ના']],W.p8?1:0);}
+  if(k==='niche') return '<h3>નીચે નો ભાગ</h3><div class="wzl">પીઠ</div>'+opt('pithT',Object.keys(PITH_T).map(x=>[x,PITH_T[x][0]]),W.pithT)+
+    '<div class="wzl">પીઠ ની ઊંચાઈ ની રીત</div>'+opt('pithM',[[1,'પદ્ધતિ 1'],[2,'પદ્ધતિ 2']],W.pithM)+opt('pgrade',Object.keys(PGR).map(x=>[x,PGR[x][0]]),W.pgrade)+
+    '<div class="wzl">ભીત</div>'+opt('bhitN',[[1,'1'],[2,'2'],[3,'3']],W.bhitN)+
+    '<div class="wzl">જગતી ની ઊંચાઈ</div>'+opt('jagM',[['apa','અપરાજિત / દીપાર્ણવ'],['man','પ્રાસાદ મંડન']],W.jagM)+
+    '<div class="wzl">પ્લિન્થ</div>'+opt('rcc',[[1,'RCC ગણો'],[0,'RCC નહીં']],W.rcc?1:0)+opt('marble',[[1,'માર્બલ ફ્લોરિંગ ગણો'],[0,'ફ્લોરિંગ નહીં']],W.marble?1:0);
+  if(k==='upar') return '<h3>ઉપર નો ભાગ</h3><div class="wzl">સામરણ ના થર</div>'+opt('srN',[[4,'4'],[5,'5'],[6,'6'],[7,'7'],[8,'8']],W.srN)+
+    '<p class="wzs">શિખર, આમલસારો, કળશ અને ધ્વજદંડ ગ્રંથ પ્રમાણે આપોઆપ ગણાશે (શિખર નો ભેદ: '+({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade]+').</p>';
+  if(k==='bhav') return '<h3>પથ્થર નો ભાવ</h3>'+txt('rate','₹ / ઘન ફૂટ','દા.ત. 1500')+'<p class="wzs">પછી ગણતરી ટેબ માં બદલી શકાય.</p>';
+  const row=(l,v)=>'<div class="wzr"><span>'+l+'</span><b>'+v+'</b></div>';
+  return '<h3>બધું બરાબર છે?</h3><div class="wzsum">'+row('મંદિર',e2(W.temple||'—'))+row('ગ્રાહક · સ્થળ',e2([W.client,W.place].filter(Boolean).join(' · ')||'—'))+
+    row('ગર્ભગૃહ',W.gw?fiI(W.gw)+' × '+fiI(W.gd):'—')+row('પ્રાસાદ',W.gw?fiI(wzP())+' × '+fiI(wzPd()):'—')+row('દીવાલ',W.gw?fiI(wzWall())+' · '+WALLS.find(x=>x[0]===W.wallK)[1]:'—')+
+    row('પ્રાસાદ નો પ્રકાર',PTYPES[W.ptype].n)+row('શિખર',({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade])+row('શાખા',SHAKHA[W.shakha][0])+
+    row('મંડપ',W.mf?MF.find(x=>x[0]===+W.mf)[1]:'ગ્રંથ પ્રમાણે')+row('પીઠ',PITH_T[W.pithT][0]+' · '+W.bhitN+' ભીત')+row('સામરણ',W.srN+' થર')+row('ભાવ',W.rate?'₹ '+W.rate+' / CFT':'—')+'</div>';}
+function wzRender(){const n=WZS.length,last=W.step===n-1,need=WZS[W.step][0]==='garbha'&&!(W.gw>0&&W.gd>0);
+  wz.innerHTML='<div class="wzbox"><div class="wzh"><b>'+(W.edit&&!W.first?'પ્રોજેક્ટ ની વિગત બદલો':'નવો પ્રોજેક્ટ')+'</b><button class="pmx" data-wx aria-label="બંધ કરો">×</button></div>'+
+    '<ol class="wzsteps">'+WZS.map((s,i)=>'<li class="'+(i<W.step?'dn':i===W.step?'on':'')+'"><span>'+(i+1)+'</span>'+s[1]+'</li>').join('')+'</ol>'+
+    '<div class="wzb">'+wzBody()+'</div>'+
+    '<div class="wznav">'+(W.step?'<button class="wzbk" data-wb>← પાછળ</button>':'<span></span>')+
+      (last?'<button class="wzgo" data-wgo>'+(W.edit&&!W.first?'સાચવો':'મંદિર બનાવો')+' ✓</button>':'<button class="wzgo" data-wn'+(need?' disabled':'')+'>આગળ →</button>')+'</div>'+
+    (need?'<p class="wzs" style="text-align:right;margin:0">આગળ જવા ગર્ભગૃહ નું માપ નાખો.</p>':'')+'</div>';}
+function wzOpen(edit){W=wzFresh(edit);wzRender();wz.hidden=false;document.body.classList.add('pmopen');pm.hidden=true;}
+function wzClose(){PCUR.asked=1;persist();wz.hidden=true;document.body.classList.remove('pmopen');}
+function wzApply(){const opt2={mf:+W.mf||undefined,pad:+W.pad,shakha:+W.shakha,grade:W.grade,pithT:W.pithT,pithM:+W.pithM,pgrade:W.pgrade,bhitN:+W.bhitN,jagM:W.jagM,srN:+W.srN};
+  if(!opt2.mf)delete opt2.mf;
+  const setEst=e=>Object.assign(e,{p8:!!W.p8,rcc:!!W.rcc,marble:!!W.marble,rate:W.rate});
+  if(W.edit){Object.assign(PCUR,{temple:W.temple,client:W.client,place:W.place,status:W.status,asked:1});
+    Object.assign(S,{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK});S.opt=Object.assign(S.opt||{},opt2);if(!W.mf)delete S.opt.mf;
+    S.man=Object.assign(S.man||{},{wall:false,pw:false,pd:false});setEst(E);S.tab='home';S.tabWas='home';save();location.reload();return;}
+  const id='p'+Date.now(),est=setEst({plinth:{l:0,w:0,h:0},ov:{},xrows:{},xthars:[],v:2});
+  PR.list.unshift({id,asked:1,temple:W.temple,client:W.client,place:W.place,status:W.status,created:Date.now(),
+    data:{w:W.gw,d:W.gd,gw:W.gw,gd:W.gd,face:W.face,ptype:+W.ptype,wallK:W.wallK,opt:opt2,est,theme:S.theme,tab:'home',tabWas:'home',tabSeen:1,man:{wall:false,pw:false,pd:false},val:{wall:0,pw:0,pd:0},mo:{}}});
+  PR.cur=id;persist();location.reload();}
+wz.addEventListener('click',e=>{if(e.target===wz)return wzClose();const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.wx!==undefined)return wzClose();
+  if(d.wb!==undefined){W.step--;return wzRender();}
+  if(d.wn!==undefined){if(!b.disabled){W.step++;wzRender();}return;}
+  if(d.wgo!==undefined)return wzApply();
+  if(d.wk2){const v=d.wv;W[d.wk2]=['p8','rcc','marble'].includes(d.wk2)?v==='1':isNaN(+v)?v:+v;wzRender();}});
+wz.addEventListener('input',e=>{const el=e.target;
+  if(el.dataset.wt){W[el.dataset.wt]=el.value;return;}
+  if(el.dataset.wd){const k=el.dataset.wd,q=u=>parseFloat(wz.querySelector('[data-wd="'+k+'"][data-wu="'+u+'"]').value)||0;W[k]=Math.max(0,Math.round(q('f')*12+q('i')));
+    const id=k+el.dataset.wu,pos=el.selectionStart;wzRender();const n=wz.querySelector('[data-wd="'+k+'"][data-wu="'+el.dataset.wu+'"]');if(n){n.focus();try{n.setSelectionRange(pos,pos);}catch(x){}}}});
+wz.addEventListener('change',e=>{if(e.target.dataset.wsel){W[e.target.dataset.wsel]=+e.target.value;wzRender();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!wz.hidden)wzClose();});
+/* the project list's "new" opens the questionnaire; the current project's details can be asked again too */
+pm.addEventListener('click',e=>{const b=e.target.closest('[data-pa="new"],[data-pa="wedit"]');if(!b)return;e.stopImmediatePropagation();wzOpen(b.dataset.pa==='wedit');},true);
+{const _pr=pmRender;pmRender=function(){_pr.apply(this,arguments);const c=pm.querySelector('.pmcur');if(c&&!c.querySelector('[data-pa="wedit"]'))c.insertAdjacentHTML('beforeend','<button class="pmnew wzedit" data-pa="wedit">✎ બધા સવાલ ફરી થી</button>');};}
+/* dashboard: start here */
+{const _hr=homeRender;homeRender=function(){_hr.apply(this,arguments);const el=$('tab-home');
+  el.insertAdjacentHTML('afterbegin','<div class="wzcta"><div><b>'+(PW()?'નવું મંદિર?':'શરૂ કરો')+'</b><span>'+(PW()?'નવો પ્રોજેક્ટ બનાવો, સવાલો ના જવાબ આપો, મંદિર તૈયાર.':'પ્રોજેક્ટ ની વિગત અને બધા સવાલો ના જવાબ આપો, પછી આખું મંદિર બનશે.')+'</span></div>'+
+    '<button data-wz="new">+ નવો પ્રોજેક્ટ</button>'+(PW()?'':'<button data-wz="edit" class="alt">આ પ્રોજેક્ટ માટે સવાલો</button>')+'</div>');};}
+$('tab-home').addEventListener('click',e=>{const b=e.target.closest('[data-wz]');if(b)wzOpen(b.dataset.wz==='edit');});
+/* first run: an empty project starts with the questions */
+if(PR.list.length===1&&!PCUR.temple&&!PCUR.asked){setTimeout(()=>{wzOpen(true);W.first=1;W.gw=0;W.gd=0;wzRender();},300);}
+applyTab();
 
 })();
 </script>
