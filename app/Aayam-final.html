@@ -1640,7 +1640,7 @@ function ptPlanX(t,g,P){const s=7,R=P/2-s,T=tal(t),side=fullSide(t),half=t.angas
     '<text x="'+(dx-fs*.4)+'" y="0" font-size="'+(fs*.8)+'" fill="var(--acc)" text-anchor="middle" font-family="Inter,sans-serif" transform="rotate(-90 '+(dx-fs*.4)+' 0)">'+fiI(P)+' (રેખા થી રેખા)</text>';
   o+='<line x1="'+(-g/2)+'" y1="'+(-g/2+fs*2.2)+'" x2="'+(g/2)+'" y2="'+(-g/2+fs*2.2)+'" stroke="var(--muted)" stroke-width="'+(fs*.04)+'"/>';
   const x0=dx-fs*1.6,x1=R+kl+g*.12+fs*4.2,y0=minY-fs*.8,y1=maxY+fs*.8;
-  if(ptPlanX.raw)return {o,x0,y0,y1,xEnd:R+kl,R};
+  if(ptPlanX.raw)return {o,x0,y0,y1,xEnd:R+kl,R,minX};
   return '<svg viewBox="'+x0.toFixed(1)+' '+y0.toFixed(1)+' '+(x1-x0).toFixed(1)+' '+(y1-y0).toFixed(1)+'" role="img" aria-label="'+t.n+' પ્રાસાદ નો પ્લાન">'+o+'</svg>';}
 
 function ptSizes(t){const P=W.gw?rI(wzP()):0;if(!P)return '';const u=P/tal(t),side=fullSide(t),half=t.angas.length;
@@ -1663,7 +1663,11 @@ function mdPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g=W.gw
   const yd=M/2+fs*1.6;[0,1,2].forEach(i=>{o+='<line x1="'+xs[i]+'" y1="'+yd+'" x2="'+xs[i+1]+'" y2="'+yd+'" stroke="var(--acc)" stroke-width="'+sw+'"/><line x1="'+xs[i]+'" y1="'+(yd-fs*.3)+'" x2="'+xs[i]+'" y2="'+(yd+fs*.3)+'" stroke="var(--acc)" stroke-width="'+sw+'"/><text x="'+((xs[i]+xs[i+1])/2)+'" y="'+(yd-fs*.35)+'" font-size="'+(fs*.75)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif">'+fiI(b[i])+'</text>';});
   o+='<line x1="'+xs[3]+'" y1="'+(yd-fs*.3)+'" x2="'+xs[3]+'" y2="'+(yd+fs*.3)+'" stroke="var(--acc)" stroke-width="'+sw+'"/>';
   o+='<text x="'+(xm+M/2)+'" y="'+(yd+fs*1.4)+'" font-size="'+(fs*.9)+'" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" font-weight="600">મંડપ '+fiI(M)+' × '+fiI(M)+'</text>';
-  const X0=G.x0,X1=xm+M+fs,Y0=Math.min(G.y0,-M/2-fs),Y1=Math.max(G.y1,yd+fs*2);
+  /* overall length: back of the prasad to the front of the mandap */
+  const yt=Math.min(G.y0,-M/2-stw)-fs*1.1,TL=rI(xm+M-G.minX);
+  o+='<line x1="'+G.minX+'" y1="'+yt+'" x2="'+(xm+M)+'" y2="'+yt+'" stroke="var(--ink)" stroke-width="'+sw+'"/>'+[G.minX,xm+M].map(x=>'<line x1="'+x+'" y1="'+(yt-fs*.35)+'" x2="'+x+'" y2="'+(yt+fs*.35)+'" stroke="var(--ink)" stroke-width="'+sw+'"/>').join('')+
+    '<text x="'+((G.minX+xm+M)/2)+'" y="'+(yt-fs*.4)+'" font-size="'+(fs*.9)+'" text-anchor="middle" fill="var(--ink)" font-family="Inter,sans-serif" font-weight="600">કુલ લંબાઈ '+fiI(TL)+'</text>';
+  const X0=G.x0,X1=xm+M+fs,Y0=Math.min(G.y0,yt-fs*1.6),Y1=Math.max(G.y1,yd+fs*2);
   return '<div class="ptbox"><div class="pthd"><b>મંડપ '+fiI(M)+'</b><small>પ્રાસાદ '+fiI(P)+' × '+f+' · '+pd[0]+' ભાગ · '+(W.p8?'8 હાંસ':'ગોળ ઘુમ્મટ')+' · 12 સ્તંભ</small></div>'+
     '<svg viewBox="'+X0.toFixed(1)+' '+Y0.toFixed(1)+' '+(X1-X0).toFixed(1)+' '+(Y1-Y0).toFixed(1)+'" role="img" aria-label="મંડપ નો પ્લાન">'+o+'</svg></div>';}
 
