@@ -1673,8 +1673,6 @@ function srPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g8=P/1
   const per=Array.from({length:n},(_,i)=>Math.max(1,Math.round((G-1)/n*(1-i/(n+1))*1.2)));
   for(let i=0;i<n;i++){const w=M*(1-.62*i/n),x=-w/2;
     o+='<rect x="'+x+'" y="'+(-(y+th))+'" width="'+w+'" height="'+th+'" fill="'+(i%2?'var(--acc-soft)':'var(--card)')+'" stroke="var(--ink)" stroke-width="'+sw+'"/>';
-    const k=Math.min(per[i],Math.floor(w/(th*.9)));for(let j=0;j<k;j++){const cx=x+w*(j+.5)/k,bw=Math.min(th*.55,w/k*.6);
-      o+='<path d="M'+(cx-bw/2)+' '+(-y-th*.15)+' Q '+(cx-bw/2)+' '+(-y-th*.8)+' '+cx+' '+(-y-th*.85)+' Q '+(cx+bw/2)+' '+(-y-th*.8)+' '+(cx+bw/2)+' '+(-y-th*.15)+' Z" fill="var(--card)" stroke="var(--muted)" stroke-width="'+(sw*.8)+'"/>';}
     y+=th;}
   const tw=M*(1-.62*(n-1)/n),aw=tw*.5,kw=aw/3;
   o+='<rect x="'+(-aw*.65)+'" y="'+(-(y+aw/7))+'" width="'+aw*1.3+'" height="'+(aw/7)+'" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=aw/7;
@@ -1682,7 +1680,7 @@ function srPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g8=P/1
   o+='<path d="M'+(-kw*.3)+' '+(-y)+' C'+(-kw*.7)+' '+(-y-kw*.5)+' '+(-kw*.6)+' '+(-y-kw)+' 0 '+(-y-kw*1.5)+' C'+(kw*.6)+' '+(-y-kw)+' '+(kw*.7)+' '+(-y-kw*.5)+' '+(kw*.3)+' '+(-y)+' Z" fill="var(--card)" stroke="var(--ink)" stroke-width="'+sw+'"/>';y+=kw*1.5;
   o+='<line x1="'+(-M/2)+'" y1="'+fs*.9+'" x2="'+(M/2)+'" y2="'+fs*.9+'" stroke="var(--acc)" stroke-width="'+sw+'"/><text x="0" y="'+(fs*2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif">'+fiI(M)+'</text>';
   o+='<line x1="'+(-M/2-fs)+'" y1="0" x2="'+(-M/2-fs)+'" y2="'+(-H)+'" stroke="var(--acc)" stroke-width="'+sw+'"/><text x="'+(-M/2-fs*1.4)+'" y="'+(-H/2)+'" font-size="'+(fs*.8)+'" text-anchor="middle" fill="var(--acc)" font-family="Inter,sans-serif" transform="rotate(-90 '+(-M/2-fs*1.4)+' '+(-H/2)+')">'+fiI(rI(H))+'</text>';
-  return '<div class="ptbox"><div class="pthd"><b>સામરણ · '+G+' ઘંટા</b><small>'+n+' થર · પહોળાઈ '+fiI(M)+' (મંડપ જેટલી) · ઊંચાઈ '+fiI(rI(H))+'</small></div>'+
+  return '<div class="ptbox"><div class="pthd"><b>સામરણ</b><small>'+n+' થર · પહોળાઈ '+fiI(M)+' (મંડપ જેટલી) · ઊંચાઈ '+fiI(rI(H))+'</small></div>'+
     '<svg viewBox="'+(-M/2-fs*2.4)+' '+(-y-fs)+' '+(M+fs*3.6)+' '+(y+fs*3)+'" role="img" aria-label="સામરણ">'+o+'</svg></div>';}
 
 function wzBody(){const k=WZS[W.step][0];
@@ -1705,7 +1703,7 @@ function wzBody(){const k=WZS[W.step][0];
     '<div class="wzl">ભીત</div>'+opt('bhitN',[[1,'1'],[2,'2'],[3,'3']],W.bhitN)+
     '<div class="wzl">જગતી ની ઊંચાઈ</div>'+opt('jagM',[['apa','અપરાજિત / દીપાર્ણવ'],['man','પ્રાસાદ મંડન']],W.jagM)+
     '<div class="wzl">પ્લિન્થ</div>'+opt('rcc',[[1,'RCC ગણો'],[0,'RCC નહીં']],W.rcc?1:0)+opt('marble',[[1,'માર્બલ ફ્લોરિંગ ગણો'],[0,'ફ્લોરિંગ નહીં']],W.marble?1:0);
-  if(k==='upar') return '<h3>ઉપર નો ભાગ</h3><div class="wzl">સામરણ નો પ્રકાર (ઘંટા ની સંખ્યા)</div><p class="wzs">ગ્રંથ: 5 ઘંટા થી શરૂ, દરેક પ્રકાર માં 4 વધે, 101 સુધી (25 પ્રકાર) · ચતુર્થ રત્ન શ્લો. 106–109</p>'+'<div class="ptnames">'+Array.from({length:25},(_,i)=>5+4*i).map(v=>'<button class="ptn" data-wk2="srG" data-wv="'+v+'" aria-pressed="'+((+W.srG||25)===v)+'">'+v+' ઘંટા</button>').join('')+'</div>'+'<div class="wzl">સામરણ ના થર</div>'+opt('srN',[[4,'4 થર'],[5,'5 થર'],[6,'6 થર'],[7,'7 થર'],[8,'8 થર']],W.srN)+srPlan()+
+  if(k==='upar') return '<h3>ઉપર નો ભાગ</h3>'+'<div class="wzl">સામરણ ના થર</div>'+opt('srN',[[4,'4 થર'],[5,'5 થર'],[6,'6 થર'],[7,'7 થર'],[8,'8 થર']],W.srN)+srPlan()+
     '<p class="wzs">શિખર, આમલસારો, કળશ અને ધ્વજદંડ ગ્રંથ પ્રમાણે આપોઆપ ગણાશે (શિખર નો ભેદ: '+({j:'જ્યેષ્ઠ',m:'મધ્યમ',k:'કનિષ્ઠ'})[W.grade]+').</p>';
   if(k==='bhav') return '<h3>પથ્થર નો ભાવ</h3>'+txt('rate','₹ / ઘન ફૂટ','દા.ત. 1500')+'<p class="wzs">પછી ગણતરી ટેબ માં બદલી શકાય.</p>';
   const row=(l,v)=>'<div class="wzr"><span>'+l+'</span><b>'+v+'</b></div>';
