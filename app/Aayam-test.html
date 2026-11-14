@@ -293,7 +293,7 @@ table.gl{margin:0;padding:0 16px;border-collapse:separate;border-spacing:0 0;wid
 .rp2.minor .ri b{font-size:12.5px;font-weight:600}
 .rplan{display:grid;grid-template-columns:300px 1fr;gap:36px;align-items:center;padding-top:14px}
 .rsvg svg{display:block;width:100%;height:auto}
-.rplan.solo{grid-template-columns:320px;justify-content:center}
+.rplan.solo{grid-template-columns:1fr;justify-content:center}.rplan.solo .rsvg svg{width:100%;max-height:380px}
 .rside .ri.strong span{font-weight:700}
 .rtab{width:100%;border-collapse:collapse;margin-top:4px;font-size:12px}
 .rtab th{font-size:10.5px;color:#6b7488;font-weight:600;text-align:right;padding:4px 6px;border-bottom:1.5px solid #1b2230}
@@ -1222,7 +1222,7 @@ function repUnits(){
     section('પ્રાસાદ');
     group({title:'',sub:'',notes:[],items:[{l:'ગર્ભગૃહ',v:fiI(S.gw)+' × '+fiI(S.gd)},{l:'દીવાલ',s:S.man.wall?'':wl[1],v:fiI(wallV())},
       {l:'પ્રાસાદ',s:'બહાર ની બાજુ, રેખા થી રેખા',v:fiI(pw)+' × '+fiI(pd)}]});
-    const svg=preview(S.gw,S.gd,wallV()).replace(/var\(--ink\)/g,RC.ink).replace(/var\(--muted\)/g,'#98a0b0');
+    const svg=fullPlanSvg().replace(/var\(--ink\)/g,RC.ink).replace(/var\(--muted\)/g,'#98a0b0').replace(/var\(--card\)/g,'#ffffff').replace(/var\(--bg\)/g,'#ffffff').replace(/var\(--acc-soft\)/g,'#eef2fc').replace(/var\(--acc\)/g,RC.acc).replace(/var\(--line\)/g,RC.rule);
     U.push({k:'plan',h:'<div class="rplan solo"><div class="rsvg">'+svg+'</div></div>'});
     Object.keys(GTABS).forEach(k=>{const r=groupsFrom(GTABS[k]());section(GT_NAMES[k],r.note.join(' · '));r.groups.forEach(group);});
   }
@@ -1696,6 +1696,9 @@ function srPlan(){const P=W.gw&&wzWall()>0?rI(wzP()):rI((W.gw||109)*1.39),g8=P/1
   return '<div class="ptbox"><div class="pthd"><b>સામરણ</b><small>'+n+' થર · પહોળાઈ '+fiI(M)+' (મંડપ જેટલી) · ઊંચાઈ '+fiI(rI(y))+'</small></div>'+
     '<svg viewBox="'+(-M/2-fs*2.4)+' '+(-y-fs)+' '+(M+fs*3.6)+' '+(y+fs*3.2)+'" role="img" aria-label="સામરણ">'+o+'</svg></div>';}
 
+/* the whole plan (prasad, koli, mandap) from the project's own sizes, for the PDF */
+function fullPlanSvg(){const keep=W;W={gw:S.gw,gd:S.gd,wallK:'own',wallIn:wallV(),mf:S.opt&&S.opt.mf||0,pad:S.opt&&S.opt.pad||1,p8:!!E.p8,ptype:S.ptype||2};
+  let h='';try{h=mdPlan();}catch(x){h='';}W=keep;const m=h.match(/<svg[\s\S]*<\/svg>/);return m?m[0]:preview(S.gw,S.gd,wallV());}
 function wzBody(){const k=WZS[W.step][0];
   if(k==='proj') return '<h3>પ્રોજેક્ટ ની વિગત</h3>'+txt('temple','મંદિર નું નામ','દા.ત. શ્રી મહાદેવ મંદિર')+txt('client','ગ્રાહક / ટ્રસ્ટ')+txt('place','સ્થળ','ગામ / શહેર');
   if(k==='garbha'){const ok=W.gw>0&&W.gd>0,q=ok?info(W.gw,W.gd):null,a=ok?aayInfo(W.gw,W.gd):null;
