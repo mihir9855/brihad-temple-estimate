@@ -460,6 +460,12 @@ body.brihad h2 .n{border-radius:8px}
 .rtot{flex-wrap:wrap;row-gap:12px}.rtot .rprice b{color:#2f55d4}
 .rnav a.rsub{min-height:32px;padding:5px 10px 5px 44px;font-size:13.5px;color:var(--muted)}.rnav a.rsub:hover{color:var(--ink)}
 .rtab{table-layout:fixed;width:100%}
+
+.stc{padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sth{display:grid;flex:1 1 260px}.sth b{font-size:16px}.sth span{font-size:13px;color:var(--muted)}
+.stb{border:0;background:var(--acc);color:var(--acc-ink);border-radius:999px;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer;min-height:44px;display:inline-flex;align-items:center}
+.stb.alt{background:var(--card);color:var(--acc);border:1.5px solid var(--acc)}
+.stm{flex-basis:100%;margin:0;font-size:13px;color:var(--ok)}
 </style>
 
 <main class="wrap">
@@ -1460,7 +1466,7 @@ PR.list.forEach(x=>{x.status=x.status||'bhav';});
 let PV={q:'',f:'all',del:null};
 const pm=document.createElement('div');pm.id='pm';pm.hidden=true;pm.setAttribute('role','dialog');pm.setAttribute('aria-label','પ્રોજેક્ટ');document.body.appendChild(pm);
 const pbtn=document.createElement('button');pbtn.className='pdfb';pbtn.id='projBtn';
-pbtn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>'+e2(PCUR.temple||'પ્રોજેક્ટ')+'</span>';
+pbtn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>'+e2(PCUR.temple||'Projects')+'</span>';
 $('pdfBtn').before(pbtn);
 const rs2=n=>n?'₹ '+Math.round(n).toLocaleString('en-IN'):'—';
 function pmRender(){const q=PV.q.trim().toLowerCase();
@@ -1473,7 +1479,7 @@ function pmRender(){const q=PV.q.trim().toLowerCase();
      '<label><span>સ્થળ</span><input data-pf="place" value="'+esc(C.place||'')+'"></label>'+
      '<div class="chips pst">'+PST.map(([v,l])=>'<button class="chip" data-ps="'+v+'" aria-pressed="'+(C.status===v)+'">'+l+'</button>').join('')+'</div></div>'+
    '<div class="pmtools"><input class="pmq" data-pq placeholder="નામ, ગ્રાહક કે સ્થળ શોધો" value="'+esc(PV.q)+'"><div class="chips">'+[['all','બધા']].concat(PST).map(([v,l])=>'<button class="chip" data-pfl="'+v+'" aria-pressed="'+(PV.f===v)+'">'+l+'</button>').join('')+'</div>'+
-     '<button class="pmnew" data-pa="new">+ નવો પ્રોજેક્ટ</button></div>'+
+     '<button class="pmnew" data-pa="new">+ New Project</button></div>'+
    '<div class="pmlist">'+(L.map(x=>{const s=x.sum||{},on=x.id===PR.cur,d=x.data||{};
      return '<div class="pmi'+(on?' on':'')+'"><div class="pmt"><b>'+e2(x.temple||'નામ વગર નું મંદિર')+'</b><span>'+e2([x.client,x.place].filter(Boolean).join(' · ')||'—')+'</span>'+
        '<small>'+(d.gw&&d.gd?'ગર્ભગૃહ '+fiI(d.gw)+' × '+fiI(d.gd)+' · ':'')+new Date(x.updated||x.created).toLocaleDateString('gu-IN')+'</small></div>'+
@@ -1482,7 +1488,7 @@ function pmRender(){const q=PV.q.trim().toLowerCase();
        (PR.list.length>1?(PV.del===x.id?'<button class="dang" data-pd2="'+x.id+'">હા, કાઢો</button><button data-pn>ના</button>':'<button data-pk="'+x.id+'">કાઢો</button>'):'')+'</div></div>';}).join('')||'<p class="sub">કોઈ પ્રોજેક્ટ મળ્યો નથી.</p>')+'</div>'+
    '<p class="sub pmsync">'+(cloud?'☁ પ્રોજેક્ટ તમારા ખાતા માં સચવાય છે — ફોન અને કમ્પ્યુટર બંને પર સરખા.':'પ્રોજેક્ટ આ ઉપકરણ માં સચવાય છે.')+'</p></div>';}
 const openPm=()=>{pmRender();pm.hidden=false;document.body.classList.add('pmopen');};
-const closePm=()=>{pm.hidden=true;document.body.classList.remove('pmopen');pbtn.lastChild.textContent=PCUR.temple||'પ્રોજેક્ટ';};
+const closePm=()=>{pm.hidden=true;document.body.classList.remove('pmopen');pbtn.lastChild.textContent=PCUR.temple||'Projects';};
 pbtn.addEventListener('click',openPm);
 const switchTo=id=>{PR.cur=id;persist();location.reload();};
 pm.addEventListener('click',e=>{if(e.target===pm)return;const b=e.target.closest('button');if(!b)return;const d=b.dataset;
@@ -1518,18 +1524,18 @@ buildEst();applyTab();
 const PARTS=[['plan','ગર્ભગૃહ · દીવાલ','દીવાલ'],['plan','પ્રાસાદ','પ્રાસાદ'],['plan','ભીત','ભીત'],['plan','પીઠ','પીઠ'],['plan','જગતી','જગતી'],['plan','મંડપ','મંડપ'],
   ['mand','મંડોવર','મંડોવર ના થર'],['mand','દ્વાર','દ્વાર'],['mand','સ્તંભ','સ્તંભ'],['samran','ઘુમ્મટ','ઘુમ્મટ'],['samran','સામરણ','સામરણ'],
   ['shikhar','શિખર','શિખર'],['shikhar','આમલસારો','આમલસારો'],['shikhar','કળશ','કળશ'],['shikhar','ધ્વજદંડ','ધ્વજદંડ']];
-const NAVS=[['home','ડેશબોર્ડ','▦'],['nak','નક્ષત્ર','✦'],['plan','પ્લાનિંગ','⌂'],['mand','મંડોવર','☰'],['samran','સામરણ · ઘુમ્મટ','◠'],['shikhar','શિખર','▲'],['est','ગણતરી','∑']];
+const NAVS=[['home','Dashboard','▦'],['nak','નક્ષત્ર','✦'],['plan','પ્લાનિંગ','⌂'],['mand','મંડોવર','☰'],['samran','સામરણ · ઘુમ્મટ','◠'],['shikhar','શિખર','▲'],['est','ગણતરી','∑']];
 const NAV_SUB={home:'કુલ ખર્ચ અને બધા ભાગ',nak:'નક્ષત્ર, આય, મળતા માપ',plan:'પ્રાસાદ, ભીત, પીઠ, જગતી, મંડપ',mand:'મંડોવર, દ્વાર, સ્તંભ',samran:'ઘુમ્મટ અને સામરણ',shikhar:'શિખર, આમલસારો, કળશ, ધ્વજ',est:'પથ્થર ના ઘન ફૂટ અને ભાવ'};
 TAB_SECS.home=['home'];TABS.unshift('home');ALL_SECS.push('home');
 {const s=document.createElement('section');s.id='tab-home';s.hidden=true;document.querySelector('main > .hero').after(s);}
-{const b=document.createElement('button');b.dataset.t='home';b.textContent='ડેશબોર્ડ';$('tabs').querySelector('.ind').after(b);}
+{const b=document.createElement('button');b.dataset.t='home';b.textContent='Dashboard';$('tabs').querySelector('.ind').after(b);}
 const rail=document.createElement('aside');rail.className='rail';rail.setAttribute('aria-label','વિભાગ');document.body.prepend(rail);
 document.body.classList.add('brihad');
 const rs3=n=>n?'₹ '+Math.round(n).toLocaleString('en-IN'):'—';
 function railRender(){const s=PCUR.sum||{};
   rail.innerHTML='<div class="rbrand"><img src="'+$('brandLogo').src+'" alt=""><div><b>આયામ</b><small>'+e2(PCUR.temple||'બૃહદ ટેમ્પલ')+'</small></div>'+
     '<button class="rth" data-rth aria-label="થીમ બદલો">'+(curTheme()==='dark'?'☀':'☾')+'</button></div>'+
-    '<button class="rproj" data-rproj>📁 '+e2(PCUR.temple||'પ્રોજેક્ટ')+'<small>'+e2([PCUR.client,PCUR.place].filter(Boolean).join(' · ')||'પ્રોજેક્ટ બદલો / નવો')+'</small></button>'+
+    '<button class="rproj" data-rproj>📁 '+e2(PCUR.temple||'Projects')+'<small>'+e2([PCUR.client,PCUR.place].filter(Boolean).join(' · ')||'પ્રોજેક્ટ બદલો / નવો')+'</small></button>'+
     '<nav class="rnav">'+NAVS.map(([t,l,i])=>'<a data-rt="'+t+'" class="'+(S.tab===t?'on':'')+'" tabindex="0"><span class="ri">'+i+'</span><span><b>'+l+'</b>'+(PARTS.some(p=>p[0]===t)?'':'<small>'+NAV_SUB[t]+'</small>')+'</span></a>'+PARTS.filter(p=>p[0]===t).map(p=>'<a class="rsub" data-rt="'+t+'" data-rh="'+p[2]+'" tabindex="0">'+p[1]+'</a>').join('')).join('')+'</nav>'+
     '<button class="rpdf" data-rpdf>⇩ PDF બનાવો</button>'+
     '<div class="rtotal"><small>કુલ પથ્થર</small><b>'+(s.cft?f2(s.cft)+' CFT':'—')+'</b><span>'+rs3(s.price)+'</span></div>';}
@@ -1769,7 +1775,7 @@ pm.addEventListener('click',e=>{const b=e.target.closest('[data-pa="new"],[data-
 /* dashboard: start here */
 {const _hr=homeRender;homeRender=function(){_hr.apply(this,arguments);const el=$('tab-home');
   el.insertAdjacentHTML('afterbegin','<div class="wzcta"><div><b>'+(PW()?'નવું મંદિર?':'શરૂ કરો')+'</b><span>'+(PW()?'નવો પ્રોજેક્ટ બનાવો, સવાલો ના જવાબ આપો, મંદિર તૈયાર.':'પ્રોજેક્ટ ની વિગત અને બધા સવાલો ના જવાબ આપો, પછી આખું મંદિર બનશે.')+'</span></div>'+
-    '<button data-wz="new">+ નવો પ્રોજેક્ટ</button>'+(PW()?'':'<button data-wz="edit" class="alt">આ પ્રોજેક્ટ માટે સવાલો</button>')+'</div>');};}
+    '<button data-wz="new">+ New Project</button>'+(PW()?'':'<button data-wz="edit" class="alt">આ પ્રોજેક્ટ માટે સવાલો</button>')+'</div>');};}
 $('tab-home').addEventListener('click',e=>{const b=e.target.closest('[data-wz]');if(b)wzOpen(b.dataset.wz==='edit');});
 /* first run: an empty project starts with the questions */
 /* ===== the owner's plan everywhere: Nakshatra / Prasad / PDF use the same drawing as the questionnaire ===== */
@@ -1800,6 +1806,49 @@ pm.addEventListener('click',e=>{const b=e.target.closest('[data-pd2]');if(!b||PR
   const id='p'+Date.now();PR.list=[{id,client:'',place:'',temple:'',status:'bhav',created:Date.now(),data:{theme:S.theme,tabWas:'home',tabSeen:1}}];PR.cur=id;PV.del=null;persist();location.reload();},true);
 
 if(PR.list.length===1&&!PCUR.temple&&!PCUR.asked){setTimeout(()=>{wzOpen(true);if(!W.resumed){W.first=1;W.gw=0;W.gd=0;}wzRender();},300);}
+applyTab();
+
+/* ===================== Settings: backup and restore ===================== */
+TAB_SECS.setup=['setup'];TABS.push('setup');ALL_SECS.push('setup');
+{const s=document.createElement('section');s.id='tab-setup';s.hidden=true;$('tab-est').after(s);}
+{const b=document.createElement('button');b.dataset.t='setup';b.textContent='Settings';$('tabs').appendChild(b);}
+NAVS.push(['setup','Settings','⚙']);NAV_SUB.setup='Backup, Restore, થીમ';
+const bkName=()=>'aayam-backup-'+new Date().toISOString().slice(0,10)+'.json';
+const bkData=()=>{save();return JSON.stringify({app:'aayam',kind:'backup',version:1,at:new Date().toISOString(),projects:PR},null,1);};
+let bkMsg='';
+function setupRender(){const el=$('tab-setup'),n=PR.list.length;
+  el.innerHTML='<h2><span class="n">⚙</span>Settings</h2>'+
+   '<div class="card gcard stc"><div class="sth"><b>Backup</b><span>બધા પ્રોજેક્ટ ('+n+') એક ફાઇલ માં સચવાશે. બટન દબાવો એટલે ફાઇલ ક્યાં રાખવી તે પૂછશે.</span></div>'+
+     '<button class="stb" data-bk>⇩ Backup</button>'+(bkMsg?'<p class="stm">'+bkMsg+'</p>':'')+'</div>'+
+   '<div class="card gcard stc"><div class="sth"><b>Restore</b><span>Backup ની ફાઇલ પસંદ કરો. એ જ પ્રોજેક્ટ ફાઇલ પ્રમાણે થશે, નવા પ્રોજેક્ટ ઉમેરાશે. ભૂલ થાય તો Undo થશે.</span></div>'+
+     '<label class="stb alt">⇧ Restore<input type="file" accept=".json,application/json" data-rs hidden></label></div>'+
+   '<div class="card gcard stc"><div class="sth"><b>થીમ</b><span>લાઇટ કે ડાર્ક</span></div><div class="chips gc" style="border:0;margin:0;padding:0">'+
+     [['light','☀ Light'],['dark','☾ Dark']].map(([v,l])=>'<button class="chip" data-stth="'+v+'" aria-pressed="'+(curTheme()===v)+'">'+l+'</button>').join('')+'</div></div>';}
+async function doBackup(){const data=bkData(),name=bkName();bkMsg='';
+  /* 1. a folder picker where the browser has one (computer: Chrome / Edge opening the file) */
+  if(window.showSaveFilePicker){try{const h=await window.showSaveFilePicker({suggestedName:name,types:[{description:'Aayam backup',accept:{'application/json':['.json']}}]});
+      const w=await h.createWritable();await w.write(data);await w.close();bkMsg='✓ Backup સચવાયો: '+e2(h.name);setupRender();return;}
+    catch(e){if(e&&e.name==='AbortError'){bkMsg='Backup રદ કર્યો.';setupRender();return;}}}
+  /* 2. inside the Claude app: its own save prompt */
+  const dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+  if(dl){try{await dl.save({filename:name,data:new Blob([data],{type:'application/json'})});bkMsg='✓ Backup સચવાયો: '+name;}
+    catch(e){bkMsg=e&&e.code==='declined'?'Backup રદ કર્યો.':'અહીં થી ફાઇલ સાચવી શકાતી નથી.';}setupRender();return;}
+  /* 3. plain download (phone browser: it asks where, or saves in Downloads) */
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);bkMsg='✓ Backup ફાઇલ બની: '+name;setupRender();}
+function doRestore(file){const rd=new FileReader();rd.onload=()=>{let d=null;try{d=JSON.parse(rd.result);}catch(x){}
+  const pr=d&&d.projects;if(!pr||!Array.isArray(pr.list)){toast('આ Aayam ની backup ફાઇલ નથી.');return;}
+  save();const snap=JSON.stringify(PR);
+  pr.list.forEach(p=>{const i=PR.list.findIndex(x=>x.id===p.id);if(i>=0)PR.list[i]=p;else PR.list.push(p);});
+  persist();offerUndo(snap,'Backup માંથી '+pr.list.length+' પ્રોજેક્ટ પાછા લાવ્યા');try{sessionStorage.setItem(UK+'-tab','setup');}catch(x){}location.reload();};rd.readAsText(file);}
+$('tab-setup').addEventListener('click',e=>{if(e.target.closest('[data-bk]'))return doBackup();
+  const t=e.target.closest('[data-stth]');if(t){S.theme=t.dataset.stth;save();applyTheme();railRender();setupRender();}});
+$('tab-setup').addEventListener('change',e=>{const f=e.target.closest('[data-rs]');if(f&&f.files&&f.files[0])doRestore(f.files[0]);});
+{const _at=applyTab;applyTab=function(){if(S.tab==='setup')setupRender();return _at.apply(this,arguments);};}
+/* English for the main controls, as the owner asked */
+{const hb=document.querySelector('#tabs [data-t="home"]');if(hb)hb.textContent='Dashboard';NAVS[0][1]='Dashboard';
+  pbtn.lastChild.textContent=PCUR.temple||'Projects';}
+try{const t=sessionStorage.getItem(UK+'-tab');if(t){sessionStorage.removeItem(UK+'-tab');S.tab=t;}}catch(x){}
 applyTab();
 
 })();
