@@ -6,7 +6,8 @@ presentation drawings carry no dimensions.
 
 | File (upload) | Page | Elements | Where it goes in a drawing |
 |---|---|---|---|
-| 4cbe9797-001.dxf | 1 | 8 standing deities (likely asht dikpal), 1 shalbhanjika | jangha karna / pratirath |
+| 4cbe9797-001.dxf (same as 34a91fca-003.dxf) | 1 | 8 standing deities (likely asht dikpal), 1 shalbhanjika | jangha karna / pratirath |
+| 0ede287d-004.dxf | 4 | 9 standing figures: 1 apsara (mirror/shringar), 8 deities with vahan (Vishnu forms, one with naga coils) - names not written | jangha, bhadra gavaksh |
 | 1b52bd23-002.dxf | 24 | Navagraha in gavaksh frames: Surya, Chandra, Mangal, Budh, Guru, Shukra, Shani, Rahu, Ketu | navagraha patti / gavaksh |
 | c739bff1-4.dxf | 14-16 | 16 shasandevi (Rohini ... Mahamanasi), musicians, 3 apsara | kumbho, jangha |
 | db9075d5-5.dxf | 17-21 | elephants, gajthar strips, shuknas lion, dharmachakra, makarmukhi pranal, shasandevi kumbho rear elev., dhwajadhar, elephant on pedestal, nandi | gajthar, shuknas, pranal, dhwaj, steps |
