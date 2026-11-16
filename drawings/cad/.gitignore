@@ -1,0 +1,6 @@
+__pycache__/
+# contain the owner's drawings, kept out of the repo
+murti_lib.dxf
+Mandir-CAD.dxf
+Mandir-CAD-Drawings.pdf
+mandir-cad.html
